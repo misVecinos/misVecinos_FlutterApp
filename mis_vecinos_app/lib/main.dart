@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mis_vecinos_app/ui/modules/login/login_page.dart';
+import 'package:mis_vecinos_app/ui/modules/splash/splash.dart';
 
 import 'ui/utils/colors.dart';
 
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
               onBackground: c.secondary,
               surface: c.surface,
               onSurface: c.surface)),
-      home: const LoginPage(),
+      home: const SplashScreen(),
     );
   }
 }

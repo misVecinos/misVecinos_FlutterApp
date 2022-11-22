@@ -25,7 +25,7 @@ class _ColorsMain implements IColors {
   Color secondary = const Color(0xffffffff);
 
   @override
-  Color disabled = const Color(0xff979797);
+  Color disabled = const Color(0xffAFAFAF);
 
   @override
   Color onSecondary = const Color(0xffffffff);

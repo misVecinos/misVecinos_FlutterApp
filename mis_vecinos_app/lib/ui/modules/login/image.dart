@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:widget_mask/widget_mask.dart';
+import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 import '../../utils/colors.dart';
+import 'clipper.dart';
 
 class LoginImage extends StatelessWidget {
   const LoginImage({
@@ -13,26 +14,39 @@ class LoginImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WidgetMask(
-      childSaveLayer: false,
-      blendMode: BlendMode.srcATop,
-      mask: Image.asset(
-        'assets/images/back2.png',
-        height: 400,
-        width: double.infinity,
-        fit: BoxFit.cover,
-      ),
+    return ClipPath(
+      clipper: MyCustomClipper(),
       child: Stack(
         children: [
-          Image.asset(
-            'assets/images/5.jpeg',
-            height: 400,
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
+          SizedBox(
+              height: size.height * 0.45,
+              width: size.width,
+              child: ImageSlideshow(
+                  autoPlayInterval: 5000,
+                  isLoop: true,
+                  children: [
+                    Image.asset(
+                      'assets/images/5.jpeg',
+                      height: size.height * 0.5,
+                      width: size.width,
+                      fit: BoxFit.cover,
+                    ),
+                    Image.asset(
+                      'assets/images/3.jpeg',
+                      height: size.height * 0.5,
+                      width: size.width,
+                      fit: BoxFit.cover,
+                    ),
+                    Image.asset(
+                      'assets/images/1.jpeg',
+                      height: size.height * 0.5,
+                      width: size.width,
+                      fit: BoxFit.cover,
+                    ),
+                  ])),
           Container(
-              height: 400,
-              width: double.infinity,
+              height: size.height * 0.45,
+              width: size.width,
               decoration: BoxDecoration(
                   gradient: LinearGradient(
                 begin: Alignment.topCenter,

@@ -31,14 +31,12 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.1.1
-  widget_mask: ^1.0.0+0
+  flutter_svg: ^1.1.6
+  flutter_image_slideshow: ^0.1.4
+  animated_text_kit: ^4.2.2
+  # drop_shadow: ^0.0.2+1
 
 dev_dependencies:
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
@@ -56,6 +54,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/icons/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -67,6 +66,10 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    - family: Visby CFH
+      fonts:
+        - asset: fonts/visby/VisbyHeavy.otf
+
     - family: Visby CF
       fonts:
         - asset: fonts/visby/VisbyRegular.otf
@@ -75,7 +78,6 @@ flutter:
         - asset: fonts/visby/VisbyThin.otf
         - asset: fonts/visby/VisbyItalic.otf
           style: italic
-        - asset: fonts/visby/VisbyHeavy.otf
 
     - family: Montserrat
       fonts:
