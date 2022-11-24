@@ -11,8 +11,10 @@ class AlertPage extends ConsumerStatefulWidget {
 class _VecinosPageState extends ConsumerState<AlertPage> {
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Alert'),
+    return const Scaffold(
+      body: Center(
+        child: Text('Alert'),
+      ),
     );
   }
 }

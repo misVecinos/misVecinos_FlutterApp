@@ -1,8 +1,7 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mis_vecinos_app/ui/modules/alerta/alert.dart';
+import 'package:mis_vecinos_app/ui/modules/alert/alert.dart';
 import 'package:mis_vecinos_app/ui/modules/home/home_page.dart';
 import 'package:mis_vecinos_app/ui/modules/menu/menu.dart';
 import 'package:mis_vecinos_app/ui/modules/pagos/pagos.dart';
@@ -35,22 +34,43 @@ class _MainScreenState extends ConsumerState<MainPage> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(mainController);
-    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+    // final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
-        key: scaffoldKey,
-        endDrawer: const MenuDrawer(),
-        drawerEnableOpenDragGesture: true,
-        body: SafeArea(
-          child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 350),
-              switchInCurve: Curves.fastOutSlowIn,
-              switchOutCurve: Curves.easeInBack,
-              child: _pages(state)),
+      // key: scaffoldKey,
+      endDrawer: const MenuDrawer(),
+      drawerEnableOpenDragGesture: true,
+      body: SafeArea(
+        child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 250),
+            switchInCurve: Curves.fastOutSlowIn,
+            switchOutCurve: Curves.easeInBack,
+            child: _pages(state)),
+      ),
+      // bottomNavigationBar: Platform.isIOS
+      //     ? _menu(state, scaffoldKey)
+      //     : SafeArea(child: _menu(state, scaffoldKey))
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: c.error,
+        child: Padding(
+          padding: EdgeInsets.all(size.height * 0.02),
+          child: SvgPicture.asset('assets/icons/alarm.svg', color: c.secondary),
         ),
-        bottomNavigationBar: Platform.isIOS
-            ? _menu(state, scaffoldKey)
-            : SafeArea(child: _menu(state, scaffoldKey)));
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return const AlertPage();
+          }));
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        clipBehavior: Clip.hardEdge,
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 10,
+        child: _menu(state),
+      ),
+    );
   }
 
   Widget _pages(MainState state) {
@@ -61,18 +81,12 @@ class _MainScreenState extends ConsumerState<MainPage> {
       case Pages.vecinos:
         return const VecinosPage();
 
-      case Pages.alerta:
-        return const AlertPage();
-
       case Pages.pagos:
         return const PagosPage();
-
-      // case Pages.menu:
-      //   return const Text('');
     }
   }
 
-  Widget _menu(MainState state, GlobalKey<ScaffoldState> scaffoldKey) {
+  Widget _menu(MainState state) {
     final size = MediaQuery.of(context).size;
 
     return Container(
@@ -99,17 +113,9 @@ class _MainScreenState extends ConsumerState<MainPage> {
                   ref.watch(mainController).currentPage.page == Pages.vecinos
                       ? c.primary
                       : c.disabled)),
-          // GestureDetector(
-          //     onTap: () => ref.read(mainController.notifier).setSelectedPage(2),
-          //     child: _icons(
-          //         'assets/icons/alarm.svg',
-          //         '',
-          //         state,
-          //         ref.watch(mainController).currentPage.page == Pages.alerta
-          //             ? c.primary
-          //             : c.disabled)),
+          _icons('assets/icons/houses.svg', 'Vecinos', state, c.surface),
           GestureDetector(
-              onTap: () => ref.read(mainController.notifier).setSelectedPage(3),
+              onTap: () => ref.read(mainController.notifier).setSelectedPage(2),
               child: _icons(
                   'assets/icons/money.svg',
                   'Pagos',
@@ -121,14 +127,15 @@ class _MainScreenState extends ConsumerState<MainPage> {
             builder: (context) {
               return GestureDetector(
                   onTap: () {
+                    Scaffold.of(context).openEndDrawer();
                     //
-                    if (scaffoldKey.currentState!.isDrawerOpen) {
-                      Scaffold.of(context).closeEndDrawer();
-                      ref.read(menu.notifier).inactive();
-                    } else {
-                      Scaffold.of(context).openEndDrawer();
-                      ref.read(menu.notifier).active();
-                    }
+                    // if (scaffoldKey.currentState!.isDrawerOpen) {
+                    //   Scaffold.of(context).closeEndDrawer();
+                    //   ref.read(menu.notifier).inactive();
+                    // } else {
+                    //   Scaffold.of(context).openEndDrawer();
+                    //   ref.read(menu.notifier).active();
+                    // }
                     //
                   },
                   child: _icons('assets/icons/menu.svg', 'Menu', state,

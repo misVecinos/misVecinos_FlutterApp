@@ -13,7 +13,6 @@ class PageMenu with _$PageMenu {
 enum Pages {
   inicio,
   vecinos,
-  alerta,
   pagos,
 }
 

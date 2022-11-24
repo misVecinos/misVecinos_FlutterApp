@@ -20,35 +20,38 @@ class _TextStylesMain implements IText {
   TextStyle titleApp = const TextStyle(
     fontFamily: 'Visby CFH',
     fontSize: 40,
+    color: Colors.black,
   );
 
   @override
-  TextStyle title = const TextStyle(
+  TextStyle title = TextStyle(
+      fontFamily: 'Montserrat',
+      fontSize: 26,
+      fontWeight: FontWeight.bold,
+      color: c.black);
+
+  @override
+  TextStyle paragraph = TextStyle(
     fontFamily: 'Montserrat',
-    fontSize: 26,
     fontWeight: FontWeight.bold,
+    fontSize: 16,
+    color: c.black,
   );
 
   @override
-  TextStyle paragraph = const TextStyle(
-      fontFamily: 'Montserrat',
-      fontSize: 26,
-      fontWeight: FontWeight.bold,
-      decorationThickness: 9);
+  TextStyle subtitle = TextStyle(
+    fontFamily: 'Montserrat',
+    fontWeight: FontWeight.bold,
+    fontSize: 20,
+    color: c.black,
+  );
 
   @override
-  TextStyle subtitle = const TextStyle(
-      fontFamily: 'Montserrat',
-      fontSize: 26,
-      fontWeight: FontWeight.bold,
-      decorationThickness: 9);
-
-  @override
-  TextStyle messages = const TextStyle(
-      fontFamily: 'Montserrat',
-      fontSize: 26,
-      fontWeight: FontWeight.bold,
-      decorationThickness: 9);
+  TextStyle messages = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 16,
+    color: c.disabled,
+  );
 
   @override
   TextStyle buttons = TextStyle(

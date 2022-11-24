@@ -39,6 +39,7 @@ dependencies:
   flutter_riverpod: ^2.1.1
   flutter_svg: ^1.1.6
   freezed: ^2.2.1
+  lottie: ^2.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -60,6 +61,7 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/icons/feather/
+    - assets/icons/lottie/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

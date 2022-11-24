@@ -13,7 +13,6 @@ const current = PageMenu(icon: Icon(Icons.abc), page: Pages.inicio);
 final List<PageMenu> pages = [
   const PageMenu(icon: Icon(Icons.abc), page: Pages.inicio),
   const PageMenu(icon: Icon(Icons.abc), page: Pages.vecinos),
-  const PageMenu(icon: Icon(Icons.abc), page: Pages.alerta),
   const PageMenu(icon: Icon(Icons.abc), page: Pages.pagos),
   // const PageMenu(icon: Icon(Icons.abc), page: Pages.menu)
 ];
