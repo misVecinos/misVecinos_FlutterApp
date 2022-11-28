@@ -33,6 +33,7 @@ dependencies:
   build_runner: ^2.3.2
   cupertino_icons: ^1.0.2
   drop_shadow: ^0.0.2+1
+  fl_chart: ^0.55.2
   flutter:
     sdk: flutter
   flutter_image_slideshow: ^0.1.4
@@ -60,6 +61,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/icons/
+    - assets/icons/svg/
     - assets/icons/feather/
     - assets/icons/lottie/
   #   - images/a_dot_ham.jpeg

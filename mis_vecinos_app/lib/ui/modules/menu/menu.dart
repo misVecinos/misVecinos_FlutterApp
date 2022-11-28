@@ -74,13 +74,13 @@ class _VecinosPageState extends ConsumerState<MenuDrawer> {
                       ListTile(
                         onTap: () {},
                         leading: SvgPicture.asset(
-                          'assets/icons/home.svg',
+                          'assets/icons/svg/home.svg',
                           color: c.primary,
                           height: size.height * 0.03,
                           width: size.height * 0.03,
                         ),
                         trailing: SvgPicture.asset(
-                          'assets/icons/arrow-forward-ios.svg',
+                          'assets/icons/svg/arrow-forward-ios.svg',
                           color: c.primary,
                           height: size.height * 0.03,
                           width: size.height * 0.03,
@@ -94,13 +94,13 @@ class _VecinosPageState extends ConsumerState<MenuDrawer> {
                       ListTile(
                         onTap: () {},
                         leading: SvgPicture.asset(
-                          'assets/icons/news.svg',
+                          'assets/icons/svg/news.svg',
                           color: c.disabled,
                           height: size.height * 0.03,
                           width: size.height * 0.03,
                         ),
                         trailing: SvgPicture.asset(
-                          'assets/icons/arrow-forward-ios.svg',
+                          'assets/icons/svg/arrow-forward-ios.svg',
                           color: c.disabled,
                           height: size.height * 0.03,
                           width: size.height * 0.03,
@@ -113,13 +113,13 @@ class _VecinosPageState extends ConsumerState<MenuDrawer> {
                       ListTile(
                         onTap: () {},
                         leading: SvgPicture.asset(
-                          'assets/icons/schedule.svg',
+                          'assets/icons/svg/schedule.svg',
                           color: c.disabled,
                           height: size.height * 0.035,
                           width: size.height * 0.035,
                         ),
                         trailing: SvgPicture.asset(
-                          'assets/icons/arrow-forward-ios.svg',
+                          'assets/icons/svg/arrow-forward-ios.svg',
                           color: c.disabled,
                           height: size.height * 0.03,
                           width: size.height * 0.03,
@@ -132,13 +132,13 @@ class _VecinosPageState extends ConsumerState<MenuDrawer> {
                       ListTile(
                         onTap: () {},
                         leading: SvgPicture.asset(
-                          'assets/icons/survey.svg',
+                          'assets/icons/svg/survey.svg',
                           color: c.disabled,
                           height: size.height * 0.03,
                           width: size.height * 0.03,
                         ),
                         trailing: SvgPicture.asset(
-                          'assets/icons/arrow-forward-ios.svg',
+                          'assets/icons/svg/arrow-forward-ios.svg',
                           color: c.disabled,
                           height: size.height * 0.03,
                           width: size.height * 0.03,
@@ -151,13 +151,13 @@ class _VecinosPageState extends ConsumerState<MenuDrawer> {
                       ListTile(
                         onTap: () {},
                         leading: SvgPicture.asset(
-                          'assets/icons/chat.svg',
+                          'assets/icons/svg/chat.svg',
                           color: c.disabled,
                           height: size.height * 0.03,
                           width: size.height * 0.03,
                         ),
                         trailing: SvgPicture.asset(
-                          'assets/icons/arrow-forward-ios.svg',
+                          'assets/icons/svg/arrow-forward-ios.svg',
                           color: c.disabled,
                           height: size.height * 0.03,
                           width: size.height * 0.03,
@@ -173,13 +173,13 @@ class _VecinosPageState extends ConsumerState<MenuDrawer> {
                       ListTile(
                         onTap: () {},
                         leading: SvgPicture.asset(
-                          'assets/icons/settings.svg',
+                          'assets/icons/svg/settings.svg',
                           color: c.disabled,
                           height: size.height * 0.03,
                           width: size.height * 0.03,
                         ),
                         trailing: SvgPicture.asset(
-                          'assets/icons/arrow-forward-ios.svg',
+                          'assets/icons/svg/arrow-forward-ios.svg',
                           color: c.disabled,
                           height: size.height * 0.03,
                           width: size.height * 0.03,

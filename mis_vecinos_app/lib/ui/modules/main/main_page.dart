@@ -55,7 +55,8 @@ class _MainScreenState extends ConsumerState<MainPage> {
         backgroundColor: c.error,
         child: Padding(
           padding: EdgeInsets.all(size.height * 0.02),
-          child: SvgPicture.asset('assets/icons/alarm.svg', color: c.secondary),
+          child: SvgPicture.asset('assets/icons/svg/alarm.svg',
+              color: c.secondary),
         ),
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
@@ -97,7 +98,7 @@ class _MainScreenState extends ConsumerState<MainPage> {
           GestureDetector(
               onTap: () => ref.read(mainController.notifier).setSelectedPage(0),
               child: _icons(
-                'assets/icons/home.svg',
+                'assets/icons/svg/home.svg',
                 'Inicio',
                 state,
                 ref.watch(mainController).currentPage.page == Pages.inicio
@@ -107,17 +108,17 @@ class _MainScreenState extends ConsumerState<MainPage> {
           GestureDetector(
               onTap: () => ref.read(mainController.notifier).setSelectedPage(1),
               child: _icons(
-                  'assets/icons/houses.svg',
+                  'assets/icons/svg/houses.svg',
                   'Vecinos',
                   state,
                   ref.watch(mainController).currentPage.page == Pages.vecinos
                       ? c.primary
                       : c.disabled)),
-          _icons('assets/icons/houses.svg', 'Vecinos', state, c.surface),
+          _icons('assets/icons/svg/houses.svg', 'Vecinos', state, c.surface),
           GestureDetector(
               onTap: () => ref.read(mainController.notifier).setSelectedPage(2),
               child: _icons(
-                  'assets/icons/money.svg',
+                  'assets/icons/svg/money.svg',
                   'Pagos',
                   state,
                   ref.watch(mainController).currentPage.page == Pages.pagos
@@ -138,7 +139,7 @@ class _MainScreenState extends ConsumerState<MainPage> {
                     // }
                     //
                   },
-                  child: _icons('assets/icons/menu.svg', 'Menu', state,
+                  child: _icons('assets/icons/svg/menu.svg', 'Menu', state,
                       ref.watch(menu) == true ? c.primary : c.disabled));
             },
           ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lottie/lottie.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
@@ -20,10 +19,37 @@ class _VecinosPageState extends ConsumerState<HomePage> {
 
     return Column(
       children: [
-        SizedBox(
-          height: size.height * 0.25,
-          width: size.width,
-          child: const Placeholder(),
+        Stack(
+          children: [
+            SizedBox(
+              height: size.height * 0.25,
+              width: size.width,
+              child: Image.asset(
+                'assets/images/1.jpeg',
+                fit: BoxFit.cover,
+              ),
+              // child: const Placeholder(),
+            ),
+            Container(
+              height: size.height * 0.25,
+              width: size.width,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: const [
+                  0.2,
+                  0.5,
+                  0.95,
+                ],
+                colors: [
+                  c.secondary.withOpacity(0.2),
+                  c.secondary.withOpacity(0.6),
+                  c.secondary,
+                ],
+              )),
+            )
+          ],
         ),
         //
         ListView(
@@ -37,7 +63,7 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                   top: size.height * 0.01, bottom: size.height * 0.007),
               child: Row(children: [
                 SvgPicture.asset(
-                  'assets/icons/round-home.svg',
+                  'assets/icons/svg/round-home.svg',
                   color: c.primary,
                   height: size.height * 0.045,
                 ),
@@ -56,7 +82,7 @@ class _VecinosPageState extends ConsumerState<HomePage> {
               child: Row(
                 children: [
                   SvgPicture.asset(
-                    'assets/icons/location.svg',
+                    'assets/icons/svg/location.svg',
                     color: c.disabled,
                     height: size.height * 0.03,
                   ),
@@ -85,10 +111,9 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                 width: size.width * .85,
                 child: Row(
                   children: [
-                    Lottie.asset(
-                      'assets/icons/lottie/data.json',
-                      repeat: false,
-                      height: size.height * .12,
+                    Image.asset(
+                      'assets/icons/money.png',
+                      height: size.height * .1,
                       width: size.width * .25,
                     ),
                     Center(
@@ -100,7 +125,15 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Cuentas Claras', style: t.subtitle),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text('Cuentas Claras', style: t.subtitle),
+                                SvgPicture.asset(
+                                    'assets/icons/svg/arrow-forward-ios.svg',
+                                    color: c.black)
+                              ],
+                            ),
                             Text(
                                 'Mira cómo se administra el dinero de tu comunidad, que ingresa y egresa.',
                                 style: t.messages),
@@ -136,13 +169,20 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Lottie.asset(
-                            'assets/icons/lottie/re.json',
-                            repeat: false,
+                          Image.asset(
+                            'assets/icons/recycle.png',
                             height: size.height * .1,
                             width: size.width * .25,
                           ),
-                          Text('Reciclaje', style: t.subtitle),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Reciclaje', style: t.subtitle),
+                              SvgPicture.asset(
+                                  'assets/icons/svg/arrow-forward-ios.svg',
+                                  color: c.black)
+                            ],
+                          ),
                           Text('10 veces este mes.', style: t.messages),
                         ],
                       ),
@@ -173,14 +213,21 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                         children: [
                           Padding(
                             padding: EdgeInsets.only(top: size.height * 0.02),
-                            child: Lottie.asset(
-                              'assets/icons/lottie/doc3.json',
-                              repeat: false,
+                            child: Image.asset(
+                              'assets/icons/document.png',
                               height: size.height * .1,
                               width: size.width * .25,
                             ),
                           ),
-                          Text('Documentos', style: t.subtitle),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Documentos', style: t.subtitle),
+                              SvgPicture.asset(
+                                  'assets/icons/svg/arrow-forward-ios.svg',
+                                  color: c.black)
+                            ],
+                          ),
                           Text('3 sin Leer', style: t.messages),
                         ],
                       ),

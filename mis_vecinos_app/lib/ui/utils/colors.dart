@@ -13,6 +13,7 @@ abstract class IColors {
   Color get black;
   Color get alarmBack;
   Color get surface;
+  Color get OK;
 }
 
 class _ColorsMain implements IColors {
@@ -22,7 +23,7 @@ class _ColorsMain implements IColors {
   Color primary = const Color(0xff2E75F7);
 
   @override
-  Color secondary = const Color(0xffffffff);
+  Color secondary = const Color(0xfffafafa);
 
   @override
   Color disabled = const Color(0xffAFAFAF);
@@ -44,4 +45,7 @@ class _ColorsMain implements IColors {
 
   @override
   Color surface = Colors.transparent;
+
+  @override
+  Color OK = const Color(0xff44CF6C);
 }

@@ -6,11 +6,18 @@ final IText t = _TextStylesMain();
 
 abstract class IText {
   TextStyle get title;
+  TextStyle get medium;
   TextStyle get titleApp;
   TextStyle get subtitle;
   TextStyle get paragraph;
   TextStyle get messages;
+  TextStyle get messagesBold;
   TextStyle get buttons;
+  TextStyle get buttonBlue;
+  TextStyle get buttonBlue2;
+  TextStyle get buttonCaution;
+  TextStyle get buttonOK;
+  TextStyle get buttonError;
   TextStyle get link;
   TextStyle get terms;
 }
@@ -27,6 +34,13 @@ class _TextStylesMain implements IText {
   TextStyle title = TextStyle(
       fontFamily: 'Montserrat',
       fontSize: 26,
+      fontWeight: FontWeight.bold,
+      color: c.black);
+
+  @override
+  TextStyle medium = TextStyle(
+      fontFamily: 'Montserrat',
+      fontSize: 24,
       fontWeight: FontWeight.bold,
       color: c.black);
 
@@ -54,11 +68,60 @@ class _TextStylesMain implements IText {
   );
 
   @override
+  TextStyle messagesBold = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: c.black,
+  );
+
+  @override
   TextStyle buttons = TextStyle(
-      fontFamily: 'Montserrat',
-      fontSize: 16,
-      fontWeight: FontWeight.bold,
-      color: c.onSecondary);
+    fontFamily: 'Montserrat',
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: c.onSecondary,
+  );
+
+  @override
+  TextStyle buttonBlue = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    color: c.primary,
+  );
+
+  @override
+  TextStyle buttonBlue2 = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: c.primary,
+  );
+
+  @override
+  TextStyle buttonCaution = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    color: c.caution,
+  );
+
+  @override
+  TextStyle buttonError = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    color: c.error,
+  );
+
+  @override
+  TextStyle buttonOK = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    color: c.OK,
+  );
 
   @override
   TextStyle link =

@@ -24,21 +24,21 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     super.initState();
 
     controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 4500));
+        vsync: this, duration: const Duration(milliseconds: 3000));
     controller.stop();
 
     final animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
 
-    scaleAnimation = Tween<double>(begin: 0.1, end: 650).animate(animation);
+    scaleAnimation = Tween<double>(begin: 1.8, end: 900).animate(animation);
 
-    Future.delayed(const Duration(milliseconds: 3000)).whenComplete(() {
+    Future.delayed(const Duration(milliseconds: 5000)).whenComplete(() {
       //  ref.watch(color) == false
       ref.read(color.notifier).forward();
       controller.forward();
       return;
     });
 
-    Future.delayed(const Duration(milliseconds: 4500)).whenComplete(() {
+    Future.delayed(const Duration(milliseconds: 7000)).whenComplete(() {
       //Validar si ya inicio sesion primero
       //Si ya inicio sesion, va a home
       Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -80,28 +80,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                 ),
               ),
             ),
-            // Positioned(
-            //   height: size.height * 0.85,
-            //   left: size.width / 4,
-            //   child: FadeIn(
-            //     delay: const Duration(seconds: 2),
-            //     duration: const Duration(seconds: 3),
-            //     child: Center(
-            //         child: Container(
-            //             color: c.surface,
-            //             height: size.height * .05,
-            //             width: size.width * .5,
-            //             child: FittedBox(
-            //                 fit: BoxFit.fill,
-            //                 child: Text('MisVecinos', style: t.titleApp)))),
-            //   ),
-            // ),
-            Positioned(
-              height: size.height * .85,
-              // left: size.width / 4,
+            //
+            Padding(
+              padding: EdgeInsets.only(
+                  top: size.height * 0.39, left: size.width * 0.38),
               child: FadeIn(
-                  // delay: const Duration(milliseconds: 500),
-                  // duration: const Duration(seconds: 3),
+                  delay: const Duration(milliseconds: 2000),
+                  duration: const Duration(seconds: 4),
                   child: AnimatedBuilder(
                       animation: controller,
                       builder: (context, child) {
