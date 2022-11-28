@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
+import '../settings/settings.dart';
 
 class MenuDrawer extends ConsumerStatefulWidget {
   const MenuDrawer({super.key});
@@ -129,49 +130,56 @@ class _VecinosPageState extends ConsumerState<MenuDrawer> {
                           style: t.messages,
                         ),
                       ),
+                      // ListTile(
+                      //   onTap: () {},
+                      //   leading: SvgPicture.asset(
+                      //     'assets/icons/svg/survey.svg',
+                      //     color: c.disabled,
+                      //     height: size.height * 0.03,
+                      //     width: size.height * 0.03,
+                      //   ),
+                      //   trailing: SvgPicture.asset(
+                      //     'assets/icons/svg/arrow-forward-ios.svg',
+                      //     color: c.disabled,
+                      //     height: size.height * 0.03,
+                      //     width: size.height * 0.03,
+                      //   ),
+                      //   title: Text(
+                      //     'Encuestas',
+                      //     style: t.messages,
+                      //   ),
+                      // ),
+                      // ListTile(
+                      //   onTap: () {},
+                      //   leading: SvgPicture.asset(
+                      //     'assets/icons/svg/chat.svg',
+                      //     color: c.disabled,
+                      //     height: size.height * 0.03,
+                      //     width: size.height * 0.03,
+                      //   ),
+                      //   trailing: SvgPicture.asset(
+                      //     'assets/icons/svg/arrow-forward-ios.svg',
+                      //     color: c.disabled,
+                      //     height: size.height * 0.03,
+                      //     width: size.height * 0.03,
+                      //   ),
+                      //   title: Text(
+                      //     'Hablar con el administrador',
+                      //     style: t.messages,
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: size.height * 0.05,
+                      // ),
+
                       ListTile(
-                        onTap: () {},
-                        leading: SvgPicture.asset(
-                          'assets/icons/svg/survey.svg',
-                          color: c.disabled,
-                          height: size.height * 0.03,
-                          width: size.height * 0.03,
-                        ),
-                        trailing: SvgPicture.asset(
-                          'assets/icons/svg/arrow-forward-ios.svg',
-                          color: c.disabled,
-                          height: size.height * 0.03,
-                          width: size.height * 0.03,
-                        ),
-                        title: Text(
-                          'Encuestas',
-                          style: t.messages,
-                        ),
-                      ),
-                      ListTile(
-                        onTap: () {},
-                        leading: SvgPicture.asset(
-                          'assets/icons/svg/chat.svg',
-                          color: c.disabled,
-                          height: size.height * 0.03,
-                          width: size.height * 0.03,
-                        ),
-                        trailing: SvgPicture.asset(
-                          'assets/icons/svg/arrow-forward-ios.svg',
-                          color: c.disabled,
-                          height: size.height * 0.03,
-                          width: size.height * 0.03,
-                        ),
-                        title: Text(
-                          'Hablar con el administrador',
-                          style: t.messages,
-                        ),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.05,
-                      ),
-                      ListTile(
-                        onTap: () {},
+                        onTap: () {
+                          Scaffold.of(context).closeEndDrawer();
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const SettingsPage();
+                          }));
+                        },
                         leading: SvgPicture.asset(
                           'assets/icons/svg/settings.svg',
                           color: c.disabled,

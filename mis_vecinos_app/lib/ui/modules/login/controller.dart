@@ -1,20 +1,45 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final color =
-    StateNotifierProvider<ColorTransition, bool>((_) => ColorTransition(false));
+import '../../utils/colors.dart';
 
-class ColorTransition extends StateNotifier<bool> {
-  ColorTransition(super.state);
+//final authorize = StateNotifierProvider<Auth, bool>((_) => Auth(false));
+final userAuth = StateNotifierProvider<Auth, bool>((_) => Auth(false));
+final passAuth = StateNotifierProvider<Auth, bool>((_) => Auth(false));
 
-  bool forward() {
+class Auth extends StateNotifier<bool> {
+  Auth(super.state);
+
+  bool ok() {
     return state = true;
   }
 
-  bool stop() {
+  bool denied() {
     return state = false;
   }
 
   bool refreshState() {
     return state = !state;
+  }
+}
+
+final user =
+    StateNotifierProvider<SetColors, Color>((_) => SetColors(c.disabled));
+final pass =
+    StateNotifierProvider<SetColors, Color>((_) => SetColors(c.disabled));
+
+class SetColors extends StateNotifier<Color> {
+  SetColors(super.state);
+
+  Color defaul() {
+    return state = c.disabled;
+  }
+
+  Color ok() {
+    return state = c.primary;
+  }
+
+  Color denied() {
+    return state = c.error;
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../utils/colors.dart';
-import '../../utils/text_styles.dart';
+import '../../../utils/colors.dart';
+import '../../../utils/text_styles.dart';
 
 class ServiceCards extends StatelessWidget {
   const ServiceCards(

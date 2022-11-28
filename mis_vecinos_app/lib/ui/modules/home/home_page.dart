@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mis_vecinos_app/ui/modules/documents/documents.dart';
+import 'package:mis_vecinos_app/ui/modules/recycle/recycle.dart';
+import 'package:mis_vecinos_app/ui/modules/transparency/transparency.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
@@ -13,6 +17,16 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _VecinosPageState extends ConsumerState<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isLogged', true);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -95,147 +109,175 @@ class _VecinosPageState extends ConsumerState<HomePage> {
             ),
             //
 
-            Align(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  boxShadow: [
-                    BoxShadow(
-                        color: c.disabled.withOpacity(0.4),
-                        blurRadius: 20.0,
-                        offset: const Offset(1, 1))
-                  ],
-                  color: const Color(0xffFDFDFD),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return const Transparency();
+                }));
+              },
+              child: Align(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    boxShadow: [
+                      BoxShadow(
+                          color: c.disabled.withOpacity(0.4),
+                          blurRadius: 20.0,
+                          offset: const Offset(1, 1))
+                    ],
+                    color: const Color(0xffFDFDFD),
+                  ),
+                  height: size.height * .17,
+                  width: size.width * .85,
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'assets/icons/money.png',
+                        height: size.height * .1,
+                        width: size.width * .25,
+                      ),
+                      Center(
+                        child: Container(
+                          color: c.surface,
+                          height: size.height * .13,
+                          width: size.width * .56,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text('Cuentas Claras', style: t.subtitle),
+                                  SvgPicture.asset(
+                                      'assets/icons/svg/arrow-forward-ios.svg',
+                                      color: c.black)
+                                ],
+                              ),
+                              Text(
+                                  'Mira cómo se administra el dinero de tu comunidad, que ingresa y egresa.',
+                                  style: t.messages),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-                height: size.height * .17,
-                width: size.width * .85,
+              ),
+            ),
+
+            GestureDetector(
+              onTap: () {
+                //Comprobar si es primera ver que ingresa va a info
+                //Si no, va a recicle
+
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return const Recycle();
+                }));
+              },
+              child: Padding(
+                padding: EdgeInsets.only(top: size.height * 0.02),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      'assets/icons/money.png',
-                      height: size.height * .1,
-                      width: size.width * .25,
-                    ),
-                    Center(
+                    Align(
                       child: Container(
-                        color: c.surface,
-                        height: size.height * .13,
-                        width: size.width * .56,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          boxShadow: [
+                            BoxShadow(
+                                color: c.disabled.withOpacity(0.4),
+                                blurRadius: 20.0,
+                                offset: const Offset(1, 1))
+                          ],
+                          color: const Color(0xffFDFDFD),
+                        ),
+                        height: size.height * .2,
+                        width: size.width * .4125,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            Image.asset(
+                              'assets/icons/recycle.png',
+                              height: size.height * .1,
+                              width: size.width * .25,
+                            ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text('Cuentas Claras', style: t.subtitle),
+                                Text('Reciclaje', style: t.subtitle),
                                 SvgPicture.asset(
                                     'assets/icons/svg/arrow-forward-ios.svg',
                                     color: c.black)
                               ],
                             ),
-                            Text(
-                                'Mira cómo se administra el dinero de tu comunidad, que ingresa y egresa.',
-                                style: t.messages),
+                            Text('10 veces este mes.', style: t.messages),
                           ],
                         ),
+                        // child: const Placeholder(),
                       ),
-                    )
+                    ),
+                    //
+                    SizedBox(
+                      height: 2,
+                      width: size.height * 0.015,
+                    ),
+                    //
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return const Documents();
+                        }));
+                      },
+                      child: Align(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: c.disabled.withOpacity(0.4),
+                                  blurRadius: 20.0,
+                                  offset: const Offset(1, 1))
+                            ],
+                            color: const Color(0xffFDFDFD),
+                          ),
+                          height: size.height * .2,
+                          width: size.width * .4125,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    EdgeInsets.only(top: size.height * 0.02),
+                                child: Image.asset(
+                                  'assets/icons/document.png',
+                                  height: size.height * .1,
+                                  width: size.width * .25,
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('Documentos', style: t.subtitle),
+                                  SvgPicture.asset(
+                                      'assets/icons/svg/arrow-forward-ios.svg',
+                                      color: c.black)
+                                ],
+                              ),
+                              Text('3 sin Leer', style: t.messages),
+                            ],
+                          ),
+                          // child: const Placeholder(),
+                        ),
+                      ),
+                    ),
+                    //
                   ],
                 ),
-              ),
-            ),
-
-            Padding(
-              padding: EdgeInsets.only(top: size.height * 0.02),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Align(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        boxShadow: [
-                          BoxShadow(
-                              color: c.disabled.withOpacity(0.4),
-                              blurRadius: 20.0,
-                              offset: const Offset(1, 1))
-                        ],
-                        color: const Color(0xffFDFDFD),
-                      ),
-                      height: size.height * .2,
-                      width: size.width * .4125,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assets/icons/recycle.png',
-                            height: size.height * .1,
-                            width: size.width * .25,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('Reciclaje', style: t.subtitle),
-                              SvgPicture.asset(
-                                  'assets/icons/svg/arrow-forward-ios.svg',
-                                  color: c.black)
-                            ],
-                          ),
-                          Text('10 veces este mes.', style: t.messages),
-                        ],
-                      ),
-                      // child: const Placeholder(),
-                    ),
-                  ),
-                  //
-                  SizedBox(
-                    height: 2,
-                    width: size.height * 0.015,
-                  ),
-                  //
-                  Align(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        boxShadow: [
-                          BoxShadow(
-                              color: c.disabled.withOpacity(0.4),
-                              blurRadius: 20.0,
-                              offset: const Offset(1, 1))
-                        ],
-                        color: const Color(0xffFDFDFD),
-                      ),
-                      height: size.height * .2,
-                      width: size.width * .4125,
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: size.height * 0.02),
-                            child: Image.asset(
-                              'assets/icons/document.png',
-                              height: size.height * .1,
-                              width: size.width * .25,
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text('Documentos', style: t.subtitle),
-                              SvgPicture.asset(
-                                  'assets/icons/svg/arrow-forward-ios.svg',
-                                  color: c.black)
-                            ],
-                          ),
-                          Text('3 sin Leer', style: t.messages),
-                        ],
-                      ),
-                      // child: const Placeholder(),
-                    ),
-                  ),
-                  //
-                ],
               ),
             )
           ],

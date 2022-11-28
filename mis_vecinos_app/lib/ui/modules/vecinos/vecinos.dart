@@ -4,7 +4,7 @@ import 'package:mis_vecinos_app/core/modules/vecinos/vecinos.dart';
 import 'package:mis_vecinos_app/ui/modules/vecinos/vecino_detail.dart';
 
 import '../../utils/text_styles.dart';
-import 'services_item.dart';
+import 'widgets/services_item.dart';
 
 class VecinosPage extends ConsumerStatefulWidget {
   const VecinosPage({super.key});

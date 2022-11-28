@@ -1,3 +1,4 @@
+import 'package:mis_vecinos_app/core/modules/pagos/pago_atraso.dart';
 import 'package:mis_vecinos_app/core/modules/pagos/pago_ok.dart';
 
 import 'repository.dart';
@@ -9,4 +10,5 @@ class PagosService {
 
   // Future<Response<List<News>>> getNews() => repository.getNews();
   List<ViviendaOk> getViviendasOk() => repository.getPagosOk();
+  List<ViviendaAtraso> getViviendasAtraso() => repository.getPagosAdeudos();
 }

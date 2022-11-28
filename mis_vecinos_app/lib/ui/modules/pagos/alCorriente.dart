@@ -5,14 +5,15 @@ import 'package:mis_vecinos_app/ui/modules/pagos/widgets/card2.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
+import 'controller.dart';
 
-class PagosDetails extends ConsumerWidget {
-  const PagosDetails(this.title, {super.key});
-  final String title;
+class AlCorriente extends ConsumerWidget {
+  const AlCorriente({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
+    final state = ref.watch(pagosControllerProvider);
     //Recibir la lista de las casas al corriente / con atraso
 
     return Scaffold(
@@ -31,17 +32,27 @@ class PagosDetails extends ConsumerWidget {
               children: [
                 SvgPicture.asset('assets/icons/svg/arrow-back-ios.svg',
                     color: c.black),
-                Text(title, style: t.title),
+                Text('Viviendas al \n corriente', style: t.title),
               ],
             ),
           ),
 
           //
           SizedBox(
-            height: size.height / 4,
+            height: size.height * 0.02,
           ),
           //
-          const LongCard2(title: 'Casa 8.')
+
+          ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: state.alCorriente?.length,
+              itemBuilder: (context, index) {
+                return LongCard(
+                  title: state.alCorriente![index].nombreCasa,
+                );
+              }),
+
           //
         ],
       ),

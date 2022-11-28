@@ -1,11 +1,11 @@
 class ViviendaAtraso {
   final int id;
   final String nombreCasa;
-  final String tiempoAtraso;
+  final int mesesAtraso;
 
   ViviendaAtraso({
     required this.nombreCasa,
-    required this.tiempoAtraso,
+    required this.mesesAtraso,
     required this.id,
   });
 }

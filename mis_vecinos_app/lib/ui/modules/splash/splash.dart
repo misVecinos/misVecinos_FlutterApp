@@ -1,10 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mis_vecinos_app/ui/modules/login/login_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/colors.dart';
+import '../main/main_page.dart';
 import 'controller.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
@@ -28,7 +32,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     controller.stop();
 
     final animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
-
     scaleAnimation = Tween<double>(begin: 1.8, end: 900).animate(animation);
 
     Future.delayed(const Duration(milliseconds: 5000)).whenComplete(() {
@@ -38,14 +41,24 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       return;
     });
 
-    Future.delayed(const Duration(milliseconds: 7000)).whenComplete(() {
-      //Validar si ya inicio sesion primero
-      //Si ya inicio sesion, va a home
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return const LoginPage();
-      }));
-      //Si no, va a login
-      //
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final prefs = await SharedPreferences.getInstance();
+      final bool? session = prefs.getBool('isLogged');
+
+      Future.delayed(const Duration(milliseconds: 7000)).whenComplete(() async {
+        if (session != true) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) {
+            return const LoginPage();
+          }));
+        } else {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) {
+            return const MainPage();
+          }));
+        }
+        //
+      });
     });
   }
 

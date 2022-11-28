@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mis_vecinos_app/ui/modules/pagos/alCorriente.dart';
 import 'package:mis_vecinos_app/ui/modules/pagos/widgets/card.dart';
-import 'package:mis_vecinos_app/ui/modules/pagos/pagos_details.dart';
+import 'package:mis_vecinos_app/ui/modules/pagos/atraso.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
 
 class PagosMenu extends ConsumerWidget {
-  const PagosMenu({super.key});
+  const PagosMenu({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -44,7 +47,7 @@ class PagosMenu extends ConsumerWidget {
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return const PagosDetails('Viviendas al \n corriente');
+                  return const AlCorriente();
                 }));
               },
               child: const ShadowCard(title: 'Viviendas al \n corriente')),
@@ -57,7 +60,7 @@ class PagosMenu extends ConsumerWidget {
               onTap: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return const PagosDetails('Viviendas con \n adeudo');
+                  return const Atraso();
                 }));
               },
               child: const ShadowCard(title: 'Viviendas con \n adeudo')),
