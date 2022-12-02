@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mis_vecinos_app/ui/modules/alert/alert.dart';
 import 'package:mis_vecinos_app/ui/modules/home/home_page.dart';
 import 'package:mis_vecinos_app/ui/modules/menu/menu.dart';
 import 'package:mis_vecinos_app/ui/modules/pagos/pagos.dart';
@@ -51,23 +50,24 @@ class _MainScreenState extends ConsumerState<MainPage> {
       // bottomNavigationBar: Platform.isIOS
       //     ? _menu(state, scaffoldKey)
       //     : SafeArea(child: _menu(state, scaffoldKey))
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: c.error,
-        child: Padding(
-          padding: EdgeInsets.all(size.height * 0.02),
-          child: SvgPicture.asset('assets/icons/svg/alarm.svg',
-              color: c.secondary),
-        ),
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return const AlertPage();
-          }));
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: c.error,
+      //   child: Padding(
+      //     padding: EdgeInsets.all(size.height * 0.02),
+      //     child: SvgPicture.asset('assets/icons/svg/alarm.svg',
+      //         color: c.secondary),
+      //   ),
+      //   onPressed: () {
+      //     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+      //       return const AlertPage();
+      //     }));
+      //   },
+      // ),
+      //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        clipBehavior: Clip.hardEdge,
-        shape: const CircularNotchedRectangle(),
+        // clipBehavior: Clip.hardEdge,
+        // shape: const CircularNotchedRectangle(),
         notchMargin: 10,
         child: _menu(state),
       ),
@@ -114,7 +114,7 @@ class _MainScreenState extends ConsumerState<MainPage> {
                   ref.watch(mainController).currentPage.page == Pages.vecinos
                       ? c.primary
                       : c.disabled)),
-          _icons('assets/icons/svg/houses.svg', 'Vecinos', state, c.surface),
+          // _icons('assets/icons/svg/houses.svg', 'Vecinos', state, c.surface),
           GestureDetector(
               onTap: () => ref.read(mainController.notifier).setSelectedPage(2),
               child: _icons(

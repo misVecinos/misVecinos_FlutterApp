@@ -94,46 +94,7 @@ class _TransparencyState extends ConsumerState<SettingsPage> {
               splashColor: c.error.withOpacity(0.2),
               borderRadius: BorderRadius.circular(5),
               onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: Text('¿Nos Dejas?', style: t.subtitle),
-                        content: Text(
-                          'Estas apunto de cerrar tu sesión. ¿Estas Seguro?',
-                          style: t.messages,
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () async {
-                              WidgetsBinding.instance
-                                  .addPostFrameCallback((_) async {
-                                final prefs =
-                                    await SharedPreferences.getInstance();
-                                await prefs.setBool('isLogged', false);
-                              });
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(builder: (context) {
-                                return const LoginPage();
-                              }));
-                            },
-                            child: Text(
-                              'Cerrar Sesión',
-                              style: t.messagesRed,
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text(
-                              'Cancelar',
-                              style: t.messages,
-                            ),
-                          ),
-                        ],
-                      );
-                    });
+                closeSesion();
               },
               child: Ink(
                 width: size.width * 0.4,
@@ -158,5 +119,47 @@ class _TransparencyState extends ConsumerState<SettingsPage> {
         //
       ],
     ));
+  }
+
+  closeSesion() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('¿Nos Dejas?', style: t.subtitle),
+            content: Text(
+              'Estas apunto de cerrar tu sesión. ¿Estas Seguro?',
+              style: t.messages,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () async {
+                  WidgetsBinding.instance.addPostFrameCallback((_) async {
+                    final prefs = await SharedPreferences.getInstance();
+                    await prefs.setBool('isLogged', false);
+                    await prefs.setBool('isRecycing', false);
+                  });
+                  Navigator.of(context)
+                      .pushReplacement(MaterialPageRoute(builder: (context) {
+                    return const LoginPage();
+                  }));
+                },
+                child: Text(
+                  'Cerrar Sesión',
+                  style: t.messagesRed,
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'Cancelar',
+                  style: t.messages,
+                ),
+              ),
+            ],
+          );
+        });
   }
 }

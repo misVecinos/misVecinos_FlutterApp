@@ -7,6 +7,9 @@ import '../../utils/colors.dart';
 final userAuth = StateNotifierProvider<Auth, bool>((_) => Auth(false));
 final passAuth = StateNotifierProvider<Auth, bool>((_) => Auth(false));
 
+final obscurePassword = StateNotifierProvider<Auth, bool>((_) => Auth(true));
+final loading = StateNotifierProvider<Auth, bool>((_) => Auth(false));
+
 class Auth extends StateNotifier<bool> {
   Auth(super.state);
 

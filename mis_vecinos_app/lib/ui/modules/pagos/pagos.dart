@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fl_chart/fl_chart.dart';
+// import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mis_vecinos_app/ui/modules/pagos/state.dart';
 import 'package:mis_vecinos_app/ui/modules/pagos/widgets/minicard.dart';
 import 'package:mis_vecinos_app/ui/modules/pagos/pagos_menu.dart';
+import 'package:multi_charts/multi_charts.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
@@ -73,21 +74,48 @@ class _VecinosPageState extends ConsumerState<PagosPage> {
             SizedBox(
               height: size.height * 0.05,
             ),
-            Container(
-              color: c.surface,
-              height: size.height * 0.2,
-              width: size.height * 0.2,
-              child: PieChart(
-                swapAnimationCurve: Curves.easeIn,
-                swapAnimationDuration: const Duration(seconds: 3),
-                PieChartData(
-                    borderData: FlBorderData(show: false),
-                    sectionsSpace: 0,
-                    startDegreeOffset: 5,
-                    centerSpaceRadius: 15,
-                    sections: sections),
-              ),
+            // Container(
+            //   color: c.surface,
+            //   height: size.height * 0.2,
+            //   width: size.height * 0.2,
+            //   child: PieChart(
+            //     swapAnimationCurve: Curves.easeIn,
+            //     swapAnimationDuration: const Duration(seconds: 3),
+            //     PieChartData(
+            //         borderData: FlBorderData(show: false),
+            //         sectionsSpace: 0,
+            //         startDegreeOffset: 5,
+            //         centerSpaceRadius: 15,
+            //         sections: sections),
+            //   ),
+            // ),
+
+            PieChart(
+              separateFocusedValue: true,
+              textScaleFactor: 0.06,
+              maxHeight: size.height * 0.25,
+              maxWidth: size.height * 0.1,
+              curve: Curves.easeIn,
+              showLegend: true,
+              values: const [15, 10, 30, 25, 20],
+              labels: const [
+                'Ingresos',
+                'h',
+                'h',
+                'h',
+                'h',
+              ],
+              sliceFillColors: [
+                c.OK,
+                c.primary,
+                c.error,
+                c.disabled,
+                c.caution,
+              ],
+              animationDuration: const Duration(seconds: 2),
+              legendPosition: LegendPosition.Right,
             ),
+
             SizedBox(
               height: size.height * 0.05,
             ),
@@ -153,25 +181,26 @@ class _VecinosPageState extends ConsumerState<PagosPage> {
     }
   } //
 
-  List<PieChartSectionData> sections = [
-    PieChartSectionData(
-        badgePositionPercentageOffset: 5,
-        color: c.OK,
-        value: 90,
-        title: '90%',
-        titleStyle: t.buttons,
-        radius: 50),
-    PieChartSectionData(
-        color: c.error,
-        value: 8.3,
-        title: '8.3%',
-        titleStyle: t.buttons,
-        radius: 50),
-    PieChartSectionData(
-        color: c.caution,
-        value: 1.7,
-        title: '1.7%',
-        titleStyle: t.buttons,
-        radius: 50)
-  ];
+//   List<PieChartSectionData> sections = [
+//     PieChartSectionData(
+//         badgePositionPercentageOffset: 5,
+//         color: c.OK,
+//         value: 90,
+//         title: '90%',
+//         titleStyle: t.buttons,
+//         radius: 50),
+//     PieChartSectionData(
+//         color: c.error,
+//         value: 8.3,
+//         title: '8.3%',
+//         titleStyle: t.buttons,
+//         radius: 50),
+//     PieChartSectionData(
+//         color: c.caution,
+//         value: 1.7,
+//         title: '1.7%',
+//         titleStyle: t.buttons,
+//         radius: 50)
+//   ];
+
 }

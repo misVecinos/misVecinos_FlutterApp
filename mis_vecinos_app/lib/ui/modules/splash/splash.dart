@@ -47,15 +47,21 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
       Future.delayed(const Duration(milliseconds: 7000)).whenComplete(() async {
         if (session != true) {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) {
-            return const LoginPage();
-          }));
+          Navigator.pushReplacement(
+              context,
+              PageRouteBuilder(
+                  pageBuilder: (_, animation, __) => FadeTransition(
+                        opacity: animation,
+                        child: const LoginPage(),
+                      )));
         } else {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) {
-            return const MainPage();
-          }));
+          Navigator.pushReplacement(
+              context,
+              PageRouteBuilder(
+                  pageBuilder: (_, animation, __) => FadeTransition(
+                        opacity: animation,
+                        child: const MainPage(),
+                      )));
         }
         //
       });

@@ -1,13 +1,17 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mis_vecinos_app/ui/modules/documents/documents.dart';
-import 'package:mis_vecinos_app/ui/modules/recycle/recycle.dart';
-import 'package:mis_vecinos_app/ui/modules/transparency/transparency.dart';
+import 'package:mis_vecinos_app/ui/modules/recycle/recycle_info.dart';
+import 'package:page_route_animator/page_route_animator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
+import '../recycle/recycle.dart';
+import '../transparency/transparency.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -17,6 +21,8 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _VecinosPageState extends ConsumerState<HomePage> {
+  bool? recycle;
+
   @override
   void initState() {
     super.initState();
@@ -24,6 +30,7 @@ class _VecinosPageState extends ConsumerState<HomePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLogged', true);
+      recycle = prefs.getBool('isRecycing');
     });
   }
 
@@ -111,10 +118,23 @@ class _VecinosPageState extends ConsumerState<HomePage> {
 
             GestureDetector(
               onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return const Transparency();
-                }));
+                // Navigator.push(
+                //     context,
+                //     PageRouteBuilder(
+                //         pageBuilder: (_, animation, __) => FadeTransition(
+                //               opacity: animation,
+                //               child: const Transparency(),
+                //             )));
+
+                Navigator.push(
+                    context,
+                    PageRouteAnimator(
+                      child: const Transparency(),
+                      routeAnimation: RouteAnimation.rightToLeft,
+                      curve: Curves.fastOutSlowIn,
+                      duration: const Duration(milliseconds: 400),
+                      reverseDuration: const Duration(milliseconds: 400),
+                    ));
               },
               child: Align(
                 child: Container(
@@ -149,7 +169,7 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text('Cuentas Claras', style: t.subtitle),
+                                  Text('Transparencia', style: t.subtitle),
                                   SvgPicture.asset(
                                       'assets/icons/svg/arrow-forward-ios.svg',
                                       color: c.black)
@@ -169,14 +189,40 @@ class _VecinosPageState extends ConsumerState<HomePage> {
             ),
 
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 //Comprobar si es primera ver que ingresa va a info
                 //Si no, va a recicle
 
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return const Recycle();
-                }));
+                if (recycle != true) {
+                  // Navigator.push(
+                  //     context,
+                  //     PageRouteBuilder(
+                  //         pageBuilder: (_, animation, __) => FadeTransition(
+                  //               opacity: animation,
+                  //               child: const RecycleInfo(),
+                  //             )));
+
+                  Navigator.push(
+                      context,
+                      PageRouteAnimator(
+                        child: const RecycleInfo(),
+                        routeAnimation: RouteAnimation.rightToLeftWithFade,
+                        curve: Curves.fastOutSlowIn,
+                        duration: const Duration(seconds: 1),
+                        reverseDuration: const Duration(seconds: 1),
+                      ));
+                } else {
+                  Navigator.push(
+                      context,
+                      PageRouteAnimator(
+                        child: const Recycle(),
+                        routeAnimation: RouteAnimation.rightToLeftWithFade,
+                        curve: Curves.fastOutSlowIn,
+                        duration: const Duration(milliseconds: 400),
+                        reverseDuration: const Duration(milliseconds: 400),
+                      ));
+                }
+                //
               },
               child: Padding(
                 padding: EdgeInsets.only(top: size.height * 0.02),
@@ -229,10 +275,14 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                     //
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return const Documents();
-                        }));
+                        Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                                pageBuilder: (_, animation, __) =>
+                                    FadeTransition(
+                                      opacity: animation,
+                                      child: const Documents(),
+                                    )));
                       },
                       child: Align(
                         child: Container(
@@ -268,7 +318,7 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                                       color: c.black)
                                 ],
                               ),
-                              Text('3 sin Leer', style: t.messages),
+                              Text('1 sin Leer', style: t.messages),
                             ],
                           ),
                           // child: const Placeholder(),

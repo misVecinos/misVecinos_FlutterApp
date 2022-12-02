@@ -6,11 +6,14 @@ final IText t = _TextStylesMain();
 
 abstract class IText {
   TextStyle get title;
+  TextStyle get titleLight;
   TextStyle get medium;
+  TextStyle get mediumLight;
   TextStyle get titleApp;
   TextStyle get subtitle;
   TextStyle get paragraph;
   TextStyle get messages;
+  TextStyle get messagesLight;
   TextStyle get messagesGreen;
   TextStyle get messagesRed;
   TextStyle get messagesBlue;
@@ -41,11 +44,25 @@ class _TextStylesMain implements IText {
       color: c.black);
 
   @override
+  TextStyle titleLight = TextStyle(
+      fontFamily: 'Montserrat',
+      fontSize: 26,
+      fontWeight: FontWeight.bold,
+      color: c.onSecondary);
+
+  @override
   TextStyle medium = TextStyle(
       fontFamily: 'Montserrat',
       fontSize: 24,
       fontWeight: FontWeight.bold,
       color: c.black);
+
+  @override
+  TextStyle mediumLight = TextStyle(
+      fontFamily: 'Montserrat',
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+      color: c.onSecondary);
 
   @override
   TextStyle paragraph = TextStyle(
@@ -68,6 +85,13 @@ class _TextStylesMain implements IText {
     fontFamily: 'Montserrat',
     fontSize: 16,
     color: c.disabled,
+  );
+
+  @override
+  TextStyle messagesLight = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 16,
+    color: c.onSecondary,
   );
 
   @override

@@ -134,7 +134,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                     },
                                     controller: password,
                                     keyboardType: TextInputType.visiblePassword,
-                                    obscureText: true,
+                                    obscureText: ref.watch(obscurePassword),
                                     decoration: InputDecoration(
                                       labelText: 'Contraseña',
                                       labelStyle:
@@ -146,10 +146,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                             color: ref.watch(pass)),
                                       ),
                                       suffixIcon: IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          ref
+                                              .read(obscurePassword.notifier)
+                                              .refreshState();
+                                        },
                                         icon: SvgPicture.asset(
                                           'assets/icons/feather/eye.svg',
-                                          color: c.disabled,
+                                          color: ref.watch(obscurePassword) ==
+                                                  false
+                                              ? c.primary
+                                              : c.disabled,
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
@@ -170,26 +177,17 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.only(top: size.height * 0.02),
-                          child: Align(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: SizedBox(
-                                height: size.height * 0.065,
-                                width: size.width * 0.7,
-                                child: ElevatedButton(
-                                    onPressed: () {
-                                      validateForm();
-                                    },
-                                    child: Text(
-                                      'Entra',
-                                      style: t.buttons,
-                                    )),
-                              ),
+                        AnimatedSwitcher(
+                            duration: const Duration(
+                              milliseconds: 600, //
                             ),
-                          ),
-                        ),
+                            child: ref.watch(loading) == true
+                                ? Padding(
+                                    padding: EdgeInsets.only(
+                                        top: size.height * 0.02),
+                                    child: const CircularProgressIndicator(),
+                                  )
+                                : _buton(size)),
                         // Center(
                         //   child: TextButton(
                         //     onPressed: () {
@@ -242,32 +240,61 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     );
   }
 
+  Widget _buton(Size size) {
+    return Padding(
+      padding: EdgeInsets.only(top: size.height * 0.02),
+      child: Align(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: SizedBox(
+            height: size.height * 0.065,
+            width: size.width * 0.7,
+            child: ElevatedButton(
+                onPressed: () {
+                  validateForm();
+                },
+                child: Text(
+                  'Entra',
+                  style: t.buttons,
+                )),
+          ),
+        ),
+      ),
+    );
+  }
+
   validateForm() {
     final size = MediaQuery.of(context).size;
 
     if ((ref.watch(userAuth) == true && ref.watch(passAuth) == true)) {
-      ref.read(user.notifier).defaul();
-      ref.read(pass.notifier).defaul();
-      email.clear();
-      password.clear();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        duration: const Duration(seconds: 3),
-        elevation: 0,
-        dismissDirection: DismissDirection.startToEnd,
-        backgroundColor: c.secondary,
-        content: Text('Bienvenid@ de nuevo!', style: t.buttonBlue),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        margin: EdgeInsets.only(
-          bottom: size.height * 0.04,
-          right: size.height * 0.025,
-          left: size.height * 0.025,
-        ),
-      ));
+      ref.read(loading.notifier).ok();
+      Future.delayed(const Duration(milliseconds: 1200)).whenComplete(() {
+        //
+        ref.read(user.notifier).defaul();
+        ref.read(pass.notifier).defaul();
+        email.clear();
+        password.clear();
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: const Duration(seconds: 3),
+          elevation: 0,
+          dismissDirection: DismissDirection.startToEnd,
+          backgroundColor: c.secondary,
+          content: Text('Bienvenid@ de nuevo!', style: t.buttonBlue2),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          margin: EdgeInsets.only(
+            bottom: size.height * 0.04,
+            right: size.height * 0.025,
+            left: size.height * 0.025,
+          ),
+        ));
 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return const MainPage();
-      }));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
+          return const MainPage();
+        }));
+      });
+      //
     } else {
       showMyDialog();
     }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mis_vecinos_app/ui/modules/documents/document_details.dart';
 import 'package:mis_vecinos_app/ui/modules/documents/widgets/kard.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
+import '../menu/menu.dart';
 
 class Documents extends ConsumerStatefulWidget {
   const Documents({super.key});
@@ -19,6 +21,8 @@ class _TransparencyState extends ConsumerState<Documents> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
+      endDrawer: const MenuDrawer(),
+      drawerEnableOpenDragGesture: true,
       body: ListView(
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.only(
@@ -30,7 +34,16 @@ class _TransparencyState extends ConsumerState<Documents> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Documentos', style: t.title),
-              SvgPicture.asset('assets/icons/svg/menu.svg', color: c.black),
+              Builder(
+                builder: (context) {
+                  return GestureDetector(
+                      onTap: () {
+                        Scaffold.of(context).openEndDrawer();
+                      },
+                      child: SvgPicture.asset('assets/icons/svg/menu.svg',
+                          color: c.black));
+                },
+              ),
             ],
           ),
           Text(
@@ -41,7 +54,22 @@ class _TransparencyState extends ConsumerState<Documents> {
           SizedBox(
             height: size.height * 0.05,
           ),
-          const Kard(title: 'Reglamento', image: 'assets/icons/document.png')
+          GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                        pageBuilder: (_, animation, __) => FadeTransition(
+                              opacity: animation,
+                              child: const DocumentDetails(),
+                            )));
+                // Navigator.of(context)
+                //     .push(MaterialPageRoute(builder: (context) {
+                //   return const DocumentDetails();
+                // }));
+              },
+              child: const Kard(
+                  title: 'Reglamento', image: 'assets/icons/document.png'))
           // const Divider(),
         ],
       ),
