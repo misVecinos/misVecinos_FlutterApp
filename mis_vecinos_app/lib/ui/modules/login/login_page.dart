@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mis_vecinos_app/ui/modules/login/controller.dart';
-import 'package:mis_vecinos_app/ui/modules/terms/terms.dart';
+import 'package:mis_vecinos_app/ui/modules/privacity/privacity.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
@@ -205,12 +206,23 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         SizedBox(
                           height: size.height * 0.05,
                         ),
-                        Align(
-                          child: Image.asset(
-                            'assets/images/contendi.png',
-                            height: size.height * 0.06,
-                            width: size.width * 0.4,
-                            fit: BoxFit.cover,
+                        GestureDetector(
+                          onTap: () async {
+                            final url =
+                                Uri.parse('https://www.contendi.com.mx/');
+                            if (await canLaunchUrl(url)) {
+                              await launchUrl(url);
+                            } else {
+                              throw 'Could not launch $url';
+                            }
+                          },
+                          child: Align(
+                            child: Image.asset(
+                              'assets/images/contendi.png',
+                              height: size.height * 0.06,
+                              width: size.width * 0.4,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                         Center(
@@ -222,7 +234,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               }));
                             },
                             child: Text(
-                              'Lee nuestros Términos y Condiciones',
+                              'Lee Nuestro Aviso de Privacidad',
                               style: t.terms,
                             ),
                           ),
@@ -274,6 +286,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         ref.read(pass.notifier).defaul();
         email.clear();
         password.clear();
+        ref.read(loading.notifier).dispose();
+
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           duration: const Duration(seconds: 3),
           elevation: 0,

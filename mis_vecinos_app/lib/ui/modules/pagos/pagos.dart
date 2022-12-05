@@ -46,6 +46,11 @@ class _VecinosPageState extends ConsumerState<PagosPage> {
 
     int totalHouses = housesAtrasadas + housesAlCorriente + housesAtrasadas2;
 
+    //Total casas = 100%
+    //Al corriente = ?
+    //Con adeudo = ?
+    //Con adeudo mas de 2meses = ?
+
     switch (state.state) {
       case States.loading:
         return const Center(child: CircularProgressIndicator());
@@ -74,43 +79,25 @@ class _VecinosPageState extends ConsumerState<PagosPage> {
             SizedBox(
               height: size.height * 0.05,
             ),
-            // Container(
-            //   color: c.surface,
-            //   height: size.height * 0.2,
-            //   width: size.height * 0.2,
-            //   child: PieChart(
-            //     swapAnimationCurve: Curves.easeIn,
-            //     swapAnimationDuration: const Duration(seconds: 3),
-            //     PieChartData(
-            //         borderData: FlBorderData(show: false),
-            //         sectionsSpace: 0,
-            //         startDegreeOffset: 5,
-            //         centerSpaceRadius: 15,
-            //         sections: sections),
-            //   ),
-            // ),
 
             PieChart(
               separateFocusedValue: true,
               textScaleFactor: 0.06,
+              legendTextSize: 10,
               maxHeight: size.height * 0.25,
               maxWidth: size.height * 0.1,
               curve: Curves.easeIn,
               showLegend: true,
-              values: const [15, 10, 30, 25, 20],
+              values: const [74, 3.8, 22.2],
               labels: const [
-                'Ingresos',
-                'h',
-                'h',
-                'h',
-                'h',
+                'Al corriente',
+                'Adeudo',
+                'Adeudo 2m',
               ],
               sliceFillColors: [
                 c.OK,
-                c.primary,
-                c.error,
-                c.disabled,
                 c.caution,
+                c.error,
               ],
               animationDuration: const Duration(seconds: 2),
               legendPosition: LegendPosition.Right,
@@ -180,27 +167,5 @@ class _VecinosPageState extends ConsumerState<PagosPage> {
         );
     }
   } //
-
-//   List<PieChartSectionData> sections = [
-//     PieChartSectionData(
-//         badgePositionPercentageOffset: 5,
-//         color: c.OK,
-//         value: 90,
-//         title: '90%',
-//         titleStyle: t.buttons,
-//         radius: 50),
-//     PieChartSectionData(
-//         color: c.error,
-//         value: 8.3,
-//         title: '8.3%',
-//         titleStyle: t.buttons,
-//         radius: 50),
-//     PieChartSectionData(
-//         color: c.caution,
-//         value: 1.7,
-//         title: '1.7%',
-//         titleStyle: t.buttons,
-//         radius: 50)
-//   ];
 
 }

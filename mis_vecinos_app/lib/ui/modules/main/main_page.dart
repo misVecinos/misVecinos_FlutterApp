@@ -7,6 +7,7 @@ import 'package:mis_vecinos_app/ui/modules/pagos/pagos.dart';
 import 'package:mis_vecinos_app/ui/modules/vecinos/vecinos.dart';
 
 import '../../utils/colors.dart';
+import '../alert/alert.dart';
 import 'controller.dart';
 import 'pages.dart';
 import 'state.dart';
@@ -51,20 +52,20 @@ class _MainScreenState extends ConsumerState<MainPage> {
       //     ? _menu(state, scaffoldKey)
       //     : SafeArea(child: _menu(state, scaffoldKey))
 
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: c.error,
-      //   child: Padding(
-      //     padding: EdgeInsets.all(size.height * 0.02),
-      //     child: SvgPicture.asset('assets/icons/svg/alarm.svg',
-      //         color: c.secondary),
-      //   ),
-      //   onPressed: () {
-      //     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      //       return const AlertPage();
-      //     }));
-      //   },
-      // ),
-      //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: c.error,
+        child: Padding(
+          padding: EdgeInsets.all(size.height * 0.02),
+          child: SvgPicture.asset('assets/icons/svg/alarm.svg',
+              color: c.secondary),
+        ),
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return const AlertPage();
+          }));
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         // clipBehavior: Clip.hardEdge,
         // shape: const CircularNotchedRectangle(),
@@ -114,7 +115,7 @@ class _MainScreenState extends ConsumerState<MainPage> {
                   ref.watch(mainController).currentPage.page == Pages.vecinos
                       ? c.primary
                       : c.disabled)),
-          // _icons('assets/icons/svg/houses.svg', 'Vecinos', state, c.surface),
+          _icons('assets/icons/svg/houses.svg', 'Vecinos', state, c.surface),
           GestureDetector(
               onTap: () => ref.read(mainController.notifier).setSelectedPage(2),
               child: _icons(

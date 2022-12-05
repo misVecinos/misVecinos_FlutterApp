@@ -28,7 +28,7 @@ class _TransparencyState extends ConsumerState<SettingsPage> {
               height: size.height * 0.25,
               width: size.width,
               child: Image.asset(
-                'assets/images/1.jpeg',
+                'assets/images/laJoya.jpg',
                 fit: BoxFit.cover,
               ),
               // child: const Placeholder(),

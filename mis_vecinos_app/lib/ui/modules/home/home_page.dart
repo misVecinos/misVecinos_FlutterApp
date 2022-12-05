@@ -46,7 +46,7 @@ class _VecinosPageState extends ConsumerState<HomePage> {
               height: size.height * 0.25,
               width: size.width,
               child: Image.asset(
-                'assets/images/1.jpeg',
+                'assets/images/laJoya.jpg',
                 fit: BoxFit.cover,
               ),
               // child: const Placeholder(),
@@ -59,8 +59,8 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 stops: const [
-                  0.2,
-                  0.5,
+                  0.3,
+                  0.6,
                   0.95,
                 ],
                 colors: [
@@ -275,14 +275,25 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                     //
                     GestureDetector(
                       onTap: () {
+                        // Navigator.push(
+                        //     context,
+                        //     PageRouteBuilder(
+                        //         pageBuilder: (_, animation, __) =>
+                        //             FadeTransition(
+                        //               opacity: animation,
+                        //               child: const Documents(),
+                        //             )));
+
                         Navigator.push(
                             context,
-                            PageRouteBuilder(
-                                pageBuilder: (_, animation, __) =>
-                                    FadeTransition(
-                                      opacity: animation,
-                                      child: const Documents(),
-                                    )));
+                            PageRouteAnimator(
+                              child: const Documents(),
+                              routeAnimation: RouteAnimation.rightToLeft,
+                              curve: Curves.easeInOut,
+                              duration: const Duration(milliseconds: 400),
+                              reverseDuration:
+                                  const Duration(milliseconds: 400),
+                            ));
                       },
                       child: Align(
                         child: Container(

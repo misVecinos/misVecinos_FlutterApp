@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mis_vecinos_app/ui/modules/documents/document_details.dart';
 import 'package:mis_vecinos_app/ui/modules/documents/widgets/kard.dart';
 
-import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
 import '../menu/menu.dart';
 
@@ -30,22 +28,7 @@ class _TransparencyState extends ConsumerState<Documents> {
             top: size.height * 0.05,
             right: size.height * 0.025),
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Documentos', style: t.title),
-              Builder(
-                builder: (context) {
-                  return GestureDetector(
-                      onTap: () {
-                        Scaffold.of(context).openEndDrawer();
-                      },
-                      child: SvgPicture.asset('assets/icons/svg/menu.svg',
-                          color: c.black));
-                },
-              ),
-            ],
-          ),
+          Text('Documentos', style: t.title),
           Text(
             'Últimos',
             style: t.messages,

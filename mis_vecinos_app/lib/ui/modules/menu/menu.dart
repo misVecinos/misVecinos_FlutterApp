@@ -92,44 +92,45 @@ class _VecinosPageState extends ConsumerState<MenuDrawer> {
                         ),
                       ),
                       //
-                      ListTile(
-                        onTap: () {},
-                        leading: SvgPicture.asset(
-                          'assets/icons/svg/news.svg',
-                          color: c.disabled,
-                          height: size.height * 0.03,
-                          width: size.height * 0.03,
-                        ),
-                        trailing: SvgPicture.asset(
-                          'assets/icons/svg/arrow-forward-ios.svg',
-                          color: c.disabled,
-                          height: size.height * 0.03,
-                          width: size.height * 0.03,
-                        ),
-                        title: Text(
-                          'Noticias',
-                          style: t.messages,
-                        ),
-                      ),
-                      ListTile(
-                        onTap: () {},
-                        leading: SvgPicture.asset(
-                          'assets/icons/svg/schedule.svg',
-                          color: c.disabled,
-                          height: size.height * 0.035,
-                          width: size.height * 0.035,
-                        ),
-                        trailing: SvgPicture.asset(
-                          'assets/icons/svg/arrow-forward-ios.svg',
-                          color: c.disabled,
-                          height: size.height * 0.03,
-                          width: size.height * 0.03,
-                        ),
-                        title: Text(
-                          'Agenda',
-                          style: t.messages,
-                        ),
-                      ),
+                      // ListTile(
+                      //   onTap: () {},
+                      //   leading: SvgPicture.asset(
+                      //     'assets/icons/svg/news.svg',
+                      //     color: c.disabled,
+                      //     height: size.height * 0.03,
+                      //     width: size.height * 0.03,
+                      //   ),
+                      //   trailing: SvgPicture.asset(
+                      //     'assets/icons/svg/arrow-forward-ios.svg',
+                      //     color: c.disabled,
+                      //     height: size.height * 0.03,
+                      //     width: size.height * 0.03,
+                      //   ),
+                      //   title: Text(
+                      //     'Noticias',
+                      //     style: t.messages,
+                      //   ),
+                      // ),
+                      // ListTile(
+                      //   onTap: () {},
+                      //   leading: SvgPicture.asset(
+                      //     'assets/icons/svg/schedule.svg',
+                      //     color: c.disabled,
+                      //     height: size.height * 0.035,
+                      //     width: size.height * 0.035,
+                      //   ),
+                      //   trailing: SvgPicture.asset(
+                      //     'assets/icons/svg/arrow-forward-ios.svg',
+                      //     color: c.disabled,
+                      //     height: size.height * 0.03,
+                      //     width: size.height * 0.03,
+                      //   ),
+                      //   title: Text(
+                      //     'Agenda',
+                      //     style: t.messages,
+                      //   ),
+                      // ),
+                      //--------------------------------------
                       // ListTile(
                       //   onTap: () {},
                       //   leading: SvgPicture.asset(
