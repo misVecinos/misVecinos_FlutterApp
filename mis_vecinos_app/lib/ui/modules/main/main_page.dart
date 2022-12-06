@@ -67,8 +67,8 @@ class _MainScreenState extends ConsumerState<MainPage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        // clipBehavior: Clip.hardEdge,
-        // shape: const CircularNotchedRectangle(),
+        clipBehavior: Clip.hardEdge,
+        shape: const CircularNotchedRectangle(),
         notchMargin: 10,
         child: _menu(state),
       ),

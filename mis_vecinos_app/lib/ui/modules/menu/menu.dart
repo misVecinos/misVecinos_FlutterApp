@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mis_vecinos_app/ui/modules/documents/documents.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
@@ -173,6 +174,28 @@ class _VecinosPageState extends ConsumerState<MenuDrawer> {
                       //   height: size.height * 0.05,
                       // ),
 
+                      ListTile(
+                        onTap: () {
+                          Scaffold.of(context).closeEndDrawer();
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const Documents();
+                          }));
+                        },
+                        leading: const Icon(
+                          Icons.document_scanner,
+                        ),
+                        trailing: SvgPicture.asset(
+                          'assets/icons/svg/arrow-forward-ios.svg',
+                          color: c.disabled,
+                          height: size.height * 0.03,
+                          width: size.height * 0.03,
+                        ),
+                        title: Text(
+                          'Documentos',
+                          style: t.messages,
+                        ),
+                      ),
                       ListTile(
                         onTap: () {
                           Scaffold.of(context).closeEndDrawer();

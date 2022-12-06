@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mis_vecinos_app/ui/modules/documents/documents.dart';
+import 'package:mis_vecinos_app/ui/modules/news/news_page.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/recycle_info.dart';
 import 'package:page_route_animator/page_route_animator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,6 +12,7 @@ import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
 import '../recycle/recycle.dart';
 import '../transparency/transparency.dart';
+import 'composta.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -22,6 +23,9 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _VecinosPageState extends ConsumerState<HomePage> {
   bool? recycle;
+  TextEditingController name = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController phone = TextEditingController();
 
   @override
   void initState() {
@@ -35,10 +39,18 @@ class _VecinosPageState extends ConsumerState<HomePage> {
   }
 
   @override
+  void dispose() {
+    name.dispose();
+    email.dispose();
+    phone.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return Column(
+    return ListView(
       children: [
         Stack(
           children: [
@@ -72,16 +84,17 @@ class _VecinosPageState extends ConsumerState<HomePage> {
             )
           ],
         ),
+
         //
         ListView(
           shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
           padding: EdgeInsets.only(
               left: size.height * 0.015, right: size.height * 0.015),
           children: [
             //
             Padding(
-              padding: EdgeInsets.only(
-                  top: size.height * 0.01, bottom: size.height * 0.007),
+              padding: EdgeInsets.only(top: 0, bottom: size.height * 0.007),
               child: Row(children: [
                 SvgPicture.asset(
                   'assets/icons/svg/round-home.svg',
@@ -98,7 +111,7 @@ class _VecinosPageState extends ConsumerState<HomePage> {
             //
             Padding(
               padding: EdgeInsets.only(
-                bottom: size.height * 0.04,
+                bottom: size.height * 0.015,
               ),
               child: Row(
                 children: [
@@ -193,7 +206,7 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                 //Comprobar si es primera ver que ingresa va a info
                 //Si no, va a recicle
 
-                if (recycle != true) {
+                if (recycle == true) {
                   // Navigator.push(
                   //     context,
                   //     PageRouteBuilder(
@@ -202,20 +215,20 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                   //               child: const RecycleInfo(),
                   //             )));
 
-                  Navigator.push(
+                  await Navigator.push(
                       context,
                       PageRouteAnimator(
-                        child: const RecycleInfo(),
+                        child: const Recycle(),
                         routeAnimation: RouteAnimation.rightToLeftWithFade,
                         curve: Curves.fastOutSlowIn,
-                        duration: const Duration(seconds: 1),
-                        reverseDuration: const Duration(seconds: 1),
+                        duration: const Duration(milliseconds: 400),
+                        reverseDuration: const Duration(milliseconds: 400),
                       ));
                 } else {
                   Navigator.push(
                       context,
                       PageRouteAnimator(
-                        child: const Recycle(),
+                        child: const RecycleInfo(),
                         routeAnimation: RouteAnimation.rightToLeftWithFade,
                         curve: Curves.fastOutSlowIn,
                         duration: const Duration(milliseconds: 400),
@@ -287,7 +300,7 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                         Navigator.push(
                             context,
                             PageRouteAnimator(
-                              child: const Documents(),
+                              child: const NewsPage(),
                               routeAnimation: RouteAnimation.rightToLeft,
                               curve: Curves.easeInOut,
                               duration: const Duration(milliseconds: 400),
@@ -323,7 +336,7 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('Documentos', style: t.subtitle),
+                                  Text('Noticias', style: t.subtitle),
                                   SvgPicture.asset(
                                       'assets/icons/svg/arrow-forward-ios.svg',
                                       color: c.black)
@@ -340,7 +353,45 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                   ],
                 ),
               ),
-            )
+            ),
+            //
+            GestureDetector(
+              onTap: () {
+                showCompostaMenu(
+                    context,
+                    size,
+                    name,
+                    phone,
+                    email,
+                    'Ingresa tu nombre completo: ',
+                    'Ingresa tu teléfono: ',
+                    'Ingresa tu correo electrónico: ');
+              },
+              child: Padding(
+                padding: EdgeInsets.only(
+                    top: size.height * 0.015, bottom: size.height * 0.06),
+                child: Align(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: const DecorationImage(
+                          image: AssetImage('assets/images/composta.jpg'),
+                          fit: BoxFit.cover),
+                      borderRadius: BorderRadius.circular(14),
+                      boxShadow: [
+                        BoxShadow(
+                            color: c.disabled.withOpacity(0.4),
+                            blurRadius: 20.0,
+                            offset: const Offset(1, 1))
+                      ],
+                      color: const Color(0xffFDFDFD),
+                    ),
+                    height: size.height * .09,
+                    width: size.width * .5,
+                  ),
+                ),
+              ),
+            ),
+            //
           ],
         ),
       ],

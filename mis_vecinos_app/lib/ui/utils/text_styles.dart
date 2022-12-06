@@ -21,6 +21,7 @@ abstract class IText {
   TextStyle get buttons;
   TextStyle get buttonBlue;
   TextStyle get buttonBlue2;
+  TextStyle get buttonDisabled;
   TextStyle get buttonCaution;
   TextStyle get buttonOK;
   TextStyle get buttonError;
@@ -145,6 +146,14 @@ class _TextStylesMain implements IText {
     fontSize: 18,
     fontWeight: FontWeight.bold,
     color: c.primary,
+  );
+
+  @override
+  TextStyle buttonDisabled = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+    color: c.disabled,
   );
 
   @override

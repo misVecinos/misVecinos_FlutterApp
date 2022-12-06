@@ -53,14 +53,17 @@ class _TransparencyState extends ConsumerState<Transparency> {
               maxWidth: size.width * 0.8,
               curve: Curves.easeIn,
               values: const [
-                77.1,
+                14.5,
+                62.6,
                 22.9,
               ],
               labels: const [
-                'Egresado',
+                'Pago jardineria',
+                'Pago vigilante',
                 'Acumulado Total',
               ],
               sliceFillColors: [
+                c.error.withOpacity(0.1),
                 c.error,
                 c.primary,
               ],
@@ -145,7 +148,7 @@ class _TransparencyState extends ConsumerState<Transparency> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Pago de jardineria:', style: t.messages),
-                Text('MXN \$1600.00', style: t.messagesRed),
+                Text('MXN \$1,600.00', style: t.messagesRed),
               ],
             ),
           ),

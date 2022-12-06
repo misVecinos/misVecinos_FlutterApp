@@ -41,6 +41,7 @@ dependencies:
   native_pdf_view: ^6.0.0+1
   shared_preferences: ^2.0.15
 
+  easy_image_viewer: ^1.2.0
   url_launcher: ^6.1.7
   smooth_page_indicator: ^1.0.0+2
   page_route_animator: ^1.0.3

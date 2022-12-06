@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mis_vecinos_app/ui/modules/documents/document_details.dart';
-import 'package:mis_vecinos_app/ui/modules/documents/widgets/kard.dart';
 
 import '../../utils/text_styles.dart';
-import '../menu/menu.dart';
+import 'document_details.dart';
+import 'widgets/kard.dart';
 
 class Documents extends ConsumerStatefulWidget {
   const Documents({super.key});
@@ -19,7 +18,6 @@ class _TransparencyState extends ConsumerState<Documents> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      endDrawer: const MenuDrawer(),
       drawerEnableOpenDragGesture: true,
       body: ListView(
         physics: const BouncingScrollPhysics(),
@@ -35,7 +33,7 @@ class _TransparencyState extends ConsumerState<Documents> {
           ),
           //
           SizedBox(
-            height: size.height * 0.05,
+            height: size.height * 0.03,
           ),
           GestureDetector(
               onTap: () {
@@ -46,14 +44,9 @@ class _TransparencyState extends ConsumerState<Documents> {
                               opacity: animation,
                               child: const DocumentDetails(),
                             )));
-                // Navigator.of(context)
-                //     .push(MaterialPageRoute(builder: (context) {
-                //   return const DocumentDetails();
-                // }));
               },
-              child: const Kard(
+              child: const KardDocument(
                   title: 'Reglamento', image: 'assets/icons/document.png'))
-          // const Divider(),
         ],
       ),
     );
