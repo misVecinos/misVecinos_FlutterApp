@@ -30,7 +30,7 @@ class _VecinosPageState extends ConsumerState<MenuDrawer> {
                 top: size.height * 0.1, left: size.width * 0.05),
             child: Container(
               height: size.height * 0.039,
-              width: size.width * 0.45,
+              width: size.width * 0.465,
               color: c.surface,
               child: FittedBox(
                 fit: BoxFit.fill,
@@ -227,14 +227,14 @@ class _VecinosPageState extends ConsumerState<MenuDrawer> {
               ],
             ),
           ),
-          const Spacer(),
-          Padding(
-            padding: EdgeInsets.all(size.height * 0.03),
-            child: Text(
-              'Versión: 0.0.1.1',
-              style: t.messages,
-            ),
-          ),
+          // const Spacer(),
+          // Padding(
+          //   padding: EdgeInsets.all(size.height * 0.03),
+          //   child: Text(
+          //     'Versión: 0.0.1.1',
+          //     style: t.messages,
+          //   ),
+          // ),
         ],
       ),
     );

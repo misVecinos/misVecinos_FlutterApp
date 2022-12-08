@@ -18,7 +18,9 @@ abstract class IText {
   TextStyle get messagesRed;
   TextStyle get messagesBlue;
   TextStyle get messagesBold;
+  TextStyle get messagesBlack;
   TextStyle get buttons;
+  TextStyle get buttonsBig;
   TextStyle get buttonBlue;
   TextStyle get buttonBlue2;
   TextStyle get buttonDisabled;
@@ -40,28 +42,28 @@ class _TextStylesMain implements IText {
   @override
   TextStyle title = TextStyle(
       fontFamily: 'Montserrat',
-      fontSize: 26,
+      fontSize: 24,
       fontWeight: FontWeight.bold,
       color: c.black);
 
   @override
   TextStyle titleLight = TextStyle(
       fontFamily: 'Montserrat',
-      fontSize: 26,
+      fontSize: 24,
       fontWeight: FontWeight.bold,
       color: c.onSecondary);
 
   @override
   TextStyle medium = TextStyle(
       fontFamily: 'Montserrat',
-      fontSize: 24,
+      fontSize: 22,
       fontWeight: FontWeight.bold,
       color: c.black);
 
   @override
   TextStyle mediumLight = TextStyle(
       fontFamily: 'Montserrat',
-      fontSize: 24,
+      fontSize: 22,
       fontWeight: FontWeight.bold,
       color: c.onSecondary);
 
@@ -69,7 +71,7 @@ class _TextStylesMain implements IText {
   TextStyle paragraph = TextStyle(
     fontFamily: 'Montserrat',
     fontWeight: FontWeight.bold,
-    fontSize: 16,
+    fontSize: 14,
     color: c.black,
   );
 
@@ -77,49 +79,56 @@ class _TextStylesMain implements IText {
   TextStyle subtitle = TextStyle(
     fontFamily: 'Montserrat',
     fontWeight: FontWeight.bold,
-    fontSize: 20,
+    fontSize: 18,
     color: c.black,
   );
 
   @override
   TextStyle messages = TextStyle(
     fontFamily: 'Montserrat',
-    fontSize: 16,
+    fontSize: 14,
     color: c.disabled,
   );
 
   @override
   TextStyle messagesLight = TextStyle(
     fontFamily: 'Montserrat',
-    fontSize: 16,
+    fontSize: 14,
     color: c.onSecondary,
   );
 
   @override
   TextStyle messagesBold = TextStyle(
     fontFamily: 'Montserrat',
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.bold,
     color: c.black,
   );
+
+  @override
+  TextStyle messagesBlack = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 14,
+    color: c.black,
+  );
+
   @override
   TextStyle messagesBlue = TextStyle(
     fontFamily: 'Montserrat',
-    fontSize: 16,
-    fontWeight: FontWeight.bold,
+    fontSize: 14,
     color: c.primary,
   );
   @override
   TextStyle messagesRed = TextStyle(
     fontFamily: 'Montserrat',
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.bold,
     color: c.error,
   );
   @override
   TextStyle messagesGreen = TextStyle(
     fontFamily: 'Montserrat',
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.bold,
     color: c.OK,
   );
@@ -127,7 +136,15 @@ class _TextStylesMain implements IText {
   @override
   TextStyle buttons = TextStyle(
     fontFamily: 'Montserrat',
-    fontSize: 16,
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: c.onSecondary,
+  );
+
+  @override
+  TextStyle buttonsBig = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 24,
     fontWeight: FontWeight.bold,
     color: c.onSecondary,
   );
@@ -135,7 +152,7 @@ class _TextStylesMain implements IText {
   @override
   TextStyle buttonBlue = TextStyle(
     fontFamily: 'Montserrat',
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: FontWeight.bold,
     color: c.primary,
   );
@@ -143,7 +160,7 @@ class _TextStylesMain implements IText {
   @override
   TextStyle buttonBlue2 = TextStyle(
     fontFamily: 'Montserrat',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: FontWeight.bold,
     color: c.primary,
   );
@@ -151,7 +168,7 @@ class _TextStylesMain implements IText {
   @override
   TextStyle buttonDisabled = TextStyle(
     fontFamily: 'Montserrat',
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: FontWeight.bold,
     color: c.disabled,
   );
@@ -159,7 +176,7 @@ class _TextStylesMain implements IText {
   @override
   TextStyle buttonCaution = TextStyle(
     fontFamily: 'Montserrat',
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: FontWeight.bold,
     color: c.caution,
   );
@@ -167,7 +184,7 @@ class _TextStylesMain implements IText {
   @override
   TextStyle buttonError = TextStyle(
     fontFamily: 'Montserrat',
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: FontWeight.bold,
     color: c.error,
   );
@@ -175,16 +192,16 @@ class _TextStylesMain implements IText {
   @override
   TextStyle buttonOK = TextStyle(
     fontFamily: 'Montserrat',
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: FontWeight.bold,
     color: c.OK,
   );
 
   @override
   TextStyle link =
-      TextStyle(fontFamily: 'Montserrat', fontSize: 16, color: c.primary);
+      TextStyle(fontFamily: 'Montserrat', fontSize: 14, color: c.primary);
 
   @override
   TextStyle terms =
-      TextStyle(fontFamily: 'Montserrat', fontSize: 14, color: c.disabled);
+      TextStyle(fontFamily: 'Montserrat', fontSize: 12, color: c.disabled);
 }

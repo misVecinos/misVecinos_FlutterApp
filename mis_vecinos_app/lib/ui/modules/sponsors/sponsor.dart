@@ -5,29 +5,39 @@ import 'package:lottie/lottie.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
-import 'cotroller.dart';
+import '../home/cotroller.dart';
 
-showCompostaMenu(
-  BuildContext context,
-  Size size,
-  TextEditingController name,
-  TextEditingController phone,
-  TextEditingController email,
-  String nameLabel,
-  String phoneLabel,
-  String emailLabel,
-) async {
-  await showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-      builder: (context) {
-        return GestureDetector(
-          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-          child: Consumer(
-            builder: (context, ref, child) {
-              return Padding(
+class Sponsors extends ConsumerStatefulWidget {
+  const Sponsors({super.key});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _SponsorsState();
+}
+
+class _SponsorsState extends ConsumerState<Sponsors> {
+  TextEditingController name = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController phone = TextEditingController();
+
+  @override
+  void dispose() {
+    name.dispose();
+    email.dispose();
+    phone.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: ListView(
+        children: [
+          GestureDetector(
+              onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+              child: Padding(
                   padding: EdgeInsets.only(
                       bottom: MediaQuery.of(context).viewInsets.bottom),
                   child: ref.watch(valid) == false
@@ -38,10 +48,18 @@ showCompostaMenu(
                             SizedBox(
                               height: size.height * 0.02,
                             ),
-                            Center(
-                              child:
-                                  Text('Hagamos composta. ', style: t.subtitle),
+                            SizedBox(
+                              height: size.height * 0.2,
+                              width: size.width,
+                              child: Image.asset(
+                                'assets/images/composta.jpg',
+                                fit: BoxFit.cover,
+                              ),
                             ),
+                            // Center(
+                            //   child:
+                            //       Text('Hagamos composta. ', style: t.subtitle),
+                            // ),
                             SizedBox(
                               height: size.height * 0.02,
                             ),
@@ -52,6 +70,8 @@ showCompostaMenu(
                                     right: size.height * 0.02),
                                 child: Text(
                                   'Unete a nuestro movimiento. Ingresa tus datos y te contactaremos para más información.',
+                                  maxLines: 4,
+                                  overflow: TextOverflow.ellipsis,
                                   style: t.messages,
                                 ),
                               ),
@@ -59,9 +79,9 @@ showCompostaMenu(
                             SizedBox(
                               height: size.height * 0.02,
                             ),
-                            txtField(size, name, nameLabel, 'name.svg'),
-                            txtField(size, phone, phoneLabel, 'whatsapp.svg'),
-                            txtField(size, email, emailLabel, ''),
+                            txtField(size, name, 'Nombre completo', 'name.svg'),
+                            txtField(size, phone, 'Teléfono', 'whatsapp.svg'),
+                            txtField(size, email, 'Email', ''),
                             const SizedBox(
                               height: 20,
                             ),
@@ -75,6 +95,20 @@ showCompostaMenu(
                       : Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            SizedBox(
+                              height: size.height * 0.02,
+                            ),
+                            SizedBox(
+                              height: size.height * 0.2,
+                              width: size.width,
+                              child: Image.asset(
+                                'assets/images/composta.jpg',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            SizedBox(
+                              height: size.height * 0.02,
+                            ),
                             SizedBox(
                               height: size.height * 0.02,
                             ),
@@ -107,11 +141,11 @@ showCompostaMenu(
                               height: size.height * 0.08,
                             ),
                           ],
-                        ));
-            },
-          ),
-        );
-      });
+                        )))
+        ],
+      ),
+    );
+  }
 }
 
 Widget txtField(

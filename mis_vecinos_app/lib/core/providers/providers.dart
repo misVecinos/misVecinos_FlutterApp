@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../modules/news/service.dart';
 import '../modules/pagos/repository.dart';
 import '../modules/pagos/service.dart';
+import '../modules/vecinos/service.dart';
 
 final pagosRepositoryProvider = Provider<PagosRepository>((ref) {
   return PagosRepository();
@@ -14,4 +15,8 @@ final pagosServiceProvider = Provider<PagosService>((ref) {
 
 final newsServiceProvider = Provider<NewsService>((ref) {
   return NewsService();
+});
+
+final vecinoServiceProvider = Provider<VecinoService>((ref) {
+  return VecinoService();
 });

@@ -31,7 +31,7 @@ class MiniCard extends StatelessWidget {
         ],
         color: const Color(0xffFDFDFD),
       ),
-      height: size.height * .215,
+      height: size.height * .18,
       width: size.width * .28,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -39,7 +39,7 @@ class MiniCard extends StatelessWidget {
         children: [
           Image.asset(
             'assets/icons/$asset',
-            height: size.height * .1,
+            height: size.height * .08,
             width: size.width * .25,
           ),
           Text(title,
@@ -47,7 +47,11 @@ class MiniCard extends StatelessWidget {
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis),
-          Text(number, style: style),
+          Text(number,
+              style: style,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis),
         ],
       ),
     );

@@ -41,9 +41,9 @@ String toParagraphs(String description) {
 
   for (int i = 0; i < splited.length; i++) {
     if (splited[i].characters.contains('.')) {
-      mainList.insert(i, '.\n\n');
+      mainList.insert(i, '\n\n');
     } else {
-      mainList.add(splited[i]);
+      mainList.add(splited[i + 1]);
     }
   }
 

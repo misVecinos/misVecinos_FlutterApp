@@ -51,47 +51,44 @@ Widget _newsImage(Size size, BuildContext context, New mainNew) {
           ),
         ),
         //
-        ClipRRect(
-          borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(30),
-              bottomRight: Radius.circular(30)),
-          child: Container(
-            height: size.height * 0.45,
-            width: size.height * 0.6,
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: const [
-                0.3,
-                0.9,
-              ],
-              colors: [
-                c.surface,
-                c.secondary,
-              ],
-            )),
-            child: Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: size.height * 0.014),
-                    child: Text(
-                      mainNew.titulo,
-                      style: t.title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+        Container(
+          height: size.height * 0.46,
+          width: size.height * 0.6,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: const [
+              0.3,
+              0.6,
+              0.9,
+            ],
+            colors: [
+              c.surface,
+              c.secondary.withOpacity(0.5),
+              c.secondary,
+            ],
+          )),
+          child: Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(bottom: size.height * 0.014),
+                  child: Text(
+                    mainNew.titulo,
+                    style: t.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  Text(
-                    date(mainNew.fechaCreacion),
-                    style: t.messagesBlue,
-                  )
-                ],
-              ),
+                ),
+                Text(
+                  date(mainNew.fechaCreacion),
+                  style: t.messagesBlue,
+                )
+              ],
             ),
           ),
         ),
@@ -145,7 +142,7 @@ Widget _content(New news, BuildContext context) {
     padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
     child: Text(
       toParagraphs(news.noticia),
-      style: t.messages,
+      style: t.messagesBlack,
     ),
   );
 }

@@ -28,13 +28,14 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     super.initState();
 
     controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 3000));
+        vsync: this, duration: const Duration(milliseconds: 2000));
     controller.stop();
 
-    final animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
-    scaleAnimation = Tween<double>(begin: 1.8, end: 900).animate(animation);
+    final animation =
+        CurvedAnimation(parent: controller, curve: Curves.easeInOutCubic);
+    scaleAnimation = Tween<double>(begin: 2.5, end: 900).animate(animation);
 
-    Future.delayed(const Duration(milliseconds: 5000)).whenComplete(() {
+    Future.delayed(const Duration(milliseconds: 4500)).whenComplete(() {
       //  ref.watch(color) == false
       ref.read(color.notifier).forward();
       controller.forward();
@@ -45,9 +46,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       final prefs = await SharedPreferences.getInstance();
       final bool? session = prefs.getBool('isLogged');
 
-      Future.delayed(const Duration(milliseconds: 7000)).whenComplete(() async {
+      Future.delayed(const Duration(milliseconds: 5100)).whenComplete(() async {
         if (session != true) {
-          Navigator.pushReplacement(
+          await Navigator.pushReplacement(
               context,
               PageRouteBuilder(
                   pageBuilder: (_, animation, __) => FadeTransition(
@@ -55,7 +56,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                         child: const LoginPage(),
                       )));
         } else {
-          Navigator.pushReplacement(
+          await Navigator.pushReplacement(
               context,
               PageRouteBuilder(
                   pageBuilder: (_, animation, __) => FadeTransition(

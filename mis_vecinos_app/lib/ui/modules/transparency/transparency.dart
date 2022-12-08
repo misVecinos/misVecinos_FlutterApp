@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_circle_chart/flutter_circle_chart.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:multi_charts/multi_charts.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
@@ -39,37 +39,58 @@ class _TransparencyState extends ConsumerState<Transparency> {
           SizedBox(
             height: size.height * 0.04,
           ),
-          Container(
-            color: c.surface,
-            height: size.height * 0.25,
-            width: size.width * 0.8,
-            child: PieChart(
-              separateFocusedValue: true,
-              textScaleFactor: 0.06,
-              legendPosition: LegendPosition.Left,
-              legendTextSize: 10,
-              legendItemPadding: const EdgeInsets.all(2),
-              maxHeight: size.height * 0.1,
-              maxWidth: size.width * 0.8,
-              curve: Curves.easeIn,
-              values: const [
-                14.5,
-                62.6,
-                22.9,
+
+          CircleChart(
+              items: [
+                CircleChartItemData(
+                    color: c.error.withOpacity(0.5),
+                    value: 14.5,
+                    name: 'Pago de Jardineria',
+                    description: 'Pago por la limpieza de jardineria.'),
+                CircleChartItemData(
+                    color: c.error,
+                    value: 62.6,
+                    name: 'Pago de Jardineria',
+                    description: 'Pago por la limpieza de jardineria.'),
+                CircleChartItemData(
+                    color: c.primary,
+                    value: 22.9,
+                    name: 'Pago de Jardineria',
+                    description: 'Pago por la limpieza de jardineria.'),
               ],
-              labels: const [
-                'Pago jardineria',
-                'Pago vigilante',
-                'Acumulado Total',
-              ],
-              sliceFillColors: [
-                c.error.withOpacity(0.1),
-                c.error,
-                c.primary,
-              ],
-              animationDuration: const Duration(milliseconds: 1500),
-            ),
-          ),
+              backgroundColor: c.disabled.withOpacity(0.5),
+              chartType: CircleChartType.solid),
+          // Container(
+          //   color: c.OK,
+          //   height: size.height * 0.2,
+          //   width: size.width * 0.8,
+          //   child: PieChart(
+          //     separateFocusedValue: true,
+          //     textScaleFactor: 0.06,
+          //     legendPosition: LegendPosition.Left,
+          //     legendTextSize: 10,
+          //     legendItemPadding: const EdgeInsets.all(2),
+          //     maxHeight: size.height * 0.1,
+          //     maxWidth: size.width * 0.8,
+          //     curve: Curves.easeIn,
+          //     values: const [
+          //       14.5,
+          //       62.6,
+          //       22.9,
+          //     ],
+          //     labels: const [
+          //       'Pago jardineria',
+          //       'Pago vigilante',
+          //       'Acumulado Total',
+          //     ],
+          //     sliceFillColors: [
+          //       c.error.withOpacity(0.1),
+          //       c.error,
+          //       c.primary,
+          //     ],
+          //     animationDuration: const Duration(milliseconds: 1500),
+          //   ),
+          // ),
 
           SizedBox(
             height: size.height * 0.04,
@@ -86,8 +107,19 @@ class _TransparencyState extends ConsumerState<Transparency> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Recoleccion de Reciduos:', style: t.messages),
-                Text('MXN \$20.0', style: t.messagesGreen),
+                Container(
+                  //height: size.height * 0.04,
+                  width: size.width * 0.6,
+                  color: c.surface,
+                  child:
+                      Text('Recoleccion de Reciduos:', style: t.messagesBlack),
+                ),
+                const Spacer(),
+                Container(
+                    //height: size.height * 0.04,
+                    width: size.width * 0.25,
+                    color: c.surface,
+                    child: Text('MXN \$20.00', style: t.messagesGreen)),
               ],
             ),
           ),
@@ -97,8 +129,18 @@ class _TransparencyState extends ConsumerState<Transparency> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Mantenimiento individual:', style: t.messages),
-                Text('MXN \$200.0', style: t.messagesGreen),
+                Container(
+                    //height: size.height * 0.04,
+                    width: size.width * 0.55,
+                    color: c.surface,
+                    child: Text('Mantenimiento individual:',
+                        style: t.messagesBlack)),
+                const Spacer(),
+                Container(
+                    //height: size.height * 0.04,
+                    width: size.width * 0.25,
+                    color: c.surface,
+                    child: Text('MXN \$200.0', style: t.messagesGreen)),
               ],
             ),
           ),
@@ -108,8 +150,18 @@ class _TransparencyState extends ConsumerState<Transparency> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Total Mantenimiento:', style: t.messages),
-                Text('MXN \$11,000.00', style: t.messagesGreen),
+                Container(
+                    //height: size.height * 0.04,
+                    width: size.width * 0.45,
+                    color: c.surface,
+                    child:
+                        Text('Total Mantenimiento:', style: t.messagesBlack)),
+                const Spacer(),
+                Container(
+                    //height: size.height * 0.04,
+                    width: size.width * 0.3,
+                    color: c.surface,
+                    child: Text('MXN \$11,000.00', style: t.messagesGreen)),
               ],
             ),
           ),
@@ -119,8 +171,18 @@ class _TransparencyState extends ConsumerState<Transparency> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Remanente de mes anterior:', style: t.messages),
-                Text('MXN \$0.00', style: t.messagesGreen),
+                Container(
+                    //height: size.height * 0.04,
+                    width: size.width * 0.55,
+                    color: c.surface,
+                    child: Text('Remanente de mes anterior:',
+                        style: t.messagesBlack)),
+                const Spacer(),
+                Container(
+                    //height: size.height * 0.04,
+                    width: size.width * 0.25,
+                    color: c.surface,
+                    child: Text('MXN \$0.00', style: t.messagesGreen)),
               ],
             ),
           ),
@@ -131,8 +193,17 @@ class _TransparencyState extends ConsumerState<Transparency> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Total ingresado:', style: t.messages),
-                Text('MXN \$11,020.00', style: t.messagesGreen),
+                Container(
+                    //height: size.height * 0.04,
+                    width: size.width * 0.4,
+                    color: c.surface,
+                    child: Text('Total ingresado:', style: t.messagesBlack)),
+                const Spacer(),
+                Container(
+                    //height: size.height * 0.04,
+                    width: size.width * 0.3,
+                    color: c.surface,
+                    child: Text('MXN \$11,020.00', style: t.messagesGreen)),
               ],
             ),
           ),
@@ -147,8 +218,16 @@ class _TransparencyState extends ConsumerState<Transparency> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Pago de jardineria:', style: t.messages),
-                Text('MXN \$1,600.00', style: t.messagesRed),
+                Container(
+                    //height: size.height * 0.04,
+                    width: size.width * 0.4,
+                    color: c.surface,
+                    child: Text('Pago de jardineria:', style: t.messagesBlack)),
+                Container(
+                    //height: size.height * 0.04,
+                    width: size.width * 0.3,
+                    color: c.surface,
+                    child: Text('MXN \$1,600.00', style: t.messagesRed)),
               ],
             ),
           ),
@@ -158,8 +237,16 @@ class _TransparencyState extends ConsumerState<Transparency> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Pago de vigilante:', style: t.messages),
-                Text('MXN \$6,900.00', style: t.messagesRed),
+                Container(
+                    //height: size.height * 0.04,
+                    width: size.width * 0.4,
+                    color: c.surface,
+                    child: Text('Pago de vigilante:', style: t.messagesBlack)),
+                Container(
+                    //height: size.height * 0.04,
+                    width: size.width * 0.3,
+                    color: c.surface,
+                    child: Text('MXN \$6,900.00', style: t.messagesRed)),
               ],
             ),
           ),
@@ -170,12 +257,19 @@ class _TransparencyState extends ConsumerState<Transparency> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Total egresado:', style: t.messages),
-                Text('MXN \$8,500.00', style: t.messagesRed),
+                Container(
+                    //height: size.height * 0.04,
+                    width: size.width * 0.4,
+                    color: c.surface,
+                    child: Text('Total egresado:', style: t.messagesBlack)),
+                Container(
+                    //height: size.height * 0.04,
+                    width: size.width * 0.3,
+                    color: c.surface,
+                    child: Text('MXN \$8,500.00', style: t.messagesRed)),
               ],
             ),
           ),
-          const Divider(),
           const Divider(),
           Padding(
             padding: EdgeInsets.only(
@@ -183,12 +277,23 @@ class _TransparencyState extends ConsumerState<Transparency> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Saldo Acomulado Total:', style: t.messages),
-                Text('MXN \$2,520.00', style: t.messagesBlue),
+                Container(
+                    //height: size.height * 0.04,
+                    width: size.width * 0.5,
+                    color: c.surface,
+                    child:
+                        Text('Saldo Acomulado Total:', style: t.messagesBlack)),
+                Container(
+                    //height: size.height * 0.04,
+                    width: size.width * 0.3,
+                    color: c.surface,
+                    child: Text('MXN \$2,520.00', style: t.messagesBlue)),
               ],
             ),
           ),
           const Divider(),
+
+          SizedBox(height: size.height * 0.1)
         ],
       ),
     );

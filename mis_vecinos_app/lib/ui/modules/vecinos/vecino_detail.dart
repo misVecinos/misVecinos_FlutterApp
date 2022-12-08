@@ -131,7 +131,7 @@ class VecinoDetail extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Total de Trabajadores:',
+                        'Trabajadores:',
                         style: t.messages,
                       ),
                       Text(
@@ -163,7 +163,7 @@ class VecinoDetail extends StatelessWidget {
                         style: t.messages,
                       ),
                       Text(
-                        '${vecino.horaEntrada}AM - ${vecino.horaSalida}PM',
+                        '${vecino.horaEntrada.hour}AM - ${vecino.horaSalida.hour}PM',
                         style: t.messages,
                       ),
                     ],

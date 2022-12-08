@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
+import '../privacity/privacity.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
@@ -115,7 +116,32 @@ class _TransparencyState extends ConsumerState<SettingsPage> {
               ),
             ),
           ),
-        )
+        ),
+        //
+        Center(
+          child: TextButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const TermsScreen();
+              }));
+            },
+            child: Text(
+              'Lee Nuestro Aviso de Privacidad',
+              style: t.terms,
+            ),
+          ),
+        ),
+        //
+        const Spacer(),
+        Padding(
+          padding: EdgeInsets.all(size.height * 0.03),
+          child: Text(
+            'Versión: 0.0.1.1',
+            style: t.messages,
+          ),
+        ),
+        //
+        //
         //
       ],
     ));
@@ -134,15 +160,16 @@ class _TransparencyState extends ConsumerState<SettingsPage> {
             actions: [
               TextButton(
                 onPressed: () async {
+                  await Navigator.of(context)
+                      .pushReplacement(MaterialPageRoute(builder: (context) {
+                    return const LoginPage();
+                  }));
+
                   WidgetsBinding.instance.addPostFrameCallback((_) async {
                     final prefs = await SharedPreferences.getInstance();
                     await prefs.setBool('isLogged', false);
                     await prefs.setBool('isRecycing', false);
                   });
-                  Navigator.of(context)
-                      .pushReplacement(MaterialPageRoute(builder: (context) {
-                    return const LoginPage();
-                  }));
                 },
                 child: Text(
                   'Cerrar Sesión',

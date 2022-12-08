@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mis_vecinos_app/ui/modules/alert/alert_message.dart';
 import 'package:mis_vecinos_app/ui/modules/home/home_page.dart';
 import 'package:mis_vecinos_app/ui/modules/menu/menu.dart';
 import 'package:mis_vecinos_app/ui/modules/pagos/pagos.dart';
 import 'package:mis_vecinos_app/ui/modules/vecinos/vecinos.dart';
 
 import '../../utils/colors.dart';
-import '../alert/alert.dart';
 import 'controller.dart';
 import 'pages.dart';
 import 'state.dart';
@@ -61,7 +61,7 @@ class _MainScreenState extends ConsumerState<MainPage> {
         ),
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return const AlertPage();
+            return const AlertMessage();
           }));
         },
       ),
@@ -110,7 +110,7 @@ class _MainScreenState extends ConsumerState<MainPage> {
               onTap: () => ref.read(mainController.notifier).setSelectedPage(1),
               child: _icons(
                   'assets/icons/svg/houses.svg',
-                  'Vecinos',
+                  'Servicios',
                   state,
                   ref.watch(mainController).currentPage.page == Pages.vecinos
                       ? c.primary

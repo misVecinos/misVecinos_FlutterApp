@@ -19,7 +19,7 @@ class Kard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: size.height * 0.018),
       child: Container(
-        height: size.height * .14,
+        height: size.height * .125,
         width: size.width * .9,
         color: c.surface,
         child: Row(

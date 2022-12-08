@@ -76,35 +76,41 @@ class _VecinosPageState extends ConsumerState<PagosPage> {
               ],
             ),
             const Divider(thickness: 1),
-            SizedBox(
-              height: size.height * 0.05,
+
+            Container(
+              color: c.surface,
+              height: size.height * 0.3,
+              width: size.width,
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: PieChart(
+                  // maxHeight: size.height * 0.2,
+                  maxWidth: size.width,
+                  separateFocusedValue: false,
+                  legendItemPadding: const EdgeInsets.all(0),
+                  textScaleFactor: 0.06,
+                  legendTextSize: 15,
+                  curve: Curves.easeIn,
+                  showLegend: true,
+                  values: const [74, 3.8, 22.2],
+                  labels: const [
+                    'Al corriente',
+                    'Adeudo',
+                    'Adeudo 2m',
+                  ],
+                  sliceFillColors: [
+                    c.OK,
+                    c.caution,
+                    c.error,
+                  ],
+                  animationDuration: const Duration(seconds: 2),
+                  legendPosition: LegendPosition.Right,
+                ),
+              ),
             ),
 
-            PieChart(
-              separateFocusedValue: true,
-              textScaleFactor: 0.06,
-              legendTextSize: 10,
-              maxHeight: size.height * 0.25,
-              maxWidth: size.height * 0.1,
-              curve: Curves.easeIn,
-              showLegend: true,
-              values: const [74, 3.8, 22.2],
-              labels: const [
-                'Al corriente',
-                'Adeudo',
-                'Adeudo 2m',
-              ],
-              sliceFillColors: [
-                c.OK,
-                c.caution,
-                c.error,
-              ],
-              animationDuration: const Duration(seconds: 2),
-              legendPosition: LegendPosition.Right,
-            ),
-
             SizedBox(
-              height: size.height * 0.05,
+              height: size.height * 0.03,
             ),
             //
             Row(
@@ -128,7 +134,7 @@ class _VecinosPageState extends ConsumerState<PagosPage> {
               ],
             ),
             SizedBox(
-              height: size.height * 0.03,
+              height: size.height * 0.01,
             ),
             //
             Align(

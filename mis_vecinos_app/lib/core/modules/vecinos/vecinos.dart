@@ -6,8 +6,8 @@ class NegocioVecino {
   final String imagenEncargado;
   final String encargadoPrincipal;
   final int totalTrabajadores;
-  final double horaEntrada;
-  final double horaSalida;
+  final DateTime horaEntrada;
+  final DateTime horaSalida;
   final String direccion;
   final int telefono;
 

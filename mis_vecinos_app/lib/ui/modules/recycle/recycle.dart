@@ -32,10 +32,38 @@ class _TransparencyState extends ConsumerState<Recycle> {
     ];
 
     return Scaffold(
-        body: Stack(
+        body: ListView(
+      padding: EdgeInsets.only(
+          left: size.height * 0.025,
+          top: size.height * 0.05,
+          right: size.height * 0.025),
       children: [
-        Padding(
-          padding: EdgeInsets.only(top: size.height * 0.135),
+        Text(
+          '¿Que reciclarás? ',
+          style: t.title,
+        ),
+        SizedBox(
+          height: size.height * 0.01,
+        ),
+        Text(
+          '¡Ayudemos al planeta! \nEs importante que reciclemos nuestra basura si es posible.',
+          style: t.messages,
+        ),
+        SizedBox(
+          height: size.height * 0.01,
+        ),
+        Text(
+          'Elige una de las opciones para reciclar:',
+          style: t.messagesBlack,
+        ),
+
+        SizedBox(
+          height: size.height * 0.05,
+        ),
+        Container(
+          color: c.surface,
+          height: size.height * 0.5,
+          width: size.width,
           child: PageView.builder(
             controller: controller,
             pageSnapping: true,
@@ -49,7 +77,7 @@ class _TransparencyState extends ConsumerState<Recycle> {
                   child: InkWell(
                     borderRadius: BorderRadius.circular(14),
                     onTap: () {
-                      showBottomMenu(index, context, ref);
+                      showBottomMenu(index, context, ref, size);
                     },
                     child: Ink(
                       height: size.height * 0.48,
@@ -67,27 +95,11 @@ class _TransparencyState extends ConsumerState<Recycle> {
             },
           ),
         ),
-        Padding(
-          padding: EdgeInsets.only(
-              left: size.height * 0.03, top: size.height * 0.08),
-          child: Text(
-            '¿Que reciclarás? ',
-            style: t.title,
-          ),
+
+        SizedBox(
+          height: size.height * 0.01,
         ),
-        Padding(
-          padding: EdgeInsets.only(
-              left: size.height * 0.03,
-              right: size.height * 0.03,
-              top: size.height * 0.135),
-          child: Text(
-            '¡Ayudemos al planeta! \nEs importante que reciclemos nuestra basura si es posible. \n\nElige una de las opciones para reciclar:',
-            style: t.messages,
-          ),
-        ),
-        Padding(
-          padding:
-              EdgeInsets.only(left: size.height * 0.23, top: size.height * 0.9),
+        Center(
           child: SmoothPageIndicator(
               controller: controller,
               count: 2,
@@ -97,26 +109,33 @@ class _TransparencyState extends ConsumerState<Recycle> {
                   dotHeight: size.height * 0.014,
                   dotWidth: size.height * 0.014)),
         ),
-        Padding(
-            padding: EdgeInsets.only(
-                left: size.height * 0.36, top: size.height * 0.88),
-            child: TextButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const RecycleDetails();
-                }));
-              },
-              child: Text(
-                'Historial',
-                style: t.buttonBlue2,
-              ),
-            )),
+        //
+
+        SizedBox(
+          height: size.height * 0.05,
+        ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: TextButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const RecycleDetails();
+              }));
+            },
+            child: Text(
+              'Historial',
+              style: t.buttonBlue2,
+            ),
+          ),
+        ),
+        //
       ],
     ));
   }
 }
 
-showBottomMenu(int index, BuildContext context, WidgetRef ref) async {
+showBottomMenu(
+    int index, BuildContext context, WidgetRef ref, Size size) async {
   await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -129,8 +148,8 @@ showBottomMenu(int index, BuildContext context, WidgetRef ref) async {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: size.height * 0.015,
                 ),
                 Center(
                   child: Text(index == 0 ? 'PET' : 'Aluminio',
@@ -143,8 +162,8 @@ showBottomMenu(int index, BuildContext context, WidgetRef ref) async {
                     style: t.title,
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
+                SizedBox(
+                  height: size.height * 0.015,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -195,16 +214,14 @@ showBottomMenu(int index, BuildContext context, WidgetRef ref) async {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+
                 //
                 ref.watch(index == 0 ? indexPET : indexAluminium) > 0
                     ? buton(context, index)
                     : butonDisabled(context),
                 //
-                const SizedBox(
-                  height: 30,
+                SizedBox(
+                  height: size.height * 0.05,
                 ),
               ],
             );

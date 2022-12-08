@@ -266,7 +266,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   validateForm();
                 },
                 child: Text(
-                  'Entra',
+                  'Ingresar',
                   style: t.buttons,
                 )),
           ),
@@ -276,8 +276,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
   }
 
   validateForm() {
-    final size = MediaQuery.of(context).size;
-
     if ((ref.watch(userAuth) == true && ref.watch(passAuth) == true)) {
       ref.read(loading.notifier).ok();
       Future.delayed(const Duration(milliseconds: 1200)).whenComplete(() {
@@ -287,21 +285,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         email.clear();
         password.clear();
         ref.read(loading.notifier).dispose();
-
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          duration: const Duration(seconds: 3),
-          elevation: 0,
-          dismissDirection: DismissDirection.startToEnd,
-          backgroundColor: c.secondary,
-          content: Text('Bienvenid@ de nuevo!', style: t.buttonBlue2),
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          margin: EdgeInsets.only(
-            bottom: size.height * 0.04,
-            right: size.height * 0.025,
-            left: size.height * 0.025,
-          ),
-        ));
 
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
