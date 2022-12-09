@@ -124,7 +124,7 @@ class _MainScreenState extends ConsumerState<MainPage> {
                   onTap: () {
                     Scaffold.of(context).openEndDrawer();
                   },
-                  child: _icons('assets/icons/svg/menu.svg', 'Menu', state,
+                  child: _icons('assets/icons/svg/menu.svg', 'Menú', state,
                       ref.watch(menu) == true ? c.primary : c.disabled));
             },
           ),

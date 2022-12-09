@@ -322,7 +322,7 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                                   padding: EdgeInsets.only(
                                       left: size.width * 0.05,
                                       right: size.width * 0.05),
-                                  child: Text('1 sin Leer.',
+                                  child: Text('1 sin leer.',
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: t.messages),
