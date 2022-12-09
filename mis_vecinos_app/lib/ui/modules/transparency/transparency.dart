@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_circle_chart/flutter_circle_chart.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
@@ -31,35 +32,24 @@ class _TransparencyState extends ConsumerState<Transparency> {
             top: size.height * 0.05,
             right: size.height * 0.025),
         children: [
-          Text('Transparencia', style: t.title),
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: SvgPicture.asset('assets/icons/svg/arrow-back-ios.svg',
+                    height: size.height * 0.025),
+              ),
+              SizedBox(width: size.width * 0.01),
+              Text('Transparencia', style: t.title),
+            ],
+          ),
           Text(
             'Mes de Noviembre',
             style: t.messages,
           ),
-          SizedBox(
-            height: size.height * 0.04,
-          ),
 
-          CircleChart(
-              items: [
-                CircleChartItemData(
-                    color: c.error.withOpacity(0.5),
-                    value: 14.5,
-                    name: 'Pago de Jardineria',
-                    description: 'Pago por la limpieza de jardineria.'),
-                CircleChartItemData(
-                    color: c.error,
-                    value: 62.6,
-                    name: 'Pago de Jardineria',
-                    description: 'Pago por la limpieza de jardineria.'),
-                CircleChartItemData(
-                    color: c.primary,
-                    value: 22.9,
-                    name: 'Pago de Jardineria',
-                    description: 'Pago por la limpieza de jardineria.'),
-              ],
-              backgroundColor: c.disabled.withOpacity(0.5),
-              chartType: CircleChartType.solid),
           // Container(
           //   color: c.OK,
           //   height: size.height * 0.2,
@@ -292,6 +282,27 @@ class _TransparencyState extends ConsumerState<Transparency> {
             ),
           ),
           const Divider(),
+
+          CircleChart(
+              items: [
+                CircleChartItemData(
+                    color: c.error.withOpacity(0.5),
+                    value: 14.5,
+                    name: 'Pago de Jardineria',
+                    description: 'Pago por la limpieza de jardineria.'),
+                CircleChartItemData(
+                    color: c.error,
+                    value: 62.6,
+                    name: 'Pago de Jardineria',
+                    description: 'Pago por la limpieza de jardineria.'),
+                CircleChartItemData(
+                    color: c.primary,
+                    value: 22.9,
+                    name: 'Pago de Jardineria',
+                    description: 'Pago por la limpieza de jardineria.'),
+              ],
+              backgroundColor: c.disabled.withOpacity(0.5),
+              chartType: CircleChartType.solid),
 
           SizedBox(height: size.height * 0.1)
         ],

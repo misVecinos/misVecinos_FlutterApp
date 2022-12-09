@@ -14,7 +14,7 @@ class ServiceCards extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Ink(
-      height: size.height * .125,
+      height: size.height * .11,
       width: size.width * .9,
       color: c.surface,
       child: Row(
@@ -23,7 +23,7 @@ class ServiceCards extends StatelessWidget {
             borderRadius: BorderRadius.circular(14),
             child: SizedBox(
               height: size.height * .14,
-              width: size.width * .28,
+              width: size.width * .3,
               child: Image.asset(vecino.imagenNegocio, fit: BoxFit.cover),
             ),
           ),

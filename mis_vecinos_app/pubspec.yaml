@@ -41,6 +41,7 @@ dependencies:
   native_pdf_view: ^6.0.0+1
   shared_preferences: ^2.0.15
 
+  flutter_launcher_icons: ^0.11.0
   ripple_wave: ^0.0.2
   flutter_circle_chart: ^1.0.0
   flutter_timer_countdown: ^1.0.5
@@ -57,6 +58,14 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/iconb.png"
+  remove_alpha_ios: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

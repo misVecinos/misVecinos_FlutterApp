@@ -18,7 +18,7 @@ class SponsorWidget extends ConsumerWidget {
       padding: EdgeInsets.only(
           top: size.height * 0.005, bottom: size.height * 0.015),
       child: Container(
-        height: size.height * .176,
+        height: size.height * .15,
         width: size.width * .92,
         decoration: BoxDecoration(
           color: c.primary.withOpacity(0.25),
@@ -26,88 +26,81 @@ class SponsorWidget extends ConsumerWidget {
 
           //color: const Color(0xffFDFDFD),
         ),
-        child: Column(
+        child: Row(
           children: [
-            Padding(
-              padding: EdgeInsets.only(top: size.height * 0.005),
-              child: Container(
-                height: size.height * .11,
-                width: size.width * .89,
-                decoration: BoxDecoration(
-                  color: c.surface,
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: size.width * 0.08,
-                      backgroundImage:
-                          const AssetImage('assets/images/composta.jpg'),
-                    ),
-                    SizedBox(
-                      width: size.width * 0.02,
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Ayuda al planeta, Hagamos composta!',
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: t.messagesBold),
-                          Text(
-                              'Unete a nuestro movimiento. Hagamos composta y ayudemos al planeta.',
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: t.messagesBlack),
-                        ],
-                      ),
-                    )
-                  ],
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(60),
+                  bottomRight: Radius.circular(60)),
+              child: SizedBox(
+                width: size.width * 0.23,
+                height: size.height * .15,
+                child: Image.asset(
+                  'assets/images/composta.jpg',
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
-            SizedBox(
-              height: size.height * .05,
-              width: size.width * .89,
-              child: FittedBox(
-                fit: BoxFit.cover,
-                clipBehavior: Clip.hardEdge,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    SizedBox(width: size.width * 0.4),
-                    TextButton(
-                        onPressed: () {
-                          ref.read(sponsor.notifier).delete();
-                        },
-                        child: Text('No, gracias', style: t.messagesBlack)),
-                    SizedBox(width: size.width * 0.02),
-                    SizedBox(
-                      width: size.width * 0.3,
-                      height: size.height * 0.045,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                PageRouteAnimator(
-                                  child: const Sponsors(),
-                                  routeAnimation:
-                                      RouteAnimation.rightToLeftWithFade,
-                                  curve: Curves.fastOutSlowIn,
-                                  duration: const Duration(milliseconds: 400),
-                                  reverseDuration:
-                                      const Duration(milliseconds: 400),
-                                ));
-                          },
-                          child: Text('Más info.', style: t.buttons)),
+            //
+            Padding(
+              padding: EdgeInsets.only(left: size.height * 0.015),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: size.height * 0.005),
+                  Padding(
+                    padding: EdgeInsets.only(top: size.height * 0.005),
+                    child: Text('¡Hagamos composta!',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: t.messagesBold),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: size.height * 0.005),
+                    child: Container(
+                      color: c.surface,
+                      width: size.width * 0.6,
+                      child: Text(
+                          'Hagamos composta y ayudemos al planeta. ¡Únete!',
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: t.messagesBlack),
                     ),
-                    SizedBox(width: size.width * 0.05)
-                  ],
-                ),
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(width: size.width * 0.05),
+                      TextButton(
+                          onPressed: () {
+                            ref.read(sponsor.notifier).delete();
+                          },
+                          child: Text('No, gracias', style: t.messagesBlack)),
+                      SizedBox(width: size.width * 0.02),
+                      SizedBox(
+                        width: size.width * 0.3,
+                        height: size.height * 0.045,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  PageRouteAnimator(
+                                    child: const Sponsors(),
+                                    routeAnimation:
+                                        RouteAnimation.rightToLeftWithFade,
+                                    curve: Curves.fastOutSlowIn,
+                                    duration: const Duration(milliseconds: 400),
+                                    reverseDuration:
+                                        const Duration(milliseconds: 400),
+                                  ));
+                            },
+                            child: Text('Más info.', style: t.buttons)),
+                      ),
+                      SizedBox(width: size.width * 0.05)
+                    ],
+                  )
+                ],
               ),
-            )
+            ),
           ],
         ),
       ),

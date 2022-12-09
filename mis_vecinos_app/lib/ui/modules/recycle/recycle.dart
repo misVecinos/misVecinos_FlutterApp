@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/recycle_details.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/widgets/buttons.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -38,9 +39,18 @@ class _TransparencyState extends ConsumerState<Recycle> {
           top: size.height * 0.05,
           right: size.height * 0.025),
       children: [
-        Text(
-          '¿Que reciclarás? ',
-          style: t.title,
+        Row(
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: SvgPicture.asset('assets/icons/svg/arrow-back-ios.svg',
+                  height: size.height * 0.025),
+            ),
+            SizedBox(width: size.width * 0.01),
+            Text('¿Que reciclarás? ', style: t.title),
+          ],
         ),
         SizedBox(
           height: size.height * 0.01,

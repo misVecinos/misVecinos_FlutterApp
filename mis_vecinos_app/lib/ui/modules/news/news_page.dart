@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mis_vecinos_app/ui/modules/news/news_details.dart';
 import 'package:mis_vecinos_app/ui/modules/news/state.dart';
 
@@ -47,7 +48,20 @@ class _NewsPageState extends ConsumerState<NewsPage> {
                 top: size.height * 0.05,
                 right: size.height * 0.025),
             children: [
-              Text('Noticias', style: t.title),
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: SvgPicture.asset(
+                        'assets/icons/svg/arrow-back-ios.svg',
+                        height: size.height * 0.025),
+                  ),
+                  SizedBox(width: size.width * 0.01),
+                  Text('Noticias', style: t.title),
+                ],
+              ),
               Text(
                 'Últimas',
                 style: t.messages,

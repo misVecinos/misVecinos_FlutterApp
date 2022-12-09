@@ -170,7 +170,7 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                                   ],
                                 ),
                                 Text(
-                                    'Mira cómo se administra el dinero de tu comunidad, que ingresa y egresa.',
+                                    'Mira cómo se administra el dinero de tu comunidad, qué ingresa y egresa.',
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
                                     style: t.messages),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mis_vecinos_app/core/modules/vecinos/vecinos.dart';
-import 'package:mis_vecinos_app/ui/modules/vecinos/vecino_detail.dart';
+import 'package:mis_vecinos_app/ui/modules/servicios/vecino_detail.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
@@ -40,12 +40,12 @@ class _VecinosPageState extends ConsumerState<VecinosPage> {
             child: Column(
               children: [
                 AppBar(
-                    title: Text('Servicios', style: t.subtitle),
-                    backgroundColor: c.surface,
-                    elevation: 0,
-                    centerTitle: true,
-                    actions: [Icon(Icons.add, color: c.surface)],
-                    leading: FloatingActionButton(onPressed: () {})),
+                  title: Text('Servicios', style: t.subtitle),
+                  backgroundColor: c.surface,
+                  elevation: 0,
+                  centerTitle: true,
+                  actions: [Icon(Icons.add, color: c.surface)],
+                ),
               ],
             )),
         Expanded(

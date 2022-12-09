@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../utils/text_styles.dart';
 import 'document_details.dart';
@@ -26,7 +27,19 @@ class _TransparencyState extends ConsumerState<Documents> {
             top: size.height * 0.05,
             right: size.height * 0.025),
         children: [
-          Text('Documentos', style: t.title),
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: SvgPicture.asset('assets/icons/svg/arrow-back-ios.svg',
+                    height: size.height * 0.025),
+              ),
+              SizedBox(width: size.width * 0.01),
+              Text('Documentos', style: t.title),
+            ],
+          ),
           Text(
             'Últimos',
             style: t.messages,

@@ -5,7 +5,7 @@ import 'package:mis_vecinos_app/ui/modules/alert/alert_message.dart';
 import 'package:mis_vecinos_app/ui/modules/home/home_page.dart';
 import 'package:mis_vecinos_app/ui/modules/menu/menu.dart';
 import 'package:mis_vecinos_app/ui/modules/pagos/pagos.dart';
-import 'package:mis_vecinos_app/ui/modules/vecinos/vecinos.dart';
+import 'package:mis_vecinos_app/ui/modules/servicios/vecinos.dart';
 
 import '../../utils/colors.dart';
 import 'controller.dart';
@@ -27,18 +27,15 @@ class _MainScreenState extends ConsumerState<MainPage> {
       ref.read(menu.notifier).inactive();
     } else {
       scaffoldKey.currentState!.openDrawer();
-      // ref.read(menu.notifier).inactive();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(mainController);
-    // final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      // key: scaffoldKey,
       endDrawer: const MenuDrawer(),
       drawerEnableOpenDragGesture: true,
       body: SafeArea(
@@ -48,10 +45,6 @@ class _MainScreenState extends ConsumerState<MainPage> {
             switchOutCurve: Curves.easeInBack,
             child: _pages(state)),
       ),
-      // bottomNavigationBar: Platform.isIOS
-      //     ? _menu(state, scaffoldKey)
-      //     : SafeArea(child: _menu(state, scaffoldKey))
-
       floatingActionButton: FloatingActionButton(
         backgroundColor: c.error,
         child: Padding(
@@ -130,15 +123,6 @@ class _MainScreenState extends ConsumerState<MainPage> {
               return GestureDetector(
                   onTap: () {
                     Scaffold.of(context).openEndDrawer();
-                    //
-                    // if (scaffoldKey.currentState!.isDrawerOpen) {
-                    //   Scaffold.of(context).closeEndDrawer();
-                    //   ref.read(menu.notifier).inactive();
-                    // } else {
-                    //   Scaffold.of(context).openEndDrawer();
-                    //   ref.read(menu.notifier).active();
-                    // }
-                    //
                   },
                   child: _icons('assets/icons/svg/menu.svg', 'Menu', state,
                       ref.watch(menu) == true ? c.primary : c.disabled));

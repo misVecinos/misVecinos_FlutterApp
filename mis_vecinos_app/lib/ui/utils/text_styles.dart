@@ -116,6 +116,7 @@ class _TextStylesMain implements IText {
   TextStyle messagesBlue = TextStyle(
     fontFamily: 'Montserrat',
     fontSize: 14,
+    fontWeight: FontWeight.bold,
     color: c.primary,
   );
   @override

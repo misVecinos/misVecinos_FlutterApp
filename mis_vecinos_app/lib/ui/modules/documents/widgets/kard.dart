@@ -19,7 +19,7 @@ class Kard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: size.height * 0.018),
       child: Container(
-        height: size.height * .125,
+        height: size.height * .11,
         width: size.width * .9,
         color: c.surface,
         child: Row(
@@ -37,7 +37,7 @@ class Kard extends StatelessWidget {
                   color: const Color(0xffFDFDFD),
                 ),
                 height: size.height * .14,
-                width: size.width * .28,
+                width: size.width * .3,
                 child: FittedBox(
                     fit: BoxFit.cover,
                     clipBehavior: Clip.hardEdge,
