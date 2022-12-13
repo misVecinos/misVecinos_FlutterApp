@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
 import 'document_details.dart';
 import 'widgets/kard.dart';
@@ -20,30 +20,29 @@ class _TransparencyState extends ConsumerState<Documents> {
 
     return Scaffold(
       drawerEnableOpenDragGesture: true,
+      appBar: AppBar(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Documentos', style: t.title),
+            Text('Últimos', style: t.messages),
+          ],
+        ),
+        actions: [
+          Icon(
+            Icons.abc,
+            color: c.surface,
+          ),
+        ],
+        backgroundColor: c.surface,
+        elevation: 0,
+        centerTitle: false,
+      ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.only(
-            left: size.height * 0.025,
-            top: size.height * 0.05,
-            right: size.height * 0.025),
+            left: size.height * 0.025, top: 0, right: size.height * 0.025),
         children: [
-          Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: SvgPicture.asset('assets/icons/svg/arrow-back-ios.svg',
-                    height: size.height * 0.025),
-              ),
-              SizedBox(width: size.width * 0.01),
-              Text('Documentos', style: t.title),
-            ],
-          ),
-          Text(
-            'Últimos',
-            style: t.messages,
-          ),
           //
           SizedBox(
             height: size.height * 0.03,

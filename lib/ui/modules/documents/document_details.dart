@@ -26,14 +26,24 @@ class _DocumentDetailsState extends ConsumerState<DocumentDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: Container(
+      body: Container(
         color: c.disabled,
-        child: PdfView(
-          controller: pdfController,
-          scrollDirection: Axis.vertical,
+        child: SafeArea(
+          child: Stack(
+            children: [
+              PdfView(
+                controller: pdfController,
+                scrollDirection: Axis.vertical,
+              ),
+              IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.arrow_back_ios))
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }

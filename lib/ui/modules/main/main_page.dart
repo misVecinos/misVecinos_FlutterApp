@@ -38,13 +38,11 @@ class _MainScreenState extends ConsumerState<MainPage> {
     return Scaffold(
       endDrawer: const MenuDrawer(),
       drawerEnableOpenDragGesture: true,
-      body: SafeArea(
-        child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 250),
-            switchInCurve: Curves.fastOutSlowIn,
-            switchOutCurve: Curves.easeInBack,
-            child: _pages(state)),
-      ),
+      body: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 250),
+          switchInCurve: Curves.fastOutSlowIn,
+          switchOutCurve: Curves.easeInBack,
+          child: _pages(state)),
       floatingActionButton: FloatingActionButton(
         backgroundColor: c.error,
         child: Padding(
@@ -87,7 +85,7 @@ class _MainScreenState extends ConsumerState<MainPage> {
     return Container(
         height: size.height * 0.08,
         width: size.width,
-        color: c.secondary,
+        color: const Color(0xffffffff),
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           GestureDetector(
               onTap: () => ref.read(mainController.notifier).setSelectedPage(0),

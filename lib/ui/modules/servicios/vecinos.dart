@@ -34,32 +34,49 @@ class _VecinosPageState extends ConsumerState<VecinosPage> {
 
     return Column(
       children: [
-        Container(
-            color: c.surface,
-            // height: size.height * 0.07,
-            child: Column(
-              children: [
-                AppBar(
-                  title: Text('Servicios', style: t.subtitle),
-                  backgroundColor: c.surface,
-                  elevation: 0,
-                  centerTitle: true,
-                  actions: [Icon(Icons.add, color: c.surface)],
+        Column(
+          children: [
+            AppBar(
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Servicios', style: t.title),
+                  Row(
+                    children: [
+                      Text('A la redonda de', style: t.messages),
+                      SizedBox(
+                        width: size.height * 0.01,
+                      ),
+                      Text('La Joya, Toluca.', style: t.messagesBlue),
+                    ],
+                  ),
+                ],
+              ),
+              actions: [
+                Icon(
+                  Icons.abc,
+                  color: c.surface,
                 ),
               ],
-            )),
+              backgroundColor: c.surface,
+              elevation: 0,
+              centerTitle: false,
+            ),
+          ],
+        ),
         Expanded(
           child: ListView(
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.only(
                 left: size.height * 0.025,
-                top: size.height * 0.025,
+                top: size.height * 0.02,
                 right: size.height * 0.025),
             children: [
               //
               //Text('Servicios que ofrecen tus vecinos:', style: t.messages),
               ListView.builder(
+                  padding: const EdgeInsets.only(top: 0),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: listNegocios.length,

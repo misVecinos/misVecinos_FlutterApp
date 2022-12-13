@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/recycle_details.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/widgets/buttons.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -33,114 +32,117 @@ class _TransparencyState extends ConsumerState<Recycle> {
     ];
 
     return Scaffold(
-        body: ListView(
-      padding: EdgeInsets.only(
-          left: size.height * 0.025,
-          top: size.height * 0.05,
-          right: size.height * 0.025),
-      children: [
-        Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: SvgPicture.asset('assets/icons/svg/arrow-back-ios.svg',
-                  height: size.height * 0.025),
+        appBar: AppBar(
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('¿Que reciclarás? ', style: t.title),
+              //Text('Mes de Noviembre', style: t.messages),
+            ],
+          ),
+          actions: [
+            Icon(
+              Icons.abc,
+              color: c.surface,
             ),
-            SizedBox(width: size.width * 0.01),
-            Text('¿Que reciclarás? ', style: t.title),
           ],
+          backgroundColor: c.surface,
+          elevation: 0,
+          centerTitle: false,
         ),
-        SizedBox(
-          height: size.height * 0.01,
-        ),
-        Text(
-          '¡Ayudemos al planeta! \nEs importante que reciclemos nuestra basura si es posible.',
-          style: t.messages,
-        ),
-        SizedBox(
-          height: size.height * 0.01,
-        ),
-        Text(
-          'Elige una de las opciones para reciclar:',
-          style: t.messagesBlack,
-        ),
+        body: ListView(
+          padding: EdgeInsets.only(
+              left: size.height * 0.025, top: 0, right: size.height * 0.025),
+          children: [
+            SizedBox(
+              height: size.height * 0.01,
+            ),
+            Text(
+              '¡Ayudemos al planeta! \nEs importante que reciclemos nuestra basura si es posible.',
+              style: t.messages,
+            ),
+            SizedBox(
+              height: size.height * 0.01,
+            ),
+            Text(
+              'Elige una de las opciones para reciclar:',
+              style: t.messagesBlack,
+            ),
 
-        SizedBox(
-          height: size.height * 0.05,
-        ),
-        Container(
-          color: c.surface,
-          height: size.height * 0.5,
-          width: size.width,
-          child: PageView.builder(
-            controller: controller,
-            pageSnapping: true,
-            physics: const BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            itemCount: assets.length,
-            itemBuilder: (context, index) {
-              return Align(
-                child: Padding(
-                  padding: EdgeInsets.all(size.height * 0.02),
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(14),
-                    onTap: () {
-                      showBottomMenu(index, context, ref, size);
-                    },
-                    child: Ink(
-                      height: size.height * 0.48,
-                      width: size.width * 0.7,
-                      child: Cards(
-                        size: size,
-                        assets: assets,
-                        names: names,
-                        index: index,
+            SizedBox(
+              height: size.height * 0.05,
+            ),
+            Container(
+              color: c.surface,
+              height: size.height * 0.5,
+              width: size.width,
+              child: PageView.builder(
+                controller: controller,
+                pageSnapping: true,
+                physics: const BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemCount: assets.length,
+                itemBuilder: (context, index) {
+                  return Align(
+                    child: Padding(
+                      padding: EdgeInsets.all(size.height * 0.02),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(14),
+                        onTap: () {
+                          showBottomMenu(index, context, ref, size);
+                        },
+                        child: Ink(
+                          height: size.height * 0.48,
+                          width: size.width * 0.7,
+                          child: Cards(
+                            size: size,
+                            assets: assets,
+                            names: names,
+                            index: index,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-
-        SizedBox(
-          height: size.height * 0.01,
-        ),
-        Center(
-          child: SmoothPageIndicator(
-              controller: controller,
-              count: 2,
-              effect: WormEffect(
-                  activeDotColor: c.primary,
-                  dotColor: c.disabled,
-                  dotHeight: size.height * 0.014,
-                  dotWidth: size.height * 0.014)),
-        ),
-        //
-
-        SizedBox(
-          height: size.height * 0.05,
-        ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: TextButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const RecycleDetails();
-              }));
-            },
-            child: Text(
-              'Historial',
-              style: t.buttonBlue2,
+                  );
+                },
+              ),
             ),
-          ),
-        ),
-        //
-      ],
-    ));
+
+            SizedBox(
+              height: size.height * 0.01,
+            ),
+            Center(
+              child: SmoothPageIndicator(
+                  controller: controller,
+                  count: 2,
+                  effect: WormEffect(
+                      activeDotColor: c.primary,
+                      dotColor: c.disabled,
+                      dotHeight: size.height * 0.014,
+                      dotWidth: size.height * 0.014)),
+            ),
+            //
+
+            SizedBox(
+              height: size.height * 0.05,
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const RecycleDetails();
+                  }));
+                },
+                child: Text(
+                  'Historial',
+                  style: t.buttonBlue2,
+                ),
+              ),
+            ),
+            //
+          ],
+        ));
   }
 }
 

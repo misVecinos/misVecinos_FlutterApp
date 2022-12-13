@@ -41,33 +41,43 @@ class _SponsorsState extends ConsumerState<Sponsors> {
                   padding: EdgeInsets.only(
                       bottom: MediaQuery.of(context).viewInsets.bottom),
                   child: ref.watch(valid) == false
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SizedBox(
-                              height: size.height * 0.02,
-                            ),
-                            SizedBox(
-                              height: size.height * 0.2,
-                              width: size.width,
-                              child: Image.asset(
-                                'assets/images/composta.jpg',
-                                fit: BoxFit.cover,
+                      ? Padding(
+                          padding: EdgeInsets.only(
+                              left: size.height * 0.025,
+                              right: size.height * 0.025),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              SizedBox(
+                                height: size.height * 0.02,
                               ),
-                            ),
-                            // Center(
-                            //   child:
-                            //       Text('Hagamos composta. ', style: t.subtitle),
-                            // ),
-                            SizedBox(
-                              height: size.height * 0.02,
-                            ),
-                            Center(
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: size.height * 0.02,
-                                    right: size.height * 0.02),
+
+                              Stack(
+                                children: [
+                                  SizedBox(
+                                    height: size.height * 0.2,
+                                    width: size.width,
+                                    child: Image.asset(
+                                      'assets/images/composta.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      icon: const Icon(Icons.arrow_back_ios))
+                                ],
+                              ),
+                              // Center(
+                              //   child:
+                              //       Text('Hagamos composta. ', style: t.subtitle),
+                              // ),
+                              SizedBox(
+                                height: size.height * 0.02,
+                              ),
+                              Center(
                                 child: Text(
                                   'Unete a nuestro movimiento. Ingresa tus datos y te contactaremos para más información.',
                                   maxLines: 4,
@@ -75,71 +85,94 @@ class _SponsorsState extends ConsumerState<Sponsors> {
                                   style: t.messages,
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              height: size.height * 0.02,
-                            ),
-                            txtField(size, name, 'Nombre completo', 'name.svg'),
-                            txtField(size, phone, 'Teléfono', 'whatsapp.svg'),
-                            txtField(size, email, 'Email', ''),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            buton(context, c.primary, 'Enviar', t.buttons, name,
-                                email, phone),
-                            SizedBox(
-                              height: size.height * 0.08,
-                            ),
-                          ],
+                              SizedBox(
+                                height: size.height * 0.02,
+                              ),
+                              txtField(
+                                  size, name, 'Nombre completo', 'name.svg'),
+                              txtField(size, phone, 'Teléfono', 'whatsapp.svg'),
+                              txtField(size, email, 'Email', ''),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              buton(context, c.primary, 'Enviar', t.buttons,
+                                  name, email, phone),
+                              SizedBox(
+                                height: size.height * 0.08,
+                              ),
+                            ],
+                          ),
                         )
-                      : Column(
-                          mainAxisSize: MainAxisSize.min,
+                      : Stack(
                           children: [
-                            SizedBox(
-                              height: size.height * 0.02,
-                            ),
-                            SizedBox(
-                              height: size.height * 0.2,
-                              width: size.width,
-                              child: Image.asset(
-                                'assets/images/composta.jpg',
-                                fit: BoxFit.cover,
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: size.height * 0.025,
+                                  right: size.height * 0.025),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  SizedBox(
+                                    height: size.height * 0.02,
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.2,
+                                    width: size.width,
+                                    child: Image.asset(
+                                      'assets/images/composta.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.02,
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.02,
+                                  ),
+                                  Center(
+                                    child: Text('Exelente', style: t.subtitle),
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.01,
+                                  ),
+                                  Center(
+                                    child: Padding(
+                                      padding: EdgeInsets.only(
+                                          left: size.height * 0.02,
+                                          right: size.height * 0.02),
+                                      child: Text(
+                                        'Gracias por tu información. Nos prondrémos en contacto contigo en breve.',
+                                        style: t.messages,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.01,
+                                  ),
+                                  LottieBuilder.asset(
+                                    repeat: false,
+                                    'assets/icons/lottie/chek.json',
+                                    height: size.height * 0.1,
+                                  ),
+                                  SizedBox(
+                                    height: size.height * 0.08,
+                                  ),
+                                ],
                               ),
                             ),
-                            SizedBox(
-                              height: size.height * 0.02,
-                            ),
-                            SizedBox(
-                              height: size.height * 0.02,
-                            ),
                             Center(
-                              child: Text('Exelente', style: t.subtitle),
-                            ),
-                            SizedBox(
-                              height: size.height * 0.01,
-                            ),
-                            Center(
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: size.height * 0.02,
-                                    right: size.height * 0.02),
-                                child: Text(
-                                  'Gracias por tu información. Nos prondrémos en contacto contigo en breve.',
-                                  style: t.messages,
-                                ),
+                              child: LottieBuilder.asset(
+                                repeat: false,
+                                'assets/icons/lottie/confeti.json',
+                                height: size.height * 0.8,
+                                width: size.width,
                               ),
                             ),
-                            SizedBox(
-                              height: size.height * 0.01,
-                            ),
-                            LottieBuilder.asset(
-                              repeat: false,
-                              'assets/icons/lottie/chek.json',
-                              height: size.height * 0.1,
-                            ),
-                            SizedBox(
-                              height: size.height * 0.08,
-                            ),
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(Icons.arrow_back_ios)),
                           ],
                         )))
         ],

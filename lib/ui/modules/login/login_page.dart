@@ -206,11 +206,12 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     GestureDetector(
                       onTap: () async {
                         final url = Uri.parse('https://www.contendi.com.mx/');
-                        if (await canLaunchUrl(url)) {
-                          await launchUrl(url);
-                        } else {
-                          throw 'Could not launch $url';
-                        }
+                        await launchUrl(url);
+                        // if (await canLaunchUrl(url)) {
+                        //   await launchUrl(url);
+                        // } else {
+                        //   throw 'Could not launch $url';
+                        // }
                       },
                       child: Align(
                         child: Image.asset(
@@ -253,7 +254,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: SizedBox(
-            height: size.height * 0.065,
+            height: size.height * 0.058,
             width: size.width * 0.7,
             child: ElevatedButton(
                 onPressed: () {

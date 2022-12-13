@@ -42,7 +42,7 @@ class ServiceCards extends StatelessWidget {
                 child: Container(
                   color: c.surface,
                   //height: size.height * .055,
-                  width: size.width * .5,
+                  width: size.width * .4,
                   child: Text(vecino.nombre,
                       style: t.messagesBold,
                       maxLines: 2,
@@ -50,23 +50,11 @@ class ServiceCards extends StatelessWidget {
                 ),
               ),
               //
-              // Padding(
-              //   padding: EdgeInsets.only(
-              //       left: size.width * .02, top: size.width * .015),
-              //   child: SizedBox(
-              //     width: size.width * .5,
-              //     child: Text(vecino.email,
-              //         style: t.messages,
-              //         maxLines: 1,
-              //         overflow: TextOverflow.ellipsis),
-              //   ),
-              // ),
-              //
               Padding(
                 padding: EdgeInsets.only(
                     left: size.width * .02, top: size.width * .015),
                 child: SizedBox(
-                  width: size.width * .5,
+                  width: size.width * .4,
                   child: Row(
                     children: [
                       SvgPicture.asset('assets/icons/svg/time.svg',
@@ -82,17 +70,12 @@ class ServiceCards extends StatelessWidget {
                   ),
                 ),
               ),
-
-              //
-              const Spacer(),
-              //
             ],
           ),
           const Spacer(),
           //
-          SizedBox(
-            height: size.height * .06,
-            width: size.width * .05,
+          Container(
+            color: c.surface,
             child: SvgPicture.asset('assets/icons/svg/arrow-forward-ios.svg'),
           ),
         ],

@@ -18,7 +18,7 @@ class SponsorWidget extends ConsumerWidget {
       padding: EdgeInsets.only(
           top: size.height * 0.005, bottom: size.height * 0.015),
       child: Container(
-        height: size.height * .15,
+        height: size.height * .13,
         width: size.width * .92,
         decoration: BoxDecoration(
           color: c.primary.withOpacity(0.25),
@@ -67,36 +67,39 @@ class SponsorWidget extends ConsumerWidget {
                           style: t.messagesBlack),
                     ),
                   ),
-                  Row(
-                    children: [
-                      SizedBox(width: size.width * 0.05),
-                      TextButton(
-                          onPressed: () {
-                            ref.read(sponsor.notifier).delete();
-                          },
-                          child: Text('No, gracias', style: t.messagesBlack)),
-                      SizedBox(width: size.width * 0.02),
-                      SizedBox(
-                        width: size.width * 0.3,
-                        height: size.height * 0.045,
-                        child: ElevatedButton(
+                  Expanded(
+                    child: Row(
+                      children: [
+                        SizedBox(width: size.width * 0.05),
+                        TextButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  PageRouteAnimator(
-                                    child: const Sponsors(),
-                                    routeAnimation:
-                                        RouteAnimation.rightToLeftWithFade,
-                                    curve: Curves.fastOutSlowIn,
-                                    duration: const Duration(milliseconds: 400),
-                                    reverseDuration:
-                                        const Duration(milliseconds: 400),
-                                  ));
+                              ref.read(sponsor.notifier).delete();
                             },
-                            child: Text('Más info.', style: t.buttons)),
-                      ),
-                      SizedBox(width: size.width * 0.05)
-                    ],
+                            child: Text('No, gracias', style: t.messagesBlack)),
+                        SizedBox(width: size.width * 0.02),
+                        SizedBox(
+                          width: size.width * 0.3,
+                          height: size.height * 0.045,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    PageRouteAnimator(
+                                      child: const Sponsors(),
+                                      routeAnimation:
+                                          RouteAnimation.rightToLeftWithFade,
+                                      curve: Curves.fastOutSlowIn,
+                                      duration:
+                                          const Duration(milliseconds: 400),
+                                      reverseDuration:
+                                          const Duration(milliseconds: 400),
+                                    ));
+                              },
+                              child: Text('Más info.', style: t.buttons)),
+                        ),
+                        SizedBox(width: size.width * 0.05)
+                      ],
+                    ),
                   )
                 ],
               ),

@@ -1,7 +1,6 @@
+import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_circle_chart/flutter_circle_chart.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
@@ -25,65 +24,31 @@ class _TransparencyState extends ConsumerState<Transparency> {
     return Scaffold(
       endDrawer: const MenuDrawer(),
       drawerEnableOpenDragGesture: true,
+      appBar: AppBar(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Transparencia', style: t.title),
+            Text('Mes de Noviembre', style: t.messages),
+          ],
+        ),
+        actions: [
+          Icon(
+            Icons.abc,
+            color: c.surface,
+          ),
+        ],
+        backgroundColor: c.surface,
+        elevation: 0,
+        centerTitle: false,
+      ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.only(
-            left: size.height * 0.025,
-            top: size.height * 0.05,
-            right: size.height * 0.025),
+            left: size.height * 0.025, top: 0, right: size.height * 0.025),
         children: [
-          Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: SvgPicture.asset('assets/icons/svg/arrow-back-ios.svg',
-                    height: size.height * 0.025),
-              ),
-              SizedBox(width: size.width * 0.01),
-              Text('Transparencia', style: t.title),
-            ],
-          ),
-          Text(
-            'Mes de Noviembre',
-            style: t.messages,
-          ),
-
-          // Container(
-          //   color: c.OK,
-          //   height: size.height * 0.2,
-          //   width: size.width * 0.8,
-          //   child: PieChart(
-          //     separateFocusedValue: true,
-          //     textScaleFactor: 0.06,
-          //     legendPosition: LegendPosition.Left,
-          //     legendTextSize: 10,
-          //     legendItemPadding: const EdgeInsets.all(2),
-          //     maxHeight: size.height * 0.1,
-          //     maxWidth: size.width * 0.8,
-          //     curve: Curves.easeIn,
-          //     values: const [
-          //       14.5,
-          //       62.6,
-          //       22.9,
-          //     ],
-          //     labels: const [
-          //       'Pago jardineria',
-          //       'Pago vigilante',
-          //       'Acumulado Total',
-          //     ],
-          //     sliceFillColors: [
-          //       c.error.withOpacity(0.1),
-          //       c.error,
-          //       c.primary,
-          //     ],
-          //     animationDuration: const Duration(milliseconds: 1500),
-          //   ),
-          // ),
-
           SizedBox(
-            height: size.height * 0.04,
+            height: size.height * 0.02,
           ),
 
           //
@@ -106,8 +71,6 @@ class _TransparencyState extends ConsumerState<Transparency> {
                 ),
                 const Spacer(),
                 Container(
-                    //height: size.height * 0.04,
-                    width: size.width * 0.25,
                     color: c.surface,
                     child: Text('MXN \$20.00', style: t.messagesGreen)),
               ],
@@ -127,8 +90,6 @@ class _TransparencyState extends ConsumerState<Transparency> {
                         style: t.messagesBlack)),
                 const Spacer(),
                 Container(
-                    //height: size.height * 0.04,
-                    width: size.width * 0.25,
                     color: c.surface,
                     child: Text('MXN \$200.0', style: t.messagesGreen)),
               ],
@@ -148,8 +109,6 @@ class _TransparencyState extends ConsumerState<Transparency> {
                         Text('Total Mantenimiento:', style: t.messagesBlack)),
                 const Spacer(),
                 Container(
-                    //height: size.height * 0.04,
-                    width: size.width * 0.3,
                     color: c.surface,
                     child: Text('MXN \$11,000.00', style: t.messagesGreen)),
               ],
@@ -169,8 +128,6 @@ class _TransparencyState extends ConsumerState<Transparency> {
                         style: t.messagesBlack)),
                 const Spacer(),
                 Container(
-                    //height: size.height * 0.04,
-                    width: size.width * 0.25,
                     color: c.surface,
                     child: Text('MXN \$0.00', style: t.messagesGreen)),
               ],
@@ -190,8 +147,6 @@ class _TransparencyState extends ConsumerState<Transparency> {
                     child: Text('Total ingresado:', style: t.messagesBlack)),
                 const Spacer(),
                 Container(
-                    //height: size.height * 0.04,
-                    width: size.width * 0.3,
                     color: c.surface,
                     child: Text('MXN \$11,020.00', style: t.messagesGreen)),
               ],
@@ -214,8 +169,6 @@ class _TransparencyState extends ConsumerState<Transparency> {
                     color: c.surface,
                     child: Text('Pago de jardineria:', style: t.messagesBlack)),
                 Container(
-                    //height: size.height * 0.04,
-                    width: size.width * 0.3,
                     color: c.surface,
                     child: Text('MXN \$1,600.00', style: t.messagesRed)),
               ],
@@ -233,8 +186,6 @@ class _TransparencyState extends ConsumerState<Transparency> {
                     color: c.surface,
                     child: Text('Pago de vigilante:', style: t.messagesBlack)),
                 Container(
-                    //height: size.height * 0.04,
-                    width: size.width * 0.3,
                     color: c.surface,
                     child: Text('MXN \$6,900.00', style: t.messagesRed)),
               ],
@@ -253,8 +204,6 @@ class _TransparencyState extends ConsumerState<Transparency> {
                     color: c.surface,
                     child: Text('Total egresado:', style: t.messagesBlack)),
                 Container(
-                    //height: size.height * 0.04,
-                    width: size.width * 0.3,
                     color: c.surface,
                     child: Text('MXN \$8,500.00', style: t.messagesRed)),
               ],
@@ -274,8 +223,6 @@ class _TransparencyState extends ConsumerState<Transparency> {
                     child:
                         Text('Saldo Acomulado Total:', style: t.messagesBlack)),
                 Container(
-                    //height: size.height * 0.04,
-                    width: size.width * 0.3,
                     color: c.surface,
                     child: Text('MXN \$2,520.00', style: t.messagesBlue)),
               ],
@@ -283,26 +230,60 @@ class _TransparencyState extends ConsumerState<Transparency> {
           ),
           const Divider(),
 
-          CircleChart(
-              items: [
-                CircleChartItemData(
-                    color: c.error.withOpacity(0.5),
-                    value: 14.5,
-                    name: 'Pago de Jardineria',
-                    description: 'Pago por la limpieza de jardineria.'),
-                CircleChartItemData(
-                    color: c.error,
-                    value: 62.6,
-                    name: 'Pago de Jardineria',
-                    description: 'Pago por la limpieza de jardineria.'),
-                CircleChartItemData(
-                    color: c.primary,
-                    value: 22.9,
-                    name: 'Pago de Jardineria',
-                    description: 'Pago por la limpieza de jardineria.'),
+          // CircleChart(
+          //     items: [
+          //       CircleChartItemData(
+          //           color: c.error.withOpacity(0.5),
+          //           value: 14.5,
+          //           name: 'Pago de Jardineria',
+          //           description: 'Pago por la limpieza de jardineria.'),
+          //       CircleChartItemData(
+          //           color: c.error,
+          //           value: 62.6,
+          //           name: 'Pago de Jardineria',
+          //           description: 'Pago por la limpieza de jardineria.'),
+          //       CircleChartItemData(
+          //           color: c.primary,
+          //           value: 22.9,
+          //           name: 'Pago de Jardineria',
+          //           description: 'Pago por la limpieza de jardineria.'),
+          //     ],
+          //     backgroundColor: c.disabled.withOpacity(0.5),
+          //     chartType: CircleChartType.solid),
+
+          SizedBox(
+            height: size.height * 0.25,
+            child: DChartBar(
+              data: const [
+                {
+                  'id': 'Bar',
+                  'data': [
+                    {'domain': 'Ingresos', 'measure': 11020},
+                    {'domain': 'P. Jardineria', 'measure': 1600},
+                    {'domain': 'P. Vigilante', 'measure': 6900},
+                    {'domain': 'Saldo', 'measure': 2520},
+                  ],
+                },
               ],
-              backgroundColor: c.disabled.withOpacity(0.5),
-              chartType: CircleChartType.solid),
+              domainLabelPaddingToAxisLine: 16,
+              axisLineTick: 2,
+              axisLinePointTick: 2,
+              axisLinePointWidth: 10,
+              axisLineColor: c.black,
+              measureLabelPaddingToAxisLine: 16,
+              barColor: (barData, index, id) {
+                switch (barData['domain']) {
+                  case 'Ingresos':
+                    return c.OK;
+                  case 'Saldo':
+                    return c.primary;
+                  default:
+                    return c.error;
+                }
+              },
+              showBarValue: true,
+            ),
+          ),
 
           SizedBox(height: size.height * 0.1)
         ],

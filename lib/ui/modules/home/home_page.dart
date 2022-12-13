@@ -42,7 +42,7 @@ class _VecinosPageState extends ConsumerState<HomePage> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: ListView(
+      body: Column(
         children: [
           Stack(
             children: [
