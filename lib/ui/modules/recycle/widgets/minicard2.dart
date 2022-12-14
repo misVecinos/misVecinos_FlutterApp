@@ -31,17 +31,17 @@ class MiniCard2 extends StatelessWidget {
       ),
       height: size.height * .18,
       width: size.width * .28,
-      child: Expanded(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/$asset',
-              height: size.height * .08,
-              width: size.width * .25,
-            ),
-            Column(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/$asset',
+            height: size.height * .08,
+            width: size.width * .25,
+          ),
+          Expanded(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -85,8 +85,8 @@ class MiniCard2 extends StatelessWidget {
                     overflow: TextOverflow.ellipsis),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
