@@ -41,6 +41,7 @@ dependencies:
   native_pdf_view: ^6.0.0+1
   shared_preferences: ^2.0.15
   
+  phone_caller: ^0.0.1
   d_chart: ^1.0.0
   flutter_launcher_icons: ^0.11.0
   ripple_wave: ^0.0.2

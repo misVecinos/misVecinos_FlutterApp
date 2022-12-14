@@ -58,6 +58,7 @@ class _NewsPageState extends ConsumerState<NewsPage> {
             elevation: 0,
             centerTitle: false,
           ),
+          //
           drawerEnableOpenDragGesture: true,
           body: ListView(
             physics: const BouncingScrollPhysics(),

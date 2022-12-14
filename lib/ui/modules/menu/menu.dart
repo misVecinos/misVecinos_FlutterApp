@@ -29,8 +29,8 @@ class _VecinosPageState extends ConsumerState<MenuDrawer> {
             padding: EdgeInsets.only(
                 top: size.height * 0.1, left: size.width * 0.05),
             child: Container(
-              height: size.height * 0.039,
-              width: size.width * 0.465,
+              height: size.height * 0.037,
+              width: size.width * 0.48,
               color: c.surface,
               child: FittedBox(
                 fit: BoxFit.fill,
@@ -42,192 +42,193 @@ class _VecinosPageState extends ConsumerState<MenuDrawer> {
             ),
           ),
           //
-          Padding(
-            padding: EdgeInsets.only(top: size.height * 0.05),
-            child: Row(
-              children: [
-                Container(
-                  color: c.surface,
-                  height: size.height * 0.47,
-                  // width: size.width * 0.03,
-                  child: AnimatedPadding(
-                    curve: Curves.fastOutSlowIn,
-                    padding: const EdgeInsets.only(top: 0),
-                    duration: const Duration(milliseconds: 500),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Container(
-                          color: c.primary,
-                          height: size.height * 0.05,
-                          width: size.width * 0.02,
-                        ),
+          SizedBox(
+            height: size.height * 0.05,
+          ),
+          //
+          Row(
+            children: [
+              Container(
+                color: c.surface,
+                height: size.height * 0.47,
+                // width: size.width * 0.03,
+                child: AnimatedPadding(
+                  curve: Curves.fastOutSlowIn,
+                  padding: const EdgeInsets.only(top: 0),
+                  duration: const Duration(milliseconds: 500),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        color: c.primary,
+                        height: size.height * 0.05,
+                        width: size.width * 0.02,
                       ),
                     ),
                   ),
                 ),
-                Container(
+              ),
+              Expanded(
+                child: Container(
                   color: c.surface,
                   height: size.height * 0.5,
-                  width: size.width * 0.68,
-                  child: Expanded(
-                    child: Column(
-                      children: [
-                        ListTile(
-                          onTap: () {},
-                          leading: SvgPicture.asset(
-                            'assets/icons/svg/home.svg',
-                            color: c.primary,
-                            height: size.height * 0.03,
-                            width: size.height * 0.03,
-                          ),
-                          trailing: SvgPicture.asset(
-                            'assets/icons/svg/arrow-forward-ios.svg',
-                            color: c.primary,
-                            height: size.height * 0.03,
-                            width: size.height * 0.03,
-                          ),
-                          title: Text(
-                            'Inicio',
-                            style: t.link,
-                          ),
+                  //width: size.width * 0.68,
+                  child: Column(
+                    children: [
+                      ListTile(
+                        onTap: () {},
+                        leading: SvgPicture.asset(
+                          'assets/icons/svg/home.svg',
+                          color: c.primary,
+                          height: size.height * 0.03,
+                          width: size.height * 0.03,
                         ),
-                        //
-                        // ListTile(
-                        //   onTap: () {},
-                        //   leading: SvgPicture.asset(
-                        //     'assets/icons/svg/news.svg',
-                        //     color: c.disabled,
-                        //     height: size.height * 0.03,
-                        //     width: size.height * 0.03,
-                        //   ),
-                        //   trailing: SvgPicture.asset(
-                        //     'assets/icons/svg/arrow-forward-ios.svg',
-                        //     color: c.disabled,
-                        //     height: size.height * 0.03,
-                        //     width: size.height * 0.03,
-                        //   ),
-                        //   title: Text(
-                        //     'Noticias',
-                        //     style: t.messages,
-                        //   ),
-                        // ),
-                        // ListTile(
-                        //   onTap: () {},
-                        //   leading: SvgPicture.asset(
-                        //     'assets/icons/svg/schedule.svg',
-                        //     color: c.disabled,
-                        //     height: size.height * 0.035,
-                        //     width: size.height * 0.035,
-                        //   ),
-                        //   trailing: SvgPicture.asset(
-                        //     'assets/icons/svg/arrow-forward-ios.svg',
-                        //     color: c.disabled,
-                        //     height: size.height * 0.03,
-                        //     width: size.height * 0.03,
-                        //   ),
-                        //   title: Text(
-                        //     'Agenda',
-                        //     style: t.messages,
-                        //   ),
-                        // ),
-                        //--------------------------------------
-                        // ListTile(
-                        //   onTap: () {},
-                        //   leading: SvgPicture.asset(
-                        //     'assets/icons/svg/survey.svg',
-                        //     color: c.disabled,
-                        //     height: size.height * 0.03,
-                        //     width: size.height * 0.03,
-                        //   ),
-                        //   trailing: SvgPicture.asset(
-                        //     'assets/icons/svg/arrow-forward-ios.svg',
-                        //     color: c.disabled,
-                        //     height: size.height * 0.03,
-                        //     width: size.height * 0.03,
-                        //   ),
-                        //   title: Text(
-                        //     'Encuestas',
-                        //     style: t.messages,
-                        //   ),
-                        // ),
-                        // ListTile(
-                        //   onTap: () {},
-                        //   leading: SvgPicture.asset(
-                        //     'assets/icons/svg/chat.svg',
-                        //     color: c.disabled,
-                        //     height: size.height * 0.03,
-                        //     width: size.height * 0.03,
-                        //   ),
-                        //   trailing: SvgPicture.asset(
-                        //     'assets/icons/svg/arrow-forward-ios.svg',
-                        //     color: c.disabled,
-                        //     height: size.height * 0.03,
-                        //     width: size.height * 0.03,
-                        //   ),
-                        //   title: Text(
-                        //     'Hablar con el administrador',
-                        //     style: t.messages,
-                        //   ),
-                        // ),
-                        // SizedBox(
-                        //   height: size.height * 0.05,
-                        // ),
+                        trailing: SvgPicture.asset(
+                          'assets/icons/svg/arrow-forward-ios.svg',
+                          color: c.primary,
+                          height: size.height * 0.03,
+                          width: size.height * 0.03,
+                        ),
+                        title: Text(
+                          'Inicio',
+                          style: t.link,
+                        ),
+                      ),
+                      //
+                      // ListTile(
+                      //   onTap: () {},
+                      //   leading: SvgPicture.asset(
+                      //     'assets/icons/svg/news.svg',
+                      //     color: c.disabled,
+                      //     height: size.height * 0.03,
+                      //     width: size.height * 0.03,
+                      //   ),
+                      //   trailing: SvgPicture.asset(
+                      //     'assets/icons/svg/arrow-forward-ios.svg',
+                      //     color: c.disabled,
+                      //     height: size.height * 0.03,
+                      //     width: size.height * 0.03,
+                      //   ),
+                      //   title: Text(
+                      //     'Noticias',
+                      //     style: t.messages,
+                      //   ),
+                      // ),
+                      // ListTile(
+                      //   onTap: () {},
+                      //   leading: SvgPicture.asset(
+                      //     'assets/icons/svg/schedule.svg',
+                      //     color: c.disabled,
+                      //     height: size.height * 0.035,
+                      //     width: size.height * 0.035,
+                      //   ),
+                      //   trailing: SvgPicture.asset(
+                      //     'assets/icons/svg/arrow-forward-ios.svg',
+                      //     color: c.disabled,
+                      //     height: size.height * 0.03,
+                      //     width: size.height * 0.03,
+                      //   ),
+                      //   title: Text(
+                      //     'Agenda',
+                      //     style: t.messages,
+                      //   ),
+                      // ),
+                      //--------------------------------------
+                      // ListTile(
+                      //   onTap: () {},
+                      //   leading: SvgPicture.asset(
+                      //     'assets/icons/svg/survey.svg',
+                      //     color: c.disabled,
+                      //     height: size.height * 0.03,
+                      //     width: size.height * 0.03,
+                      //   ),
+                      //   trailing: SvgPicture.asset(
+                      //     'assets/icons/svg/arrow-forward-ios.svg',
+                      //     color: c.disabled,
+                      //     height: size.height * 0.03,
+                      //     width: size.height * 0.03,
+                      //   ),
+                      //   title: Text(
+                      //     'Encuestas',
+                      //     style: t.messages,
+                      //   ),
+                      // ),
+                      // ListTile(
+                      //   onTap: () {},
+                      //   leading: SvgPicture.asset(
+                      //     'assets/icons/svg/chat.svg',
+                      //     color: c.disabled,
+                      //     height: size.height * 0.03,
+                      //     width: size.height * 0.03,
+                      //   ),
+                      //   trailing: SvgPicture.asset(
+                      //     'assets/icons/svg/arrow-forward-ios.svg',
+                      //     color: c.disabled,
+                      //     height: size.height * 0.03,
+                      //     width: size.height * 0.03,
+                      //   ),
+                      //   title: Text(
+                      //     'Hablar con el administrador',
+                      //     style: t.messages,
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: size.height * 0.05,
+                      // ),
 
-                        ListTile(
-                          onTap: () {
-                            Scaffold.of(context).closeEndDrawer();
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return const Documents();
-                            }));
-                          },
-                          leading: const Icon(
-                            Icons.document_scanner,
-                          ),
-                          trailing: SvgPicture.asset(
-                            'assets/icons/svg/arrow-forward-ios.svg',
-                            color: c.disabled,
-                            height: size.height * 0.03,
-                            width: size.height * 0.03,
-                          ),
-                          title: Text(
-                            'Documentos',
-                            style: t.messages,
-                          ),
+                      ListTile(
+                        onTap: () {
+                          Scaffold.of(context).closeEndDrawer();
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const Documents();
+                          }));
+                        },
+                        leading: const Icon(
+                          Icons.document_scanner,
                         ),
-                        ListTile(
-                          onTap: () {
-                            Scaffold.of(context).closeEndDrawer();
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return const SettingsPage();
-                            }));
-                          },
-                          leading: SvgPicture.asset(
-                            'assets/icons/svg/settings.svg',
-                            color: c.disabled,
-                            height: size.height * 0.03,
-                            width: size.height * 0.03,
-                          ),
-                          trailing: SvgPicture.asset(
-                            'assets/icons/svg/arrow-forward-ios.svg',
-                            color: c.disabled,
-                            height: size.height * 0.03,
-                            width: size.height * 0.03,
-                          ),
-                          title: Text(
-                            'Ajustes',
-                            style: t.messages,
-                          ),
+                        trailing: SvgPicture.asset(
+                          'assets/icons/svg/arrow-forward-ios.svg',
+                          color: c.disabled,
+                          height: size.height * 0.03,
+                          width: size.height * 0.03,
                         ),
-                      ],
-                    ),
+                        title: Text(
+                          'Documentos',
+                          style: t.messages,
+                        ),
+                      ),
+                      ListTile(
+                        onTap: () {
+                          Scaffold.of(context).closeEndDrawer();
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return const SettingsPage();
+                          }));
+                        },
+                        leading: SvgPicture.asset(
+                          'assets/icons/svg/settings.svg',
+                          color: c.disabled,
+                          height: size.height * 0.03,
+                          width: size.height * 0.03,
+                        ),
+                        trailing: SvgPicture.asset(
+                          'assets/icons/svg/arrow-forward-ios.svg',
+                          color: c.disabled,
+                          height: size.height * 0.03,
+                          width: size.height * 0.03,
+                        ),
+                        title: Text(
+                          'Ajustes',
+                          style: t.messages,
+                        ),
+                      ),
+                    ],
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
           // const Spacer(),
           // Padding(

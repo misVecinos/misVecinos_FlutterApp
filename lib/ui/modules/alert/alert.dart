@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:phone_caller/phone_caller.dart';
 import 'package:ripple_wave/ripple_wave.dart';
-import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
@@ -64,8 +64,11 @@ class _VecinosPageState extends ConsumerState<AlertPage> {
 
               Center(
                 child: TextButton(
-                  onPressed: () =>
-                      UrlLauncher.launchUrl(Uri.parse('tel://911')),
+                  onPressed: () async {
+                    //UrlLauncher.launchUrl(Uri.parse('tel://911'));
+
+                    await PhoneCaller.callNumber("911");
+                  },
                   child: Text(
                     'Llamar a emergencias',
                     style: t.messagesRed,

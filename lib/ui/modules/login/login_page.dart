@@ -45,8 +45,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         extendBodyBehindAppBar: true,
         body: GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-          child: ListView(
-            padding: const EdgeInsets.only(top: 0),
+          child: Column(
+            //padding: const EdgeInsets.only(top: 0),
             children: [
               LoginImage(size: size),
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mis_vecinos_app/ui/modules/pagos/alCorriente.dart';
 import 'package:mis_vecinos_app/ui/modules/pagos/widgets/card.dart';
 import 'package:mis_vecinos_app/ui/modules/pagos/atraso.dart';
@@ -18,26 +17,23 @@ class PagosMenu extends ConsumerWidget {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Detalles', style: t.title),
+        actions: [
+          Icon(
+            Icons.abc,
+            color: c.surface,
+          ),
+        ],
+        backgroundColor: c.surface,
+        elevation: 0,
+        centerTitle: false,
+      ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.only(
-            left: size.height * 0.025,
-            top: size.height * 0.05,
-            right: size.height * 0.025),
+            left: size.height * 0.025, top: 0, right: size.height * 0.025),
         children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Row(
-              children: [
-                SvgPicture.asset('assets/icons/svg/arrow-back-ios.svg',
-                    color: c.black),
-                Text('Detalles', style: t.title),
-              ],
-            ),
-          ),
-
           //
           SizedBox(
             height: size.height / 4,
