@@ -38,6 +38,19 @@ class _MainScreenState extends ConsumerState<MainPage> {
     return Scaffold(
       endDrawer: const MenuDrawer(),
       drawerEnableOpenDragGesture: true,
+      // extendBodyBehindAppBar: true,
+      // appBar: AppBar(
+      //   actions: [
+      //     Icon(
+      //       Icons.abc,
+      //       color: c.surface,
+      //     ),
+      //   ],
+      //   backgroundColor: c.surface,
+      //   elevation: 0,
+      //   centerTitle: false,
+      //   systemOverlayStyle: SystemUiOverlayStyle.dark,
+      // ),
       body: AnimatedSwitcher(
           duration: const Duration(milliseconds: 250),
           switchInCurve: Curves.fastOutSlowIn,

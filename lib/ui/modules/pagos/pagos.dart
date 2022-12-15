@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_circle_chart/flutter_circle_chart.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:fl_chart/fl_chart.dart';
@@ -74,6 +75,7 @@ class _VecinosPageState extends ConsumerState<PagosPage> {
               backgroundColor: c.surface,
               elevation: 0,
               centerTitle: false,
+              systemOverlayStyle: SystemUiOverlayStyle.dark,
             ),
             //
 

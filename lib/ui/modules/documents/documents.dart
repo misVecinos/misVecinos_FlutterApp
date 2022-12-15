@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../utils/colors.dart';
@@ -37,6 +38,7 @@ class _TransparencyState extends ConsumerState<Documents> {
         backgroundColor: c.surface,
         elevation: 0,
         centerTitle: false,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),

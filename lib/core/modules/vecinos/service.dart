@@ -80,18 +80,6 @@ class VecinoService {
         direccion:
             'Av Miguel Hidalgo y Costilla, Heroica Tenango de Arista, 52300 Méx, México.',
         telefono: 7224213458),
-    // NegocioVecino(
-    //     imagenNegocio: 'assets/images/4.jpeg',
-    //     imagenEncargado: 'assets/images/2.jpeg',
-    //     id: 0,
-    //     nombre: 'Vidrieria Pepe',
-    //     email: 'emailOnline.ccom',
-    //     encargadoPrincipal: 'Don Chuy Morales',
-    //     totalTrabajadores: 5,
-    //     horaEntrada: DateTime(2022, 12, 2, 9, 0),
-    //     horaSalida: DateTime(2022, 12, 2, 6, 0),
-    //     direccion: '52306, Tenango de Arista, Edomex, México.',
-    //     telefono: 4921234567),
   ];
 
   List<NegocioVecino> getNegocios() {

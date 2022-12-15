@@ -1,5 +1,6 @@
 import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../utils/colors.dart';
@@ -41,6 +42,7 @@ class _TransparencyState extends ConsumerState<Transparency> {
         backgroundColor: c.surface,
         elevation: 0,
         centerTitle: false,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: ListView(
         physics: const BouncingScrollPhysics(),
@@ -229,27 +231,6 @@ class _TransparencyState extends ConsumerState<Transparency> {
             ),
           ),
           const Divider(),
-
-          // CircleChart(
-          //     items: [
-          //       CircleChartItemData(
-          //           color: c.error.withOpacity(0.5),
-          //           value: 14.5,
-          //           name: 'Pago de Jardineria',
-          //           description: 'Pago por la limpieza de jardineria.'),
-          //       CircleChartItemData(
-          //           color: c.error,
-          //           value: 62.6,
-          //           name: 'Pago de Jardineria',
-          //           description: 'Pago por la limpieza de jardineria.'),
-          //       CircleChartItemData(
-          //           color: c.primary,
-          //           value: 22.9,
-          //           name: 'Pago de Jardineria',
-          //           description: 'Pago por la limpieza de jardineria.'),
-          //     ],
-          //     backgroundColor: c.disabled.withOpacity(0.5),
-          //     chartType: CircleChartType.solid),
 
           SizedBox(
             height: size.height * 0.25,

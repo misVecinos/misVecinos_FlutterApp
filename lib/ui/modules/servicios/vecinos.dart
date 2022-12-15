@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mis_vecinos_app/core/modules/vecinos/vecinos.dart';
 import 'package:mis_vecinos_app/ui/modules/servicios/vecino_detail.dart';
@@ -34,35 +35,32 @@ class _VecinosPageState extends ConsumerState<VecinosPage> {
 
     return Column(
       children: [
-        Column(
-          children: [
-            AppBar(
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        AppBar(
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Servicios', style: t.title),
+              Row(
                 children: [
-                  Text('Servicios', style: t.title),
-                  Row(
-                    children: [
-                      Text('A la redonda de', style: t.messages),
-                      SizedBox(
-                        width: size.height * 0.01,
-                      ),
-                      Text('La Joya, Toluca.', style: t.messagesBlue),
-                    ],
+                  Text('A la redonda de', style: t.messages),
+                  SizedBox(
+                    width: size.height * 0.01,
                   ),
+                  Text('La Joya, Toluca.', style: t.messagesBlue),
                 ],
               ),
-              actions: [
-                Icon(
-                  Icons.abc,
-                  color: c.surface,
-                ),
-              ],
-              backgroundColor: c.surface,
-              elevation: 0,
-              centerTitle: false,
+            ],
+          ),
+          actions: [
+            Icon(
+              Icons.abc,
+              color: c.surface,
             ),
           ],
+          backgroundColor: c.surface,
+          elevation: 0,
+          centerTitle: false,
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
         ),
         Expanded(
           child: ListView(

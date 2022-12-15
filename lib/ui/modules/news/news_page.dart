@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mis_vecinos_app/ui/modules/news/news_details.dart';
 import 'package:mis_vecinos_app/ui/modules/news/state.dart';
@@ -57,6 +58,7 @@ class _NewsPageState extends ConsumerState<NewsPage> {
             backgroundColor: c.surface,
             elevation: 0,
             centerTitle: false,
+            systemOverlayStyle: SystemUiOverlayStyle.dark,
           ),
           //
           drawerEnableOpenDragGesture: true,

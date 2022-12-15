@@ -33,149 +33,144 @@ class _SponsorsState extends ConsumerState<Sponsors> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ListView(
-        children: [
-          GestureDetector(
-              onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-              child: Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: ref.watch(valid) == false
-                      ? Padding(
-                          padding: EdgeInsets.only(
-                              left: size.height * 0.025,
-                              right: size.height * 0.025),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              SizedBox(
-                                height: size.height * 0.02,
-                              ),
-
-                              Stack(
-                                children: [
-                                  SizedBox(
-                                    height: size.height * 0.2,
-                                    width: size.width,
-                                    child: Image.asset(
-                                      'assets/images/composta.jpg',
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      icon: const Icon(Icons.arrow_back_ios))
-                                ],
-                              ),
-                              // Center(
-                              //   child:
-                              //       Text('Hagamos composta. ', style: t.subtitle),
-                              // ),
-                              SizedBox(
-                                height: size.height * 0.02,
-                              ),
-                              Center(
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: ListView(
+          padding: const EdgeInsets.only(top: 0),
+          children: [
+            Stack(
+              children: [
+                Container(
+                    color: c.primary.withOpacity(0.6),
+                    height: size.height * 0.35,
+                    width: size.width),
+                Padding(
+                  padding: EdgeInsets.only(top: size.height * 0.1),
+                  child: Center(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: SizedBox(
+                        height: size.height * 0.2,
+                        width: size.width * 0.9,
+                        child: Image.asset('assets/images/composta.jpg',
+                            fit: BoxFit.cover),
+                      ),
+                    ),
+                  ),
+                ),
+                SafeArea(
+                  child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.arrow_back_ios)),
+                )
+              ],
+            ),
+            ref.watch(valid) == false
+                ? Padding(
+                    padding: EdgeInsets.only(
+                        left: size.height * 0.025,
+                        right: size.height * 0.025,
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          height: size.height * 0.02,
+                        ),
+                        Center(
+                          child: Text(
+                            'Unete a nuestro movimiento. ',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: t.messagesBold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.02,
+                        ),
+                        Center(
+                          child: Text(
+                            'Ayudanos a salvar al planeta. Ingresa tus datos y te contactaremos para más información.',
+                            maxLines: 4,
+                            overflow: TextOverflow.ellipsis,
+                            style: t.messages,
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.02,
+                        ),
+                        txtField(size, name, 'Nombre completo', 'name.svg'),
+                        txtField(size, phone, 'Teléfono', 'whatsapp.svg'),
+                        txtField(size, email, 'Email', ''),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        buton(context, c.primary, 'Enviar', t.buttons, name,
+                            email, phone),
+                        SizedBox(
+                          height: size.height * 0.08,
+                        ),
+                      ],
+                    ),
+                  )
+                : Stack(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                            left: size.height * 0.025,
+                            right: size.height * 0.025),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              height: size.height * 0.06,
+                            ),
+                            Center(
+                              child: Text('Exelente', style: t.subtitle),
+                            ),
+                            SizedBox(
+                              height: size.height * 0.01,
+                            ),
+                            Center(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    left: size.height * 0.02,
+                                    right: size.height * 0.02),
                                 child: Text(
-                                  'Unete a nuestro movimiento. Ingresa tus datos y te contactaremos para más información.',
-                                  maxLines: 4,
-                                  overflow: TextOverflow.ellipsis,
+                                  'Gracias por tu información. Nos prondrémos en contacto contigo en breve.',
                                   style: t.messages,
                                 ),
                               ),
-                              SizedBox(
-                                height: size.height * 0.02,
-                              ),
-                              txtField(
-                                  size, name, 'Nombre completo', 'name.svg'),
-                              txtField(size, phone, 'Teléfono', 'whatsapp.svg'),
-                              txtField(size, email, 'Email', ''),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              buton(context, c.primary, 'Enviar', t.buttons,
-                                  name, email, phone),
-                              SizedBox(
-                                height: size.height * 0.08,
-                              ),
-                            ],
-                          ),
-                        )
-                      : Stack(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  left: size.height * 0.025,
-                                  right: size.height * 0.025),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SizedBox(
-                                    height: size.height * 0.02,
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.2,
-                                    width: size.width,
-                                    child: Image.asset(
-                                      'assets/images/composta.jpg',
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.02,
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.02,
-                                  ),
-                                  Center(
-                                    child: Text('Exelente', style: t.subtitle),
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.01,
-                                  ),
-                                  Center(
-                                    child: Padding(
-                                      padding: EdgeInsets.only(
-                                          left: size.height * 0.02,
-                                          right: size.height * 0.02),
-                                      child: Text(
-                                        'Gracias por tu información. Nos prondrémos en contacto contigo en breve.',
-                                        style: t.messages,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.01,
-                                  ),
-                                  LottieBuilder.asset(
-                                    repeat: false,
-                                    'assets/icons/lottie/chek.json',
-                                    height: size.height * 0.1,
-                                  ),
-                                  SizedBox(
-                                    height: size.height * 0.08,
-                                  ),
-                                ],
-                              ),
                             ),
-                            Center(
-                              child: LottieBuilder.asset(
-                                repeat: false,
-                                'assets/icons/lottie/confeti.json',
-                                height: size.height * 0.8,
-                                width: size.width,
-                              ),
+                            SizedBox(
+                              height: size.height * 0.01,
                             ),
-                            IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: const Icon(Icons.arrow_back_ios)),
+                            LottieBuilder.asset(
+                              repeat: false,
+                              'assets/icons/lottie/chek.json',
+                              height: size.height * 0.1,
+                            ),
+                            SizedBox(
+                              height: size.height * 0.08,
+                            ),
                           ],
-                        )))
-        ],
+                        ),
+                      ),
+                      Center(
+                        child: LottieBuilder.asset(
+                          repeat: false,
+                          'assets/icons/lottie/confeti.json',
+                          height: size.height * 0.8,
+                          width: size.width,
+                        ),
+                      ),
+                    ],
+                  )
+          ],
+        ),
       ),
     );
   }
@@ -187,7 +182,7 @@ Widget txtField(
     padding:
         EdgeInsets.only(top: size.height * 0.01, bottom: size.height * 0.01),
     child: SizedBox(
-      height: size.height * 0.07,
+      height: size.height * 0.06,
       width: size.width * 0.9,
       child: TextField(
         controller: controller,
@@ -248,6 +243,8 @@ Widget buton(
             //index == 0 ? checkPET(ref, context) : checkAluminium(ref, context);
           },
           child: Ink(
+            height: size.height * 0.06,
+            width: size.width * 0.85,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
@@ -258,8 +255,6 @@ Widget buton(
               ],
               color: background,
             ),
-            height: size.height * 0.065,
-            width: size.width * 0.85,
             child: Center(
               child: Text(
                 title,

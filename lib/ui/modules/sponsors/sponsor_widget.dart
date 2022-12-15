@@ -18,8 +18,8 @@ class SponsorWidget extends ConsumerWidget {
       padding: EdgeInsets.only(
           top: size.height * 0.005, bottom: size.height * 0.015),
       child: Container(
-        height: size.height * .13,
-        width: size.width * .92,
+        height: size.height * .125,
+        //width: size.width * .92,
         decoration: BoxDecoration(
           color: c.primary.withOpacity(0.25),
           borderRadius: BorderRadius.circular(14),
@@ -67,6 +67,7 @@ class SponsorWidget extends ConsumerWidget {
                           style: t.messagesBlack),
                     ),
                   ),
+                  SizedBox(height: size.height * 0.005),
                   Expanded(
                     child: Row(
                       children: [
@@ -77,30 +78,26 @@ class SponsorWidget extends ConsumerWidget {
                             },
                             child: Text('No, gracias', style: t.messagesBlack)),
                         SizedBox(width: size.width * 0.02),
-                        SizedBox(
-                          width: size.width * 0.3,
-                          height: size.height * 0.045,
-                          child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    PageRouteAnimator(
-                                      child: const Sponsors(),
-                                      routeAnimation:
-                                          RouteAnimation.rightToLeftWithFade,
-                                      curve: Curves.fastOutSlowIn,
-                                      duration:
-                                          const Duration(milliseconds: 400),
-                                      reverseDuration:
-                                          const Duration(milliseconds: 400),
-                                    ));
-                              },
-                              child: Text('Más info.', style: t.buttons)),
-                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  PageRouteAnimator(
+                                    child: const Sponsors(),
+                                    routeAnimation:
+                                        RouteAnimation.rightToLeftWithFade,
+                                    curve: Curves.fastOutSlowIn,
+                                    duration: const Duration(milliseconds: 400),
+                                    reverseDuration:
+                                        const Duration(milliseconds: 400),
+                                  ));
+                            },
+                            child: Text('Más info.', style: t.buttons)),
                         SizedBox(width: size.width * 0.05)
                       ],
                     ),
-                  )
+                  ),
+                  SizedBox(height: size.height * 0.008),
                 ],
               ),
             ),
