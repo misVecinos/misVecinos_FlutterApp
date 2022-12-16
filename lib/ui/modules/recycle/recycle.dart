@@ -39,6 +39,10 @@ class _TransparencyState extends ConsumerState<Recycle> {
             children: [
               Text('¿Que reciclarás? ', style: t.title),
               //Text('Mes de Noviembre', style: t.messages),
+
+              //-secrertraria del medio ambiente
+              //pomposta
+              //6
             ],
           ),
           actions: [

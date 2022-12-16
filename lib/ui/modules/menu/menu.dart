@@ -21,29 +21,15 @@ class _VecinosPageState extends ConsumerState<MenuDrawer> {
 
     return Drawer(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //
-          Padding(
-            padding: EdgeInsets.only(
-                top: size.height * 0.1, left: size.width * 0.05),
-            child: Container(
-              height: size.height * 0.037,
-              width: size.width * 0.48,
-              color: c.surface,
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: Text(
-                  'Mis Vecinos',
-                  style: t.titleApp,
-                ),
+          DrawerHeader(
+            child: Center(
+              child: Text(
+                'Mis Vecinos',
+                style: t.titleApp,
               ),
             ),
-          ),
-          //
-          SizedBox(
-            height: size.height * 0.05,
           ),
           //
           Row(

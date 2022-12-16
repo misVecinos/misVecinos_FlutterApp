@@ -215,6 +215,8 @@ class _TransparencyState extends ConsumerState<SettingsPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(14.0))),
             title: Text('¿Nos Dejas?', style: t.subtitle),
             content: Text(
               'Estas apunto de cerrar tu sesión. ¿Estas Seguro?',
@@ -234,6 +236,7 @@ class _TransparencyState extends ConsumerState<SettingsPage> {
                     await prefs.setBool('isRecycing', false);
                   });
                 },
+                style: TextButton.styleFrom(foregroundColor: c.error),
                 child: Text(
                   'Cerrar Sesión',
                   style: t.messagesRed,
@@ -243,6 +246,7 @@ class _TransparencyState extends ConsumerState<SettingsPage> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
+                style: TextButton.styleFrom(foregroundColor: c.disabled),
                 child: Text(
                   'Cancelar',
                   style: t.messages,

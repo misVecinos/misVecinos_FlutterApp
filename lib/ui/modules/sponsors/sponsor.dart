@@ -8,7 +8,8 @@ import '../../utils/text_styles.dart';
 import '../home/cotroller.dart';
 
 class Sponsors extends ConsumerStatefulWidget {
-  const Sponsors({super.key});
+  const Sponsors({required this.color, super.key});
+  final Color color;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _SponsorsState();
@@ -41,7 +42,7 @@ class _SponsorsState extends ConsumerState<Sponsors> {
             Stack(
               children: [
                 Container(
-                    color: c.primary.withOpacity(0.6),
+                    color: widget.color,
                     height: size.height * 0.35,
                     width: size.width),
                 Padding(
@@ -108,8 +109,15 @@ class _SponsorsState extends ConsumerState<Sponsors> {
                         const SizedBox(
                           height: 20,
                         ),
-                        buton(context, c.primary, 'Enviar', t.buttons, name,
-                            email, phone),
+                        buton(
+                          context,
+                          widget.color,
+                          'Enviar',
+                          t.buttons,
+                          name,
+                          email,
+                          phone,
+                        ),
                         SizedBox(
                           height: size.height * 0.08,
                         ),
@@ -216,13 +224,14 @@ Widget txtField(
 }
 
 Widget buton(
-    BuildContext context,
-    Color background,
-    String title,
-    TextStyle textStyle,
-    TextEditingController name,
-    TextEditingController phone,
-    TextEditingController email) {
+  BuildContext context,
+  Color background,
+  String title,
+  TextStyle textStyle,
+  TextEditingController name,
+  TextEditingController phone,
+  TextEditingController email,
+) {
   final size = MediaQuery.of(context).size;
 
   return Consumer(

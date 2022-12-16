@@ -7,11 +7,27 @@ import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
 import 'controller.dart';
 
-class SponsorWidget extends ConsumerWidget {
-  const SponsorWidget({super.key});
+class SponsorWidget extends ConsumerStatefulWidget {
+  const SponsorWidget(
+      {required this.asset,
+      required this.title,
+      required this.content,
+      required this.color,
+      required this.index,
+      super.key});
+  final String asset;
+  final String title;
+  final String content;
+  final Color color;
+  final int index;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _SponsorWidgetState();
+}
+
+class _SponsorWidgetState extends ConsumerState<SponsorWidget> {
+  @override
+  Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
     return Padding(
@@ -21,10 +37,8 @@ class SponsorWidget extends ConsumerWidget {
         height: size.height * .125,
         //width: size.width * .92,
         decoration: BoxDecoration(
-          color: c.primary.withOpacity(0.25),
+          color: widget.color,
           borderRadius: BorderRadius.circular(14),
-
-          //color: const Color(0xffFDFDFD),
         ),
         child: Row(
           children: [
@@ -36,7 +50,7 @@ class SponsorWidget extends ConsumerWidget {
                 width: size.width * 0.23,
                 height: size.height * .15,
                 child: Image.asset(
-                  'assets/images/composta.jpg',
+                  widget.asset,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -50,7 +64,7 @@ class SponsorWidget extends ConsumerWidget {
                   SizedBox(height: size.height * 0.005),
                   Padding(
                     padding: EdgeInsets.only(top: size.height * 0.005),
-                    child: Text('¡Hagamos composta!',
+                    child: Text(widget.title,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: t.messagesBold),
@@ -60,8 +74,7 @@ class SponsorWidget extends ConsumerWidget {
                     child: Container(
                       color: c.surface,
                       width: size.width * 0.6,
-                      child: Text(
-                          'Hagamos composta y ayudemos al planeta. ¡Únete!',
+                      child: Text(widget.content,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: t.messagesBlack),
@@ -74,8 +87,14 @@ class SponsorWidget extends ConsumerWidget {
                         SizedBox(width: size.width * 0.05),
                         TextButton(
                             onPressed: () {
-                              ref.read(sponsor.notifier).delete();
+                              setState(() {
+                                ref
+                                    .read(sponsors.notifier)
+                                    .removeAtIndex(widget.index);
+                              });
                             },
+                            style: TextButton.styleFrom(
+                                foregroundColor: widget.color),
                             child: Text('No, gracias', style: t.messagesBlack)),
                         SizedBox(width: size.width * 0.02),
                         ElevatedButton(
@@ -83,7 +102,7 @@ class SponsorWidget extends ConsumerWidget {
                               Navigator.push(
                                   context,
                                   PageRouteAnimator(
-                                    child: const Sponsors(),
+                                    child: Sponsors(color: widget.color),
                                     routeAnimation:
                                         RouteAnimation.rightToLeftWithFade,
                                     curve: Curves.fastOutSlowIn,
@@ -92,6 +111,9 @@ class SponsorWidget extends ConsumerWidget {
                                         const Duration(milliseconds: 400),
                                   ));
                             },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: widget.color,
+                                foregroundColor: widget.color),
                             child: Text('Más info.', style: t.buttons)),
                         SizedBox(width: size.width * 0.05)
                       ],

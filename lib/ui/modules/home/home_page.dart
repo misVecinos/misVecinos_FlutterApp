@@ -104,15 +104,31 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                 left: size.height * 0.015, right: size.height * 0.015),
             children: [
               //
-
-              //
-
               AnimatedSwitcher(
                   duration: const Duration(milliseconds: 600),
                   switchInCurve: Curves.fastLinearToSlowEaseIn,
                   switchOutCurve: Curves.ease,
-                  child: ref.watch(sponsor) == true
-                      ? const SponsorWidget()
+                  child: ref.watch(sponsors).isNotEmpty
+                      ? SizedBox(
+                          width: double.infinity,
+                          height: size.height * 0.145,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: ref.watch(sponsors).length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(right: 10.0),
+                                  child: SponsorWidget(
+                                      asset: ref.watch(sponsors)[index].imagen,
+                                      title: ref.watch(sponsors)[index].titulo,
+                                      content:
+                                          ref.watch(sponsors)[index].contenido,
+                                      index: index,
+                                      color: Colors.primaries[index]
+                                          .withOpacity(0.25)),
+                                );
+                              }),
+                        )
                       : Container()),
 
               GestureDetector(

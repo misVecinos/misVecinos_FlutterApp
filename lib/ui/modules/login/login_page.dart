@@ -295,6 +295,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(14.0))),
             title: Text('Casi...', style: t.subtitle),
             content: Text(
               'Completa correctamente tus credenciales para iniciar sesión.',
@@ -314,6 +316,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
+                style: TextButton.styleFrom(foregroundColor: c.disabled),
                 child: Text(
                   'Cancelar',
                   style: t.messages,
