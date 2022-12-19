@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 
 String date(DateTime date) {
@@ -49,3 +51,20 @@ String toParagraphs(String description) {
 
   return mainList.join(' ');
 }
+
+// String toMxn(String quantity) {
+//   if (quantity.length == 3) {
+//     print('OKAY: $quantity.00');
+//     return '$quantity.00';
+//     //
+//   } else if (quantity.length == 4) {
+//     for (int i = 0; i < quantity.length; i++) {
+//       quantity = quantity.replaceRange(
+//           1, null, '${quantity[0]},${quantity.substring(1)}');
+//     }
+//     print('OKAY: $quantity');
+//     return '$quantity.00';
+//   }
+
+//   return 'Not working';
+// }

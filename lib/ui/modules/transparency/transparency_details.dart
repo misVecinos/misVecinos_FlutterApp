@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
+import 'widgets/egreso_widget.dart';
 
 class TransparencyDetails extends ConsumerStatefulWidget {
   const TransparencyDetails(
@@ -25,28 +26,12 @@ class _TransparencyDetailsState extends ConsumerState<TransparencyDetails> {
     //Saldo remanente = ?
 
     return ListView(
-      physics: const BouncingScrollPhysics(),
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       padding: EdgeInsets.only(
           left: size.height * 0.025, top: 0, right: size.height * 0.025),
       children: [
         //
-        SizedBox(
-          height: size.height * 0.005,
-        ),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            IconButton(
-                onPressed: () {}, icon: const Icon(Icons.arrow_back_ios)),
-            Text(
-              widget.month,
-              style: t.subtitle,
-            ),
-            IconButton(
-                onPressed: () {}, icon: const Icon(Icons.arrow_forward_ios)),
-          ],
-        ),
 
         SizedBox(
           height: size.height * 0.02,
@@ -155,40 +140,45 @@ class _TransparencyDetailsState extends ConsumerState<TransparencyDetails> {
           'Egresos',
           style: t.subtitle,
         ),
-        Padding(
-          padding: EdgeInsets.only(
-              top: size.height * 0.01, bottom: size.height * 0.015),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                  //height: size.height * 0.04,
-                  width: size.width * 0.4,
-                  color: c.surface,
-                  child: Text('Pago de jardineria:', style: t.messagesBlack)),
-              Container(
-                  color: c.surface,
-                  child: Text('MXN \$1,600.00', style: t.messagesRed)),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-              top: size.height * 0.01, bottom: size.height * 0.015),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                  //height: size.height * 0.04,
-                  width: size.width * 0.4,
-                  color: c.surface,
-                  child: Text('Pago de vigilante:', style: t.messagesBlack)),
-              Container(
-                  color: c.surface,
-                  child: Text('MXN \$6,900.00', style: t.messagesRed)),
-            ],
-          ),
-        ),
+
+        //---------
+
+        const EgresosWidget(egreso: 'Pago Jardinero', cantidad: '1600'),
+
+        // Padding(
+        //   padding: EdgeInsets.only(
+        //       top: size.height * 0.01, bottom: size.height * 0.015),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //     children: [
+        //       Container(
+        //           //height: size.height * 0.04,
+        //           width: size.width * 0.4,
+        //           color: c.surface,
+        //           child: Text('Pago de jardineria:', style: t.messagesBlack)),
+        //       Container(
+        //           color: c.surface,
+        //           child: Text('MXN \$1,600.00', style: t.messagesRed)),
+        //     ],
+        //   ),
+        // ),
+        // Padding(
+        //   padding: EdgeInsets.only(
+        //       top: size.height * 0.01, bottom: size.height * 0.015),
+        //   child: Row(
+        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //     children: [
+        //       Container(
+        //           //height: size.height * 0.04,
+        //           width: size.width * 0.4,
+        //           color: c.surface,
+        //           child: Text('Pago de vigilante:', style: t.messagesBlack)),
+        //       Container(
+        //           color: c.surface,
+        //           child: Text('MXN \$6,900.00', style: t.messagesRed)),
+        //     ],
+        //   ),
+        // ),
         const Divider(),
         Padding(
           padding: EdgeInsets.only(
