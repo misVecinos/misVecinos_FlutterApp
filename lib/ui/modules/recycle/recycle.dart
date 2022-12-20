@@ -7,6 +7,8 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
+import '../sponsors/controller.dart';
+import '../sponsors/sponsor_widget.dart';
 import 'controller.dart';
 import 'widgets/cards.dart';
 
@@ -38,11 +40,6 @@ class _TransparencyState extends ConsumerState<Recycle> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('¿Que reciclarás? ', style: t.title),
-              //Text('Mes de Noviembre', style: t.messages),
-
-              //-secrertraria del medio ambiente
-              //pomposta
-              //6
             ],
           ),
           actions: [
@@ -63,6 +60,42 @@ class _TransparencyState extends ConsumerState<Recycle> {
             SizedBox(
               height: size.height * 0.01,
             ),
+
+            AnimatedSwitcher(
+                duration: const Duration(milliseconds: 600),
+                switchInCurve: Curves.fastLinearToSlowEaseIn,
+                switchOutCurve: Curves.ease,
+                child: ref.watch(sponsors).isNotEmpty
+                    ? SizedBox(
+                        width: double.infinity,
+                        height: size.height * 0.145,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 2,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 10.0),
+                                child: SponsorWidget(
+                                    asset: assets[index],
+                                    title: index == 0
+                                        ? 'Cuanto tiempo dura el PET?'
+                                        : 'Aluminio reutilizable',
+                                    content: index == 0
+                                        ? 'Conoce más sobre el PET. Conoce más.'
+                                        : 'Reutiliza el aluminio que tienes. Ayuda al planeta.',
+                                    index: index,
+                                    color: index == 0
+                                        ? c.primary.withOpacity(0.25)
+                                        : c.OK.withOpacity(0.25)),
+                              );
+                            }),
+                      )
+                    : Container()),
+
+            //
+            SizedBox(
+              height: size.height * 0.01,
+            ),
             Text(
               '¡Ayudemos al planeta! \nEs importante que reciclemos nuestra basura si es posible.',
               style: t.messages,
@@ -76,7 +109,7 @@ class _TransparencyState extends ConsumerState<Recycle> {
             ),
 
             SizedBox(
-              height: size.height * 0.05,
+              height: size.height * 0.02,
             ),
             Container(
               color: c.surface,
@@ -98,7 +131,7 @@ class _TransparencyState extends ConsumerState<Recycle> {
                           showBottomMenu(index, context, ref, size);
                         },
                         child: Ink(
-                          height: size.height * 0.48,
+                          height: size.height * 0.45,
                           width: size.width * 0.7,
                           child: Cards(
                             size: size,
@@ -115,7 +148,7 @@ class _TransparencyState extends ConsumerState<Recycle> {
             ),
 
             SizedBox(
-              height: size.height * 0.01,
+              height: size.height * 0.003,
             ),
             Center(
               child: SmoothPageIndicator(
@@ -130,22 +163,53 @@ class _TransparencyState extends ConsumerState<Recycle> {
             //
 
             SizedBox(
-              height: size.height * 0.05,
+              height: size.height * 0.01,
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const RecycleDetails();
-                  }));
-                },
-                child: Text(
-                  'Historial',
-                  style: t.buttonBlue2,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const RecycleDetails();
+                    }));
+                  },
+                  child: Text(
+                    'Historial',
+                    style: t.buttonBlue2,
+                  ),
                 ),
-              ),
+                Icon(Icons.arrow_forward_ios, color: c.primary)
+              ],
             ),
+
+            SizedBox(
+              height: size.height * 0.01,
+            ),
+
+            Text(
+              'Conoce mas sobre el PET',
+              style: t.subtitle,
+            ),
+            Row(
+              children: [
+                Container(
+                  color: c.surface,
+                  width: 340,
+                  child: Text(
+                    'Explora las curiosidades del PET. Ten en cuenta ayudar al planeta. ',
+                    style: t.messages,
+                  ),
+                ),
+                Icon(Icons.arrow_forward_ios, color: c.disabled)
+              ],
+            ),
+
+            SizedBox(
+              height: size.height * 0.2,
+            ),
+
             //
           ],
         ));

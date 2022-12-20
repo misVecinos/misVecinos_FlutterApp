@@ -142,6 +142,9 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                         duration: const Duration(milliseconds: 400),
                         reverseDuration: const Duration(milliseconds: 400),
                       ));
+                  //     MaterialPageRoute(builder: (context) {
+                  //   return const Transparency();
+                  // }));
                 },
                 child: Align(
                   child: Container(

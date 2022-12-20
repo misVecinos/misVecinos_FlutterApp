@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
-import 'widgets/egreso_widget.dart';
+import 'widgets/text_egreso.dart';
 
 class TransparencyDetails extends ConsumerStatefulWidget {
   const TransparencyDetails(
@@ -143,7 +143,7 @@ class _TransparencyDetailsState extends ConsumerState<TransparencyDetails> {
 
         //---------
 
-        const EgresosWidget(egreso: 'Pago Jardinero', cantidad: '1600'),
+        const TextEgreso(egreso: 'Pago Jardinero', cantidad: '1600'),
 
         // Padding(
         //   padding: EdgeInsets.only(

@@ -21,7 +21,7 @@ class Cards extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Center(
       child: Ink(
-        height: size.height * 0.48,
+        height: size.height * 0.45,
         width: size.width * 0.7,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(14),

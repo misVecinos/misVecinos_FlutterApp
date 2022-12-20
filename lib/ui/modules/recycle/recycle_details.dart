@@ -1,7 +1,8 @@
+import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/widgets/minicard2.dart';
-import 'package:multi_charts/multi_charts.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
@@ -39,6 +40,7 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
           backgroundColor: c.surface,
           elevation: 0,
           centerTitle: false,
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
         ),
         body: ListView(
           physics: const BouncingScrollPhysics(),
@@ -49,69 +51,149 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
               height: size.height * 0.01,
             ),
 
-            MiniCard2(
-                asset: 'bottle.png',
-                title: 'PET',
-                number: listPET.isEmpty
-                    ? 'Vacio'
-                    : listPET
-                        .reduce((value, element) => value + element)
-                        .toString()),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MiniCard2(
+                    asset: 'bottle.png',
+                    title: 'PET',
+                    number: listPET.isEmpty
+                        ? '0'
+                        : listPET
+                            .reduce((value, element) => value + element)
+                            .toString()),
+                SizedBox(
+                  width: size.width * 0.04,
+                ),
+                MiniCard2(
+                    asset: 'can.png',
+                    title: 'Aluminio',
+                    number: listAluminium.isEmpty
+                        ? '0'
+                        : listAluminium
+                            .reduce((value, element) => value + element)
+                            .toString()),
+              ],
+            ),
 
             SizedBox(
               height: size.height * 0.02,
             ),
 
-            MiniCard2(
-                asset: 'can.png',
-                title: 'Aluminio',
-                number: listAluminium.isEmpty
-                    ? 'Vacio'
-                    : listAluminium
-                        .reduce((value, element) => value + element)
-                        .toString()),
-
-            SizedBox(
-              height: size.height * 0.02,
+            ExpansionTile(
+              initiallyExpanded: true,
+              title: Text('Historial', style: t.subtitle),
+              children: [
+                ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: ref.watch(listItemsPET).length,
+                    itemBuilder: (context, index) {
+                      return ref.watch(listItemsPET).isEmpty
+                          ? Text(
+                              'Añade algunos elementos. Tu historial de reciclaje está vacio.',
+                              style: t.messages)
+                          : Row(
+                              children: [
+                                Text(
+                                    'Hoy: ${ref.watch(listItemsPET)[index]} piezas de PET  ',
+                                    style: t.messagesBlack),
+                                const Spacer(),
+                                Text(
+                                    '${DateTime.now().hour}:${DateTime.now().minute}',
+                                    style: t.messagesBlack),
+                              ],
+                            );
+                    }),
+                ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: ref.watch(listItemsAluminium).length,
+                    itemBuilder: (context, index) {
+                      return ref.watch(listItemsAluminium).isEmpty
+                          ? Text(
+                              'Añade algunos elementos. Tu historial de reciclaje está vacio.',
+                              style: t.messages)
+                          : Row(
+                              children: [
+                                Text(
+                                    'Hoy: ${ref.watch(listItemsAluminium)[index]} piezas de Aluminio  ',
+                                    style: t.messagesBlack),
+                                const Spacer(),
+                                Text(
+                                    '  ${DateTime.now().hour}:${DateTime.now().minute}',
+                                    style: t.messagesBlack),
+                              ],
+                            );
+                    }),
+                //
+              ],
             ),
 
+            //
             Text(
               'Contenedor PET',
               style: t.subtitle,
             ),
             SizedBox(
-              height: size.height * 0.05,
+              height: size.height * 0.02,
             ),
-            Container(
-              color: c.surface,
-              height: size.height * 0.25,
-              width: size.width * 0.8,
-              child: PieChart(
-                separateFocusedValue: true,
-                textScaleFactor: 0.06,
-                legendPosition: LegendPosition.Left,
-                legendTextSize: 10,
-                legendItemPadding: const EdgeInsets.all(2),
-                maxHeight: size.height * 0.1,
-                maxWidth: size.width * 0.8,
-                curve: Curves.easeIn,
-                values: const [
-                  42,
-                  58,
-                ],
-                labels: const [
-                  'Libre',
-                  'En uso',
-                ],
-                sliceFillColors: [
-                  c.primary,
-                  c.error,
-                ],
-                animationDuration: const Duration(milliseconds: 1500),
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.1,
+
+            Stack(
+              children: [
+                Container(
+                  color: c.surface,
+                  height: size.height * 0.26,
+                  width: size.width,
+                  child: DChartPie(
+                    data: const [
+                      {'domain': 'En uso', 'measure': 58},
+                      {'domain': 'Libre', 'measure': 42},
+                    ],
+                    fillColor: (barData, index) {
+                      switch (barData['domain']) {
+                        case 'Libre':
+                          return c.primary.withOpacity(0.5);
+                        case 'En uso':
+                          return c.primary;
+                        default:
+                          return c.error;
+                      }
+                    },
+                    strokeWidth: 4,
+                    labelColor: c.secondary,
+                    labelFontSize: 14,
+                  ),
+                ),
+                //
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: c.primary.withOpacity(0.5),
+                      radius: size.width * 0.025,
+                    ),
+                    SizedBox(
+                      width: size.width * 0.01,
+                    ),
+                    const Text('Libre'),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: size.height * 0.03),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: c.primary,
+                        radius: size.width * 0.025,
+                      ),
+                      SizedBox(
+                        width: size.width * 0.01,
+                      ),
+                      const Text('En uso'),
+                    ],
+                  ),
+                ),
+              ],
             ),
 
             Text(
@@ -119,48 +201,68 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
               style: t.subtitle,
             ),
             SizedBox(
-              height: size.height * 0.05,
+              height: size.height * 0.02,
             ),
-            Container(
-              color: c.surface,
-              height: size.height * 0.25,
-              width: size.width * 0.8,
-              child: PieChart(
-                separateFocusedValue: true,
-                textScaleFactor: 0.06,
-                legendPosition: LegendPosition.Left,
-                legendTextSize: 10,
-                legendItemPadding: const EdgeInsets.all(2),
-                maxHeight: size.height * 0.1,
-                maxWidth: size.width * 0.8,
-                curve: Curves.easeIn,
-                values: const [
-                  82,
-                  18,
-                ],
-                labels: const [
-                  'Libre',
-                  'En uso',
-                ],
-                sliceFillColors: [
-                  c.primary,
-                  c.error,
-                ],
-                animationDuration: const Duration(milliseconds: 1500),
-              ),
+            Stack(
+              children: [
+                Container(
+                  color: c.surface,
+                  height: size.height * 0.26,
+                  width: size.width,
+                  child: DChartPie(
+                    data: const [
+                      {'domain': 'En uso', 'measure': 18},
+                      {'domain': 'Libre', 'measure': 82},
+                    ],
+                    fillColor: (barData, index) {
+                      switch (barData['domain']) {
+                        case 'Libre':
+                          return c.primary.withOpacity(0.5);
+                        case 'En uso':
+                          return c.primary;
+                        default:
+                          return c.error;
+                      }
+                    },
+                    strokeWidth: 4,
+                    labelColor: c.secondary,
+                    labelFontSize: 14,
+                  ),
+                ),
+                //
+                Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: c.primary.withOpacity(0.5),
+                      radius: size.width * 0.025,
+                    ),
+                    SizedBox(
+                      width: size.width * 0.01,
+                    ),
+                    const Text('Libre'),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: size.height * 0.03),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: c.primary,
+                        radius: size.width * 0.025,
+                      ),
+                      SizedBox(
+                        width: size.width * 0.01,
+                      ),
+                      const Text('En uso'),
+                    ],
+                  ),
+                ),
+              ],
             ),
+            //
             SizedBox(
               height: size.height * 0.05,
             ),
-            // ListView.builder(
-            //     shrinkWrap: true,
-            //     physics: const NeverScrollableScrollPhysics(),
-            //     itemCount: ref.watch(listItemsPET).length,
-            //     itemBuilder: (context, index) {
-            //       return Text(listItems.isEmpty
-            //           ? 'Añade algunos elementos. La lista está vacia.'
-            //           : listItems[index].toString());
-            //     }),
           ],
         ));
   }

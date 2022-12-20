@@ -52,19 +52,23 @@ String toParagraphs(String description) {
   return mainList.join(' ');
 }
 
-// String toMxn(String quantity) {
-//   if (quantity.length == 3) {
-//     print('OKAY: $quantity.00');
-//     return '$quantity.00';
-//     //
-//   } else if (quantity.length == 4) {
-//     for (int i = 0; i < quantity.length; i++) {
-//       quantity = quantity.replaceRange(
-//           1, null, '${quantity[0]},${quantity.substring(1)}');
-//     }
-//     print('OKAY: $quantity');
-//     return '$quantity.00';
-//   }
+String toMxn(String quantity) {
+  if (quantity.length == 3) {
+    return '$quantity.00';
+    //
+  }
+  if (quantity.length == 4) {
+    for (int i = 1; i == quantity.length; i++) {
+      var start = 0;
+      List<String> list = [];
 
-//   return 'Not working';
-// }
+      final end = start + 4;
+      list.add(quantity.substring(start, end));
+      start = end;
+      print(list.first);
+    }
+    return '$quantity.00';
+  }
+
+  return '$quantity.00';
+}
