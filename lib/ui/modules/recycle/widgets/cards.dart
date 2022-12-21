@@ -21,9 +21,10 @@ class Cards extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Center(
       child: Ink(
-        height: size.height * 0.45,
+        height: size.height * 0.38,
         width: size.width * 0.7,
         decoration: BoxDecoration(
+          color: const Color(0xffFDFDFD),
           borderRadius: BorderRadius.circular(14),
           boxShadow: [
             BoxShadow(
@@ -31,7 +32,6 @@ class Cards extends ConsumerWidget {
                 blurRadius: 20.0,
                 offset: const Offset(1, 1))
           ],
-          color: const Color(0xffFDFDFD),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -39,7 +39,7 @@ class Cards extends ConsumerWidget {
           children: [
             Image.asset(
               assets[index],
-              height: size.height * 0.35,
+              height: size.height * 0.25,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

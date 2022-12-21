@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mis_vecinos_app/ui/modules/sponsors/sponsor.dart';
-import 'package:page_route_animator/page_route_animator.dart';
+import 'package:mis_vecinos_app/ui/modules/recycle/controller.dart';
 
-import '../../utils/colors.dart';
-import '../../utils/text_styles.dart';
-import 'controller.dart';
+import '../../../utils/colors.dart';
+import '../../../utils/text_styles.dart';
 
-class SponsorWidget extends ConsumerStatefulWidget {
-  const SponsorWidget(
+class RecicleTips extends ConsumerStatefulWidget {
+  const RecicleTips(
       {required this.asset,
       required this.title,
       required this.content,
@@ -25,13 +23,13 @@ class SponsorWidget extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _SponsorWidgetState();
 }
 
-class _SponsorWidgetState extends ConsumerState<SponsorWidget> {
+class _SponsorWidgetState extends ConsumerState<RecicleTips> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
     return Container(
-      height: size.height * 0.11,
+      //height: size.height * .2,
       //width: size.width * .92,
       decoration: BoxDecoration(
         color: widget.color,
@@ -68,8 +66,7 @@ class _SponsorWidgetState extends ConsumerState<SponsorWidget> {
                       style: t.messagesBold),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
-                      top: size.height * 0.005, right: size.height * 0.005),
+                  padding: EdgeInsets.only(top: size.height * 0.005),
                   child: Container(
                     color: c.surface,
                     width: size.width * 0.6,
@@ -82,46 +79,43 @@ class _SponsorWidgetState extends ConsumerState<SponsorWidget> {
                 SizedBox(height: size.height * 0.005),
                 Expanded(
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       SizedBox(width: size.width * 0.05),
-                      //
-                      GestureDetector(
-                          onTap: () {
+                      TextButton(
+                          onPressed: () {
                             setState(() {
                               ref
-                                  .read(sponsors.notifier)
+                                  .read(tips.notifier)
                                   .removeAtIndex(widget.index);
                             });
                           },
-                          child: Text('No, gracias', style: t.messagesBold)),
-                      //
+                          style: TextButton.styleFrom(
+                              foregroundColor: widget.color),
+                          child: Text('No, gracias', style: t.messagesBlack)),
                       SizedBox(width: size.width * 0.02),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              PageRouteAnimator(
-                                child: Sponsors(color: widget.color),
-                                routeAnimation:
-                                    RouteAnimation.rightToLeftWithFade,
-                                curve: Curves.fastOutSlowIn,
-                                duration: const Duration(milliseconds: 400),
-                                reverseDuration:
-                                    const Duration(milliseconds: 400),
-                              ));
-                        },
-                        child: Center(
-                            child: Text('Más info.',
-                                style: TextStyle(
-                                    color: widget.color,
-                                    fontWeight: FontWeight.bold))),
-                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            // Navigator.push(
+                            //     context,
+                            //     PageRouteAnimator(
+                            //       child: Sponsors(color: widget.color),
+                            //       routeAnimation:
+                            //           RouteAnimation.rightToLeftWithFade,
+                            //       curve: Curves.fastOutSlowIn,
+                            //       duration: const Duration(milliseconds: 400),
+                            //       reverseDuration:
+                            //           const Duration(milliseconds: 400),
+                            //     ));
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: widget.color,
+                              foregroundColor: widget.color),
+                          child: Text('Más info.', style: t.buttons)),
                       SizedBox(width: size.width * 0.05)
                     ],
                   ),
                 ),
-                SizedBox(height: size.height * 0.01),
+                //SizedBox(height: size.height * 0.01),
               ],
             ),
           ),

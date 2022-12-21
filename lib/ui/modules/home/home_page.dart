@@ -109,25 +109,34 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                   switchInCurve: Curves.fastLinearToSlowEaseIn,
                   switchOutCurve: Curves.ease,
                   child: ref.watch(sponsors).isNotEmpty
-                      ? SizedBox(
-                          width: double.infinity,
-                          height: size.height * 0.145,
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: ref.watch(sponsors).length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(right: 10.0),
-                                  child: SponsorWidget(
-                                      asset: ref.watch(sponsors)[index].imagen,
-                                      title: ref.watch(sponsors)[index].titulo,
-                                      content:
-                                          ref.watch(sponsors)[index].contenido,
-                                      index: index,
-                                      color: Colors.primaries[index]
-                                          .withOpacity(0.25)),
-                                );
-                              }),
+                      ? Padding(
+                          padding: EdgeInsets.only(
+                            bottom: size.height * 0.0156,
+                          ),
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: size.height * 0.14,
+                            child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: ref.watch(sponsors).length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 10.0),
+                                    child: SponsorWidget(
+                                        asset:
+                                            ref.watch(sponsors)[index].imagen,
+                                        title:
+                                            ref.watch(sponsors)[index].titulo,
+                                        content: ref
+                                            .watch(sponsors)[index]
+                                            .contenido,
+                                        index: index,
+                                        color: Colors.primaries[index]
+                                            .withOpacity(0.2)),
+                                  );
+                                }),
+                          ),
                         )
                       : Container()),
 

@@ -3,12 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/recycle_details.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/widgets/buttons.dart';
+import 'package:mis_vecinos_app/ui/modules/recycle/widgets/recicle_tips.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
-import '../sponsors/controller.dart';
-import '../sponsors/sponsor_widget.dart';
 import 'controller.dart';
 import 'widgets/cards.dart';
 
@@ -65,24 +64,20 @@ class _TransparencyState extends ConsumerState<Recycle> {
                 duration: const Duration(milliseconds: 600),
                 switchInCurve: Curves.fastLinearToSlowEaseIn,
                 switchOutCurve: Curves.ease,
-                child: ref.watch(sponsors).isNotEmpty
+                child: ref.watch(tips).isNotEmpty
                     ? SizedBox(
                         width: double.infinity,
-                        height: size.height * 0.145,
+                        height: size.height * 0.15,
                         child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            itemCount: 2,
+                            itemCount: ref.watch(tips).length,
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: const EdgeInsets.only(right: 10.0),
-                                child: SponsorWidget(
-                                    asset: assets[index],
-                                    title: index == 0
-                                        ? 'Cuanto tiempo dura el PET?'
-                                        : 'Aluminio reutilizable',
-                                    content: index == 0
-                                        ? 'Conoce más sobre el PET. Conoce más.'
-                                        : 'Reutiliza el aluminio que tienes. Ayuda al planeta.',
+                                child: RecicleTips(
+                                    asset: ref.watch(tips)[index].imagen,
+                                    title: ref.watch(tips)[index].titulo,
+                                    content: ref.watch(tips)[index].contenido,
                                     index: index,
                                     color: index == 0
                                         ? c.primary.withOpacity(0.25)
@@ -108,12 +103,9 @@ class _TransparencyState extends ConsumerState<Recycle> {
               style: t.messagesBlack,
             ),
 
-            SizedBox(
-              height: size.height * 0.02,
-            ),
             Container(
               color: c.surface,
-              height: size.height * 0.5,
+              height: size.height * 0.43,
               width: size.width,
               child: PageView.builder(
                 controller: controller,
@@ -124,14 +116,15 @@ class _TransparencyState extends ConsumerState<Recycle> {
                 itemBuilder: (context, index) {
                   return Align(
                     child: Padding(
-                      padding: EdgeInsets.all(size.height * 0.02),
+                      padding: EdgeInsets.only(
+                          left: size.height * 0.01, right: size.height * 0.01),
                       child: InkWell(
                         borderRadius: BorderRadius.circular(14),
                         onTap: () {
                           showBottomMenu(index, context, ref, size);
                         },
                         child: Ink(
-                          height: size.height * 0.45,
+                          height: size.height * 0.38,
                           width: size.width * 0.7,
                           child: Cards(
                             size: size,
@@ -147,9 +140,6 @@ class _TransparencyState extends ConsumerState<Recycle> {
               ),
             ),
 
-            SizedBox(
-              height: size.height * 0.003,
-            ),
             Center(
               child: SmoothPageIndicator(
                   controller: controller,
@@ -196,12 +186,15 @@ class _TransparencyState extends ConsumerState<Recycle> {
               children: [
                 Container(
                   color: c.surface,
-                  width: 340,
+                  width: size.width * 0.8,
                   child: Text(
                     'Explora las curiosidades del PET. Ten en cuenta ayudar al planeta. ',
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
                     style: t.messages,
                   ),
                 ),
+                const Spacer(),
                 Icon(Icons.arrow_forward_ios, color: c.disabled)
               ],
             ),

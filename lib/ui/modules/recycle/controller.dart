@@ -1,5 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/modules/sponsors/sponsor.dart';
+
 final indexPET = StateNotifierProvider<Increase, int>((_) => Increase(0));
 final indexAluminium = StateNotifierProvider<Increase, int>((_) => Increase(0));
 
@@ -45,5 +47,29 @@ class ItemsDates extends StateNotifier<List<DateTime>> {
 
   void recicleItems(DateTime itemsDate) {
     state.add(itemsDate);
+  }
+}
+
+//Cambiar List<Sponsor> x List<Tip>
+final tips = StateNotifierProvider<See, List<Sponsor>>((_) => See([
+      Sponsor(
+          id: 0,
+          titulo: 'Cuanto tiempo dura el PET?',
+          contenido: 'Conoce más sobre el PET. Conoce más.',
+          imagen: 'assets/bottle.png'),
+      Sponsor(
+          id: 1,
+          titulo: '¡Pomposta para el planeta!',
+          contenido: 'Pomposta más natural, más vida. ¡Únete!',
+          imagen: 'assets/can.png'),
+    ]));
+
+class See extends StateNotifier<List<Sponsor>> {
+  See(super.state);
+
+  void removeAtIndex(int index) {
+    List<Sponsor> list2 = [...state];
+    list2.removeAt(index);
+    state = list2;
   }
 }

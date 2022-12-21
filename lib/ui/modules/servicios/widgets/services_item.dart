@@ -53,8 +53,9 @@ class ServiceCards extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(
                     left: size.width * .02, top: size.width * .015),
-                child: SizedBox(
-                  width: size.width * .4,
+                child: Container(
+                  color: c.surface,
+                  width: size.width * .46,
                   child: Row(
                     children: [
                       SvgPicture.asset('assets/icons/svg/time.svg',
