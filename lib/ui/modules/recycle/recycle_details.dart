@@ -175,8 +175,23 @@ showBottomMenu(BuildContext context, Size size) async {
                     'Contenedor de PET',
                     style: t.subtitle,
                   ),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        'Limite: ',
+                        style: t.messagesBlack,
+                      ),
+                      Text(
+                        '5900 piezas',
+                        style: t.messagesBlack,
+                      ),
+                    ],
+                  ),
+
                   SizedBox(
-                    height: size.height * 0.02,
+                    height: size.height * 0.01,
                   ),
 
                   Stack(
@@ -245,9 +260,25 @@ showBottomMenu(BuildContext context, Size size) async {
                     'Contenedor de aluminio',
                     style: t.subtitle,
                   ),
-                  SizedBox(
-                    height: size.height * 0.02,
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text(
+                        'Limite: ',
+                        style: t.messagesBlack,
+                      ),
+                      Text(
+                        '8000 piezas',
+                        style: t.messagesBlack,
+                      ),
+                    ],
                   ),
+
+                  SizedBox(
+                    height: size.height * 0.01,
+                  ),
+
                   Stack(
                     children: [
                       Container(
@@ -308,6 +339,10 @@ showBottomMenu(BuildContext context, Size size) async {
                         ),
                       ),
                     ],
+                  ),
+
+                  SizedBox(
+                    height: size.height * 0.02,
                   ),
                   //
                 ],

@@ -79,49 +79,51 @@ class _SponsorWidgetState extends ConsumerState<SponsorWidget> {
                         style: t.messagesBlack),
                   ),
                 ),
-                SizedBox(height: size.height * 0.005),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      SizedBox(width: size.width * 0.05),
-                      //
-                      GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              ref
-                                  .read(sponsors.notifier)
-                                  .removeAtIndex(widget.index);
-                            });
-                          },
-                          child: Text('No, gracias', style: t.messagesBold)),
-                      //
-                      SizedBox(width: size.width * 0.02),
-                      GestureDetector(
+                //
+                const Spacer(),
+                //
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    // SizedBox(width: size.width * 0.05),
+                    //
+                    GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              PageRouteAnimator(
-                                child: Sponsors(color: widget.color),
-                                routeAnimation:
-                                    RouteAnimation.rightToLeftWithFade,
-                                curve: Curves.fastOutSlowIn,
-                                duration: const Duration(milliseconds: 400),
-                                reverseDuration:
-                                    const Duration(milliseconds: 400),
-                              ));
+                          setState(() {
+                            ref
+                                .read(sponsors.notifier)
+                                .removeAtIndex(widget.index);
+                          });
                         },
-                        child: Center(
-                            child: Text('Más info.',
-                                style: TextStyle(
-                                    color: widget.color,
-                                    fontWeight: FontWeight.bold))),
-                      ),
-                      SizedBox(width: size.width * 0.05)
-                    ],
-                  ),
+                        child: Text('No, gracias', style: t.messagesBold)),
+                    //
+                    // SizedBox(width: size.width * 0.02),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageRouteAnimator(
+                              child: Sponsors(color: widget.color),
+                              routeAnimation:
+                                  RouteAnimation.rightToLeftWithFade,
+                              curve: Curves.fastOutSlowIn,
+                              duration: const Duration(milliseconds: 400),
+                              reverseDuration:
+                                  const Duration(milliseconds: 400),
+                            ));
+                      },
+                      child: Center(
+                          child: Text('Más info.',
+                              style: TextStyle(
+                                  color: widget.color,
+                                  fontWeight: FontWeight.bold))),
+                    ),
+                    // SizedBox(width: size.width * 0.05)
+                  ],
                 ),
-                SizedBox(height: size.height * 0.01),
+                //SizedBox(height: size.height * 0.01),
+                const Spacer(),
               ],
             ),
           ),
