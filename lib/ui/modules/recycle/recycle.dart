@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mis_vecinos_app/ui/modules/recycle/qr.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/recycle_details.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/widgets/buttons.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/widgets/recicle_tips.dart';
@@ -310,8 +311,12 @@ checkPET(WidgetRef ref, BuildContext context) {
     ref.read(listItemsPET.notifier).recicleItems(ref.watch(indexPET));
     ref.read(listItemsDatesPET.notifier).recicleItems(DateTime.now());
 
+    // Navigator.push(context, MaterialPageRoute(builder: (context) {
+    //   return const RecycleDetails();
+    // }));
+
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return const RecycleDetails();
+      return const QR();
     }));
 
     ref.read(indexPET.notifier).reset();

@@ -113,7 +113,7 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
                                     style: t.messagesBlack),
                                 const Spacer(),
                                 Text(
-                                    '${DateTime.now().hour}:${DateTime.now().minute}',
+                                    '  ${ref.watch(listItemsDatesPET)[index].hour.toString()}:${ref.watch(listItemsDatesPET)[index].minute.toString()}',
                                     style: t.messagesBlack),
                               ],
                             );

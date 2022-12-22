@@ -26,15 +26,19 @@ class HomePage extends ConsumerStatefulWidget {
 class _VecinosPageState extends ConsumerState<HomePage> {
   bool? recycle;
 
-  @override
-  void initState() {
-    super.initState();
-
+  checkRecycle() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLogged', true);
       recycle = prefs.getBool('isRecycing');
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    checkRecycle();
   }
 
   @override
@@ -216,6 +220,7 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                 onTap: () async {
                   //Comprobar si es primera ver que ingresa va a info
                   //Si no, va a recicle
+                  checkRecycle();
 
                   if (recycle == true) {
                     await Navigator.push(
