@@ -2,6 +2,7 @@ import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mis_vecinos_app/ui/modules/recycle/state.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/widgets/minicard2.dart';
 
 import '../../utils/colors.dart';
@@ -17,136 +18,172 @@ class RecycleDetails extends ConsumerStatefulWidget {
 
 class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
   @override
-  Widget build(BuildContext context) {
-    List<int> listPET = ref.watch(listItemsPET);
-    List<int> listAluminium = ref.watch(listItemsAluminium);
-    final size = MediaQuery.of(context).size;
+  void initState() {
+    super.initState();
 
-    return Scaffold(
-        appBar: AppBar(
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Historial Reciclaje', style: t.title),
-              //Text('Mes de Noviembre', style: t.messages),
-            ],
-          ),
-          actions: [
-            Icon(
-              Icons.abc,
-              color: c.surface,
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Acordarse de watch, read y listen tienen distintas implicaciones
+      final provider = ref.read(recycleControllerProvider.notifier);
+      provider.init();
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final state = ref.watch(recycleControllerProvider);
+    print(state.listHistory?.data[0].quantityAlum.toString());
+
+    switch (state.state) {
+      case States.loading:
+        return const Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        );
+
+      case States.succes:
+        return Scaffold(
+            appBar: AppBar(
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Historial Reciclaje', style: t.title),
+                  //Text('Mes de Noviembre', style: t.messages),
+                ],
+              ),
+              actions: [
+                Icon(
+                  Icons.abc,
+                  color: c.surface,
+                ),
+              ],
+              backgroundColor: c.surface,
+              elevation: 0,
+              centerTitle: false,
+              systemOverlayStyle: SystemUiOverlayStyle.dark,
             ),
-          ],
-          backgroundColor: c.surface,
-          elevation: 0,
-          centerTitle: false,
-          systemOverlayStyle: SystemUiOverlayStyle.dark,
-        ),
-        body: ListView(
-          physics: const BouncingScrollPhysics(),
-          padding: EdgeInsets.only(
-              left: size.height * 0.025, top: 0, right: size.height * 0.025),
-          children: [
-            SizedBox(
-              height: size.height * 0.01,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            body: ListView(
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.only(
+                  left: size.height * 0.025,
+                  top: 0,
+                  right: size.height * 0.025),
               children: [
-                MiniCard2(
-                    asset: 'bottle.png',
-                    title: 'PET',
-                    number: listPET.isEmpty
-                        ? '0'
-                        : listPET
-                            .reduce((value, element) => value + element)
-                            .toString()),
                 SizedBox(
-                  width: size.width * 0.04,
+                  height: size.height * 0.01,
                 ),
-                MiniCard2(
-                    asset: 'can.png',
-                    title: 'Aluminio',
-                    number: listAluminium.isEmpty
-                        ? '0'
-                        : listAluminium
-                            .reduce((value, element) => value + element)
-                            .toString()),
-              ],
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    showBottomMenu(context, size);
-                  },
-                  child: Text(
-                    'Contenedores',
-                    style: t.buttonBlue2,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const MiniCard2(
+                      asset: 'bottle.png',
+                      title: 'PET',
+                      number: '0',
+                      // number: listPET.isEmpty
+                      //     ? '0'
+                      //     : listPET
+                      //         .reduce((value, element) => value + element)
+                      //         .toString()
+                    ),
+                    SizedBox(
+                      width: size.width * 0.04,
+                    ),
+                    const MiniCard2(
+                      asset: 'can.png',
+                      title: 'Aluminio',
+                      number: '0',
+                      // number: listAluminium.isEmpty
+                      //     ? '0'
+                      //     : listAluminium
+                      //         .reduce((value, element) => value + element)
+                      //         .toString()
+                    ),
+                  ],
                 ),
-                Icon(Icons.arrow_forward_ios, color: c.primary)
-              ],
-            ),
-            //
-            ExpansionTile(
-              initiallyExpanded: true,
-              title: Text('Historial', style: t.subtitle),
-              children: [
-                ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: ref.watch(listItemsPET).length,
-                    itemBuilder: (context, index) {
-                      return ref.watch(listItemsPET).isEmpty
-                          ? Text(
-                              'Añade algunos elementos. Tu historial de reciclaje está vacio.',
-                              style: t.messages)
-                          : Row(
-                              children: [
-                                Text(
-                                    'Hoy: ${ref.watch(listItemsPET)[index]} piezas de PET  ',
-                                    style: t.messagesBlack),
-                                const Spacer(),
-                                Text(
-                                    '  ${ref.watch(listItemsDatesPET)[index].hour.toString()}:${ref.watch(listItemsDatesPET)[index].minute.toString()}',
-                                    style: t.messagesBlack),
-                              ],
-                            );
-                    }),
-                ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: ref.watch(listItemsAluminium).length,
-                    itemBuilder: (context, index) {
-                      return ref.watch(listItemsAluminium).isEmpty
-                          ? Text(
-                              'Añade algunos elementos. Tu historial de reciclaje está vacio.',
-                              style: t.messages)
-                          : Row(
-                              children: [
-                                Text(
-                                    'Hoy: ${ref.watch(listItemsAluminium)[index]} piezas de Aluminio  ',
-                                    style: t.messagesBlack),
-                                const Spacer(),
-                                Text(
-                                    '  ${ref.watch(listItemsDatesAluminium)[index].hour.toString()}:${ref.watch(listItemsDatesAluminium)[index].minute.toString()}',
-                                    style: t.messagesBlack),
-                              ],
-                            );
-                    }),
+                SizedBox(
+                  height: size.height * 0.02,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        showBottomMenu(context, size);
+                      },
+                      child: Text(
+                        'Contenedores',
+                        style: t.buttonBlue2,
+                      ),
+                    ),
+                    Icon(Icons.arrow_forward_ios, color: c.primary)
+                  ],
+                ),
                 //
+                ExpansionTile(
+                  initiallyExpanded: true,
+                  title: Text('Historial', style: t.subtitle),
+                  children: [
+                    ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: state.listHistory?.data.length,
+                        itemBuilder: (context, index) {
+                          return state.listHistory?.data == null
+                              ? Text(
+                                  'Añade algunos elementos. Tu historial de reciclaje está vacio.',
+                                  style: t.messages)
+                              : Row(
+                                  children: [
+                                    Text(
+                                        '${state.listHistory?.data[index].quantityPet.toString()} piezas de PET  ',
+                                        style: t.messagesBlack),
+                                    const Spacer(),
+                                    Text(
+                                        '  ${state.listHistory?.data[index].createdAt.hour.toString()}:${state.listHistory?.data[index].createdAt.minute.toString()}',
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: t.messagesBlack),
+                                  ],
+                                );
+                        }),
+                    ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: state.listHistory?.data.length,
+                        itemBuilder: (context, index) {
+                          return state.listHistory?.data == null
+                              ? Text(
+                                  'Añade algunos elementos. Tu historial de reciclaje está vacio.',
+                                  style: t.messages)
+                              : Row(
+                                  children: [
+                                    Text(
+                                        '${state.listHistory?.data[index].quantityAlum.toString()} piezas de Aluminio  ',
+                                        style: t.messagesBlack),
+                                    const Spacer(),
+                                    Text(
+                                        '  ${state.listHistory?.data[index].createdAt.hour.toString()}:${state.listHistory?.data[index].createdAt.minute.toString()}',
+                                        style: t.messagesBlack),
+                                  ],
+                                );
+                        }),
+                  ],
+                ),
+                SizedBox(
+                  height: size.height * 0.02,
+                ),
               ],
-            ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
-          ],
-        ));
+            ));
+
+      case States.error:
+        return Center(
+          child: Text(States.error.name),
+        );
+    }
   }
 }
 

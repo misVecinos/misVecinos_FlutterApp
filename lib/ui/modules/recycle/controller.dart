@@ -1,6 +1,33 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mis_vecinos_app/core/modules/recycle/service.dart';
 
+import '../../../core/modules/recycle/history.dart';
 import '../../../core/modules/sponsors/sponsor.dart';
+import '../../../core/providers/providers.dart';
+import 'state.dart';
+
+final recycleControllerProvider =
+    StateNotifierProvider<RecycleControllerNotifier, RecycleState>((ref) {
+  final service = ref.watch(recycleServiceProvider);
+  return RecycleControllerNotifier(service);
+});
+
+class RecycleControllerNotifier extends StateNotifier<RecycleState> {
+  final RecycleService recycleService;
+
+  RecycleControllerNotifier(this.recycleService) : super(const RecycleState());
+
+  void init() {
+    _getHistory();
+  }
+
+  void _getHistory() async {
+    //tratar response
+    History history = await recycleService.getHistory();
+    state = state.copyWith(state: States.succes);
+    state = state.copyWith(state: States.succes, listHistory: history);
+  }
+}
 
 final indexPET = StateNotifierProvider<Increase, int>((_) => Increase(0));
 final indexAluminium = StateNotifierProvider<Increase, int>((_) => Increase(0));
@@ -25,30 +52,30 @@ class Increase extends StateNotifier<int> {
   }
 }
 
-final listItemsPET = StateNotifierProvider<Items, List<int>>((_) => Items([]));
-final listItemsAluminium =
-    StateNotifierProvider<Items, List<int>>((_) => Items([]));
+// final listItemsPET = StateNotifierProvider<Items, List<int>>((_) => Items([]));
+// final listItemsAluminium =
+//     StateNotifierProvider<Items, List<int>>((_) => Items([]));
 
-class Items extends StateNotifier<List<int>> {
-  Items(super.state);
+// class Items extends StateNotifier<List<int>> {
+//   Items(super.state);
 
-  void recicleItems(int items) {
-    state.add(items);
-  }
-}
+//   void recicleItems(int items) {
+//     state.add(items);
+//   }
+// }
 
-final listItemsDatesPET =
-    StateNotifierProvider<ItemsDates, List<DateTime>>((_) => ItemsDates([]));
-final listItemsDatesAluminium =
-    StateNotifierProvider<ItemsDates, List<DateTime>>((_) => ItemsDates([]));
+// final listItemsDatesPET =
+//     StateNotifierProvider<ItemsDates, List<DateTime>>((_) => ItemsDates([]));
+// final listItemsDatesAluminium =
+//     StateNotifierProvider<ItemsDates, List<DateTime>>((_) => ItemsDates([]));
 
-class ItemsDates extends StateNotifier<List<DateTime>> {
-  ItemsDates(super.state);
+// class ItemsDates extends StateNotifier<List<DateTime>> {
+//   ItemsDates(super.state);
 
-  void recicleItems(DateTime itemsDate) {
-    state.add(itemsDate);
-  }
-}
+//   void recicleItems(DateTime itemsDate) {
+//     state.add(itemsDate);
+//   }
+// }
 
 //Cambiar List<Sponsor> x List<Tip>
 final tips = StateNotifierProvider<See, List<Sponsor>>((_) => See([

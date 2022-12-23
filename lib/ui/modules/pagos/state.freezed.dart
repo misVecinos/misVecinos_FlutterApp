@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'state.dart';
 
@@ -148,6 +148,7 @@ class _$_PagosState implements _PagosState {
   List<ViviendaAtraso>? get atrasadas {
     final value = _atrasadas;
     if (value == null) return null;
+    if (_atrasadas is EqualUnmodifiableListView) return _atrasadas;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -157,6 +158,8 @@ class _$_PagosState implements _PagosState {
   List<ViviendaAtraso>? get atrasadasMas2Meses {
     final value = _atrasadasMas2Meses;
     if (value == null) return null;
+    if (_atrasadasMas2Meses is EqualUnmodifiableListView)
+      return _atrasadasMas2Meses;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
@@ -166,6 +169,7 @@ class _$_PagosState implements _PagosState {
   List<ViviendaOk>? get alCorriente {
     final value = _alCorriente;
     if (value == null) return null;
+    if (_alCorriente is EqualUnmodifiableListView) return _alCorriente;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }

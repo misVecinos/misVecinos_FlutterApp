@@ -308,17 +308,9 @@ showBottomMenu(
 
 checkPET(WidgetRef ref, BuildContext context) {
   if (ref.watch(indexPET) > 0) {
-    ref.read(listItemsPET.notifier).recicleItems(ref.watch(indexPET));
-    ref.read(listItemsDatesPET.notifier).recicleItems(DateTime.now());
-
-    // Navigator.push(context, MaterialPageRoute(builder: (context) {
-    //   return const RecycleDetails();
-    // }));
-
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return const QR();
     }));
-
     ref.read(indexPET.notifier).reset();
   } else {
     showMessage(context);
@@ -327,16 +319,9 @@ checkPET(WidgetRef ref, BuildContext context) {
 
 checkAluminium(WidgetRef ref, BuildContext context) {
   if (ref.watch(indexAluminium) > 0) {
-    ref
-        .read(listItemsAluminium.notifier)
-        .recicleItems(ref.watch(indexAluminium));
-    ref.read(listItemsDatesAluminium.notifier).recicleItems(DateTime.now());
-
-    //Ir a la otra pagina y añadir el index a una lista
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return const RecycleDetails();
+      return const QR();
     }));
-
     ref.read(indexAluminium.notifier).reset();
   } else {
     //Mensaje de que no puede ser 0
