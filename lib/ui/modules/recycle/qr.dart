@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
-import 'package:mis_vecinos_app/ui/modules/recycle/controller.dart';
-import 'package:mis_vecinos_app/ui/modules/recycle/recycle_details.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:mis_vecinos_app/ui/utils/widgets.dart';
 
 import '../../../core/providers/providers.dart';
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
+import 'controller.dart';
+import 'recycle_details.dart';
 
 class QR extends ConsumerStatefulWidget {
   const QR({super.key});
@@ -17,115 +19,219 @@ class QR extends ConsumerStatefulWidget {
 }
 
 class _QRState extends ConsumerState<QR> {
-  final qrKey = GlobalKey(debugLabel: 'OR');
-  QRViewController? controller;
-  Barcode? barcode;
-
-  @override
-  void initState() {
-    super.initState();
-    controller?.resumeCamera();
-
-    //Esperaremos 15 segundos para la lectura del QR. Si no lee el qr, redireccionamos atras.
-    // Future.delayed(const Duration(seconds: 15)).whenComplete(() =>
-    //     Navigator.pushReplacement(context,
-    //         MaterialPageRoute(builder: (context) {
-    //       return const RecycleDetails();
-    //     })));
-  }
-
-  @override
-  void dispose() {
-    controller?.dispose;
-    super.dispose();
-  }
-
-  // @override
-  // void reassemble() async {
-  //   super.reassemble();
-  //   if (Platform.isAndroid) {
-  //     await controller?.pauseCamera();
-  //   }
-  //   controller?.resumeCamera();
-  // }
+  String? code;
+  int currentStep = 0;
+  bool check = false;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Stack(
+      appBar: AppBar(
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Contenedor', style: t.title),
+            ],
+          ),
+          actions: [
+            Icon(
+              Icons.abc,
+              color: c.surface,
+            ),
+          ],
+          backgroundColor: c.surface,
+          elevation: 0,
+          centerTitle: false,
+          systemOverlayStyle: SystemUiOverlayStyle.dark),
+
+      //
+      body: ListView(
+        padding: EdgeInsets.only(
+            left: size.height * 0.025, top: 0, right: size.height * 0.025),
         children: [
-          qrView(context, qrKey, size),
-          text(size),
+          Container(
+            height: size.height * 0.42,
+            width: size.width,
+            color: c.surface,
+            child: Stepper(
+                currentStep: currentStep,
+                onStepContinue: () {
+                  if (currentStep == 2) {
+                    //Habilitar el boton
+                    setState(() => check = true);
+                  } else {
+                    setState(() => currentStep += 1);
+                    setState(() => check = false);
+                  }
+                },
+                onStepCancel: () {
+                  setState(() {
+                    if (currentStep == 0) {
+                      setState(() => check = false);
+                      return;
+                    } else {
+                      setState(() => check = false);
+                      currentStep -= 1;
+                    }
+                  });
+                },
+                controlsBuilder: (context, details) {
+                  return Row(
+                    children: [
+                      TextButton(
+                        onPressed: details.onStepContinue,
+                        child: const Text('Continuar'),
+                      ),
+                      TextButton(
+                        onPressed: details.onStepCancel,
+                        child: Text('Cancelar', style: t.messages),
+                      ),
+                    ],
+                  );
+                },
+                steps: [
+                  Step(
+                      isActive: currentStep >= 0,
+                      title: const Text('Dirígete al contenedor'),
+                      content: const Text(
+                          'Camina hasta donde se encuentra el contenedor de tu colonia o fraccionamiento.')),
+                  //
+                  Step(
+                      isActive: currentStep >= 1,
+                      title: const Text('Escanea'),
+                      content: const Text('Selecciona el botón escanear.')),
+                  Step(
+                      isActive: currentStep >= 2,
+                      title: const Text('Espera'),
+                      content: const Text(
+                          'Sosten firmememnnte tu dispositivo hasta que se complete el escaneo.')),
+                ]),
+          ),
+          //
+          Padding(
+            padding: EdgeInsets.only(
+                top: size.height * 0.01, bottom: size.height * 0.03),
+            child: Image.asset(
+              'assets/images/qr.jpg',
+              height: size.height * 0.3,
+              width: size.width,
+            ),
+          ),
+          //
+          check == false
+              ? Buton(
+                  background: c.disabled, title: 'Escanear', style: t.buttons)
+              : InkWell(
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: () async {
+                    String barcodeScanRes =
+                        await FlutterBarcodeScanner.scanBarcode(
+                      c.primary.toString(),
+                      'Cancelar',
+                      false,
+                      ScanMode.QR,
+                    );
+
+                    String maincode = 'JA0JWxippm';
+
+                    if (barcodeScanRes == maincode) {
+                      int aluminium = ref.watch(indexAluminium);
+                      int pet = ref.watch(indexPET);
+                      final service = ref.watch(recycleServiceProvider);
+
+                      await service.sendQuantity(aluminium, pet);
+
+                      final snackdemo = SnackBar(
+                        content: Text('Registro guardado exitosamente',
+                            style: t.messagesLight),
+                        backgroundColor: c.black,
+                        elevation: 10,
+                        behavior: SnackBarBehavior.floating,
+                        margin: const EdgeInsets.all(5),
+                      );
+
+                      ScaffoldMessenger.of(context).showSnackBar(snackdemo);
+
+                      await Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) {
+                        return const RecycleDetails();
+                      }));
+                    }
+                  },
+                  child: Buton(
+                      background: c.primary,
+                      title: 'Escanear',
+                      style: t.buttons)),
         ],
       ),
     );
   }
 
-  Widget text(Size size) {
-    return Positioned(
-        top: size.height * 0.2,
-        left: size.width * 0.1,
-        child: Text(
-          barcode != null ? 'Verificado' : 'Verifica el QR del Contenedor',
-          style: t.mediumLight,
-        ));
-  }
+  // Widget text(Size size) {
+  //   return Positioned(
+  //       top: size.height * 0.2,
+  //       left: size.width * 0.1,
+  //       child: Text(
+  //         barcode != null ? 'Verificado' : 'Verifica el QR del Contenedor',
+  //         style: t.mediumLight,
+  //       ));
+  // }
 
-  Widget qrView(
-      BuildContext context, GlobalKey<State<StatefulWidget>> qrKey, Size size) {
-    return QRView(
-      key: qrKey,
-      onQRViewCreated: onQRViewCreated,
-      overlay: QrScannerOverlayShape(
-        borderColor: c.primary,
-        borderRadius: 10,
-        borderLength: 20,
-        borderWidth: 10,
-        cutOutSize: size.width * 0.8,
-      ),
-    );
-  }
+  // Widget qrView(
+  //     BuildContext context, GlobalKey<State<StatefulWidget>> qrKey, Size size) {
+  //   return QRView(
+  //     key: qrKey,
+  //     onQRViewCreated: onQRViewCreated,
+  //     overlay: QrScannerOverlayShape(
+  //       borderColor: c.primary,
+  //       borderRadius: 10,
+  //       borderLength: 20,
+  //       borderWidth: 10,
+  //       cutOutSize: size.width * 0.8,
+  //     ),
+  //   );
+  // }
 
-  onQRViewCreated(QRViewController controller) {
-    setState(() => this.controller = controller);
-    controller.scannedDataStream.listen((barcode) async {
-      this.barcode = barcode;
+  // onQRViewCreated(QRViewController controller) {
+  //   setState(() => this.controller = controller);
+  //   controller.scannedDataStream.listen((barcode) async {
+  //     this.barcode = barcode;
 
-      bool ok = false;
-      String code = 'JA0JWxippm';
+  //     bool ok = false;
+  //     String code = 'JA0JWxippm';
 
-      if (barcode.code == code) {
-        //Lanzar la peticion post para añadirlo al back
-        int aluminium = ref.watch(indexAluminium);
-        int pet = ref.watch(indexPET);
-        final service = ref.watch(recycleServiceProvider);
+  //     if (barcode.code == code) {
+  //       //Lanzar la peticion post para añadirlo al back
+  //       int aluminium = ref.watch(indexAluminium);
+  //       int pet = ref.watch(indexPET);
+  //       final service = ref.watch(recycleServiceProvider);
 
-        await service.sendQuantity(aluminium, pet);
+  //       await service.sendQuantity(aluminium, pet);
 
-        await Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) {
-          return const RecycleDetails();
-        }));
+  //       await Navigator.pushReplacement(context,
+  //           MaterialPageRoute(builder: (context) {
+  //         return const RecycleDetails();
+  //       }));
 
-        final snackdemo = SnackBar(
-          content:
-              Text('Registro guardado exitosamente', style: t.messagesLight),
-          backgroundColor: c.black,
-          elevation: 10,
-          behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsets.all(5),
-        );
+  //       final snackdemo = SnackBar(
+  //         content:
+  //             Text('Registro guardado exitosamente', style: t.messagesLight),
+  //         backgroundColor: c.black,
+  //         elevation: 10,
+  //         behavior: SnackBarBehavior.floating,
+  //         margin: const EdgeInsets.all(5),
+  //       );
 
-        ScaffoldMessenger.of(context).showSnackBar(snackdemo);
-      } else {
-        //Lanzar un mensaje de qr erroneo/no encontrado
-        ok = false;
-        showMsj(ok);
-      }
-    });
-  }
+  //       ScaffoldMessenger.of(context).showSnackBar(snackdemo);
+  //     } else {
+  //       //Lanzar un mensaje de qr erroneo/no encontrado
+  //       ok = false;
+  //       showMsj(ok);
+  //     }
+  //   });
+  // }
 
   showMsj(bool ok) {
     showDialog(
