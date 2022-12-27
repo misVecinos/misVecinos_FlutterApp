@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -67,25 +68,50 @@ class _TransparencyState extends ConsumerState<Recycle> {
                 switchOutCurve: Curves.ease,
                 child: ref.watch(tips).isNotEmpty
                     ? SizedBox(
-                        width: double.infinity,
-                        height: size.height * 0.15,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
+                        width: size.width,
+                        height: size.height * 0.14,
+                        child: CarouselSlider.builder(
+                            options: CarouselOptions(
+                              autoPlay: true,
+                              enableInfiniteScroll: false,
+                              viewportFraction: 1,
+                            ),
                             itemCount: ref.watch(tips).length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(right: 10.0),
-                                child: RecicleTips(
-                                    asset: ref.watch(tips)[index].imagen,
-                                    title: ref.watch(tips)[index].titulo,
-                                    content: ref.watch(tips)[index].contenido,
-                                    index: index,
-                                    color: index == 0
-                                        ? c.primary.withOpacity(0.25)
-                                        : c.OK.withOpacity(0.25)),
-                              );
-                            }),
-                      )
+                            itemBuilder: (BuildContext context, int itemIndex,
+                                    int pageViewIndex) =>
+                                RecicleTips(
+                                    asset: ref.watch(tips)[itemIndex].imagen,
+                                    title: ref.watch(tips)[itemIndex].titulo,
+                                    content:
+                                        ref.watch(tips)[itemIndex].contenido,
+                                    content2:
+                                        ref.watch(tips)[itemIndex].contenido2,
+                                    index: itemIndex,
+                                    color: Colors.primaries.reversed
+                                        .toList()[itemIndex]
+                                        .withOpacity(0.25)))
+                        //
+                        )
+                    // SizedBox(
+                    //     width: double.infinity,
+                    //     height: size.height * 0.15,
+                    //     child: ListView.builder(
+                    //         scrollDirection: Axis.horizontal,
+                    //         itemCount: ref.watch(tips).length,
+                    //         itemBuilder: (context, index) {
+                    //           return Padding(
+                    //             padding: const EdgeInsets.only(right: 10.0),
+                    //             child: RecicleTips(
+                    //                 asset: ref.watch(tips)[index].imagen,
+                    //                 title: ref.watch(tips)[index].titulo,
+                    //                 content: ref.watch(tips)[index].contenido,
+                    //                 index: index,
+                    //                 color: index == 0
+                    //                     ? c.primary.withOpacity(0.25)
+                    //                     : c.OK.withOpacity(0.25)),
+                    //           );
+                    //         }),
+                    //   )
                     : Container()),
 
             //
@@ -108,14 +134,14 @@ class _TransparencyState extends ConsumerState<Recycle> {
               color: c.surface,
               height: size.height * 0.43,
               width: size.width,
-              child: PageView.builder(
+              child: ListView.builder(
                 controller: controller,
-                pageSnapping: true,
+                //pageSnapping: true,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemCount: assets.length,
                 itemBuilder: (context, index) {
-                  return Align(
+                  return Center(
                     child: Padding(
                       padding: EdgeInsets.only(
                           left: size.height * 0.01, right: size.height * 0.01),
@@ -124,15 +150,11 @@ class _TransparencyState extends ConsumerState<Recycle> {
                         onTap: () {
                           showBottomMenu(index, context, ref, size);
                         },
-                        child: Ink(
-                          height: size.height * 0.38,
-                          width: size.width * 0.7,
-                          child: Cards(
-                            size: size,
-                            assets: assets,
-                            names: names,
-                            index: index,
-                          ),
+                        child: Cards(
+                          size: size,
+                          assets: assets,
+                          names: names,
+                          index: index,
                         ),
                       ),
                     ),
@@ -148,8 +170,8 @@ class _TransparencyState extends ConsumerState<Recycle> {
                   effect: WormEffect(
                       activeDotColor: c.primary,
                       dotColor: c.disabled,
-                      dotHeight: size.height * 0.014,
-                      dotWidth: size.height * 0.014)),
+                      dotHeight: size.height * 0.012,
+                      dotWidth: size.height * 0.012)),
             ),
             //
 

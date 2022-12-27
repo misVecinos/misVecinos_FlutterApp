@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,13 +8,13 @@ import 'package:mis_vecinos_app/ui/modules/home/widgets/back_image.dart';
 import 'package:mis_vecinos_app/ui/modules/news/news_page.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/recycle_info.dart';
 import 'package:mis_vecinos_app/ui/modules/sponsors/controller.dart';
-import 'package:mis_vecinos_app/ui/modules/sponsors/sponsor_widget.dart';
 import 'package:page_route_animator/page_route_animator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
 import '../recycle/recycle.dart';
+import '../sponsors/sponsor_widget.dart';
 import '../transparency/transparency.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -118,29 +119,33 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                             bottom: size.height * 0.0156,
                           ),
                           child: SizedBox(
-                            width: double.infinity,
-                            height: size.height * 0.14,
-                            child: ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: ref.watch(sponsors).length,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 10.0),
-                                    child: SponsorWidget(
-                                        asset:
-                                            ref.watch(sponsors)[index].imagen,
-                                        title:
-                                            ref.watch(sponsors)[index].titulo,
-                                        content: ref
-                                            .watch(sponsors)[index]
-                                            .contenido,
-                                        index: index,
-                                        color: Colors.primaries[index]
-                                            .withOpacity(0.2)),
-                                  );
-                                }),
-                          ),
+                              width: size.width,
+                              height: size.height * 0.14,
+                              child: CarouselSlider.builder(
+                                  options: CarouselOptions(
+                                    autoPlay: true,
+                                    enableInfiniteScroll: false,
+                                    viewportFraction: 1,
+                                  ),
+                                  itemCount: ref.watch(sponsors).length,
+                                  itemBuilder: (BuildContext context,
+                                          int itemIndex, int pageViewIndex) =>
+                                      SponsorWidget(
+                                          asset: ref
+                                              .watch(sponsors)[itemIndex]
+                                              .imagen,
+                                          title: ref
+                                              .watch(sponsors)[itemIndex]
+                                              .titulo,
+                                          content: ref
+                                              .watch(sponsors)[itemIndex]
+                                              .contenido,
+                                          index: itemIndex,
+                                          color: Colors.primaries.reversed
+                                              .toList()[itemIndex]
+                                              .withOpacity(0.25)))
+                              //
+                              ),
                         )
                       : Container()),
 

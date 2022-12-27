@@ -7,11 +7,13 @@ final sponsors = StateNotifierProvider<See, List<Sponsor>>((_) => See([
           id: 0,
           titulo: '¡Hagamos composta!',
           contenido: 'Hagamos composta y ayudemos al planeta. ¡Únete!',
+          contenido2: 'Hagamos composta y ayudemos al planeta. ¡Únete!',
           imagen: 'assets/images/composta.jpg'),
       Sponsor(
           id: 1,
           titulo: '¡Pomposta para el planeta!',
           contenido: 'Pomposta más natural, más vida. ¡Únete!',
+          contenido2: 'Pomposta más natural, más vida. ¡Únete!',
           imagen: 'assets/images/composta.jpg'),
       // Sponsor(
       //     id: 2,

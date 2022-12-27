@@ -103,9 +103,12 @@ class _SponsorsState extends ConsumerState<Sponsors> {
                         SizedBox(
                           height: size.height * 0.02,
                         ),
-                        txtField(size, name, 'Nombre completo', 'name.svg'),
-                        txtField(size, phone, 'Teléfono', 'whatsapp.svg'),
-                        txtField(size, email, 'Email', ''),
+                        txtField(size, name, 'Nombre completo', 'name.svg',
+                            TextInputType.name),
+                        txtField(size, phone, 'Teléfono', 'whatsapp.svg',
+                            TextInputType.phone),
+                        txtField(size, email, 'Email', '',
+                            TextInputType.emailAddress),
                         const SizedBox(
                           height: 20,
                         ),
@@ -175,6 +178,15 @@ class _SponsorsState extends ConsumerState<Sponsors> {
                           width: size.width,
                         ),
                       ),
+                      Positioned(
+                        left: size.width * 0.17,
+                        top: size.height * 0.35,
+                        child: LottieBuilder.asset(
+                          repeat: true,
+                          'assets/icons/lottie/character.json',
+                          height: size.height * 0.3,
+                        ),
+                      ),
                     ],
                   )
           ],
@@ -184,8 +196,8 @@ class _SponsorsState extends ConsumerState<Sponsors> {
   }
 }
 
-Widget txtField(
-    Size size, TextEditingController controller, String label, String asset) {
+Widget txtField(Size size, TextEditingController controller, String label,
+    String asset, TextInputType type) {
   return Padding(
     padding:
         EdgeInsets.only(top: size.height * 0.01, bottom: size.height * 0.01),
@@ -194,7 +206,7 @@ Widget txtField(
       width: size.width * 0.9,
       child: TextField(
         controller: controller,
-        keyboardType: TextInputType.visiblePassword,
+        keyboardType: type,
         decoration: InputDecoration(
           labelText: label,
           labelStyle: t.messages,
@@ -205,7 +217,10 @@ Widget txtField(
                       'assets/icons/svg/$asset',
                       color: c.disabled,
                     )
-                  : const Icon(Icons.alternate_email)),
+                  : Icon(
+                      Icons.alternate_email,
+                      color: c.disabled,
+                    )),
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: c.disabled,

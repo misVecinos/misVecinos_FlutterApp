@@ -10,12 +10,14 @@ class RecicleTips extends ConsumerStatefulWidget {
       {required this.asset,
       required this.title,
       required this.content,
+      required this.content2,
       required this.color,
       required this.index,
       super.key});
   final String asset;
   final String title;
   final String content;
+  final String content2;
   final Color color;
   final int index;
 
@@ -46,14 +48,15 @@ class _SponsorWidgetState extends ConsumerState<RecicleTips> {
               //width: size.width * 0.23,
               //height: size.height * .15,
               child: Image.asset(
+                width: size.width * 0.23,
                 widget.asset,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
             ),
           ),
           //
           Padding(
-            padding: EdgeInsets.only(left: size.height * 0.015),
+            padding: EdgeInsets.only(left: size.height * 0.01),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -83,11 +86,8 @@ class _SponsorWidgetState extends ConsumerState<RecicleTips> {
                       SizedBox(width: size.width * 0.05),
                       TextButton(
                           onPressed: () {
-                            setState(() {
-                              ref
-                                  .read(tips.notifier)
-                                  .removeAtIndex(widget.index);
-                            });
+                            ref.read(tips.notifier).removeAtIndex(widget.index);
+                            setState(() {});
                           },
                           style: TextButton.styleFrom(
                               foregroundColor: widget.color),
@@ -95,17 +95,8 @@ class _SponsorWidgetState extends ConsumerState<RecicleTips> {
                       SizedBox(width: size.width * 0.02),
                       ElevatedButton(
                           onPressed: () {
-                            // Navigator.push(
-                            //     context,
-                            //     PageRouteAnimator(
-                            //       child: Sponsors(color: widget.color),
-                            //       routeAnimation:
-                            //           RouteAnimation.rightToLeftWithFade,
-                            //       curve: Curves.fastOutSlowIn,
-                            //       duration: const Duration(milliseconds: 400),
-                            //       reverseDuration:
-                            //           const Duration(milliseconds: 400),
-                            //     ));
+                            //
+                            showTip(widget.title, widget.content2);
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: widget.color,
@@ -115,12 +106,41 @@ class _SponsorWidgetState extends ConsumerState<RecicleTips> {
                     ],
                   ),
                 ),
-                //SizedBox(height: size.height * 0.01),
+                //
               ],
             ),
           ),
         ],
       ),
     );
+  }
+
+  showTip(String title, String content) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(14.0))),
+            title: Text(title, style: t.subtitle),
+            content: Text(
+              content,
+              style: t.messages,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: TextButton.styleFrom(foregroundColor: c.error),
+                child: Text(
+                  'Entendido',
+                  style: t.messagesBlue,
+                ),
+              ),
+              //
+            ],
+          );
+        });
   }
 }

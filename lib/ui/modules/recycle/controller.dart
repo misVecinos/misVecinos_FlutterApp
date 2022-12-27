@@ -83,11 +83,15 @@ final tips = StateNotifierProvider<See, List<Sponsor>>((_) => See([
           id: 0,
           titulo: 'Cuanto tiempo dura el PET?',
           contenido: 'Conoce más sobre el PET. Conoce más.',
+          contenido2:
+              'No es poco tiempo, el plástico es un gran contaminante. Alrededor de 150 años es el tiempo que tarda una bolsa de plástico común en degradarse y una botella de PET (la abreviatura de polietileno tereftalato, una resina plástica y una forma de poliéster) puede tardar 1.000 años en desaparecer. La botella de plástico es un envase muy utilizado en la comercialización de líquidos en productos como lácteos, bebidas o limpia hogares. Sus ventajas respecto al vidrio son básicamente su menor precio y su gran versatilidad de formas. Se comenzaron a desarrollar en la década de 1950.',
           imagen: 'assets/bottle.png'),
       Sponsor(
           id: 1,
           titulo: '¡Pomposta para el planeta!',
           contenido: 'Pomposta más natural, más vida. ¡Únete!',
+          contenido2:
+              'Compostar excrementos de perro y gato mejora la salud del planeta, a cambio obtenemos un fertilizante de excelente calidad. Solo en España hay censadas más de 13 millones de mascotas, de los cuales 12 millones son perros, 600.000 son gatos y el resto animales varios (mayormente conejos).',
           imagen: 'assets/can.png'),
     ]));
 

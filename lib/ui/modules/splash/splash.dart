@@ -46,7 +46,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
       final prefs = await SharedPreferences.getInstance();
       final bool? session = prefs.getBool('isLogged');
 
-      Future.delayed(const Duration(milliseconds: 5000)).whenComplete(() async {
+      Future.delayed(const Duration(milliseconds: 5500)).whenComplete(() async {
         if (session != true) {
           await Navigator.pushReplacement(
               context,

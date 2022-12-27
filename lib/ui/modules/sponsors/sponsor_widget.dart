@@ -32,24 +32,26 @@ class _SponsorWidgetState extends ConsumerState<SponsorWidget> {
 
     return Container(
       height: size.height * 0.11,
-      //width: size.width * .92,
+      width: size.width,
       decoration: BoxDecoration(
         color: widget.color,
         borderRadius: BorderRadius.circular(14),
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ClipRRect(
             borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(60),
                 bottomRight: Radius.circular(60)),
-            child: SizedBox(
-              //width: size.width * 0.23,
-              //height: size.height * .15,
+            child: Container(
+              width: size.width * 0.22,
+              height: size.height,
+              color: c.secondary,
               child: Image.asset(
                 widget.asset,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
             ),
           ),
@@ -58,8 +60,8 @@ class _SponsorWidgetState extends ConsumerState<SponsorWidget> {
             padding: EdgeInsets.only(left: size.height * 0.015),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SizedBox(height: size.height * 0.005),
                 Padding(
                   padding: EdgeInsets.only(top: size.height * 0.005),
                   child: Text(widget.title,
@@ -68,8 +70,7 @@ class _SponsorWidgetState extends ConsumerState<SponsorWidget> {
                       style: t.messagesBold),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
-                      top: size.height * 0.005, right: size.height * 0.005),
+                  padding: EdgeInsets.only(top: 0, right: size.height * 0.005),
                   child: Container(
                     color: c.surface,
                     width: size.width * 0.6,
@@ -80,13 +81,8 @@ class _SponsorWidgetState extends ConsumerState<SponsorWidget> {
                   ),
                 ),
                 //
-                const Spacer(),
-                //
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    // SizedBox(width: size.width * 0.05),
                     //
                     GestureDetector(
                         onTap: () {
@@ -98,7 +94,10 @@ class _SponsorWidgetState extends ConsumerState<SponsorWidget> {
                         },
                         child: Text('No, gracias', style: t.messagesBold)),
                     //
-                    // SizedBox(width: size.width * 0.02),
+                    SizedBox(
+                      width: size.height * 0.015,
+                    ),
+                    //
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -114,16 +113,16 @@ class _SponsorWidgetState extends ConsumerState<SponsorWidget> {
                             ));
                       },
                       child: Center(
-                          child: Text('Más info.',
-                              style: TextStyle(
-                                  color: widget.color,
-                                  fontWeight: FontWeight.bold))),
+                        child: Text('Más info.',
+                            style: TextStyle(
+                                color: c.primary.withOpacity(0.7),
+                                fontWeight: FontWeight.bold)),
+                      ),
                     ),
-                    // SizedBox(width: size.width * 0.05)
+                    //
                   ],
                 ),
-                //SizedBox(height: size.height * 0.01),
-                const Spacer(),
+                //
               ],
             ),
           ),

@@ -2,6 +2,7 @@ import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mis_vecinos_app/core/modules/recycle/history.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/state.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/widgets/minicard2.dart';
 
@@ -37,7 +38,6 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final state = ref.watch(recycleControllerProvider);
-    print(state.listHistory?.data[0].quantityAlum.toString());
 
     switch (state.state) {
       case States.loading:
@@ -79,28 +79,16 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const MiniCard2(
-                      asset: 'bottle.png',
+                    MiniCard2(
                       title: 'PET',
-                      number: '0',
-                      // number: listPET.isEmpty
-                      //     ? '0'
-                      //     : listPET
-                      //         .reduce((value, element) => value + element)
-                      //         .toString()
+                      history: state.listHistory,
                     ),
                     SizedBox(
                       width: size.width * 0.04,
                     ),
-                    const MiniCard2(
-                      asset: 'can.png',
+                    MiniCard2(
                       title: 'Aluminio',
-                      number: '0',
-                      // number: listAluminium.isEmpty
-                      //     ? '0'
-                      //     : listAluminium
-                      //         .reduce((value, element) => value + element)
-                      //         .toString()
+                      history: state.listHistory,
                     ),
                   ],
                 ),
@@ -185,207 +173,224 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
         );
     }
   }
-}
 
-showBottomMenu(BuildContext context, Size size) async {
-  await showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-      builder: (context) {
-        return Consumer(
-          builder: (context, ref, child) {
-            return Padding(
-              padding: EdgeInsets.only(
-                  left: size.height * 0.015, right: size.height * 0.015),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    color: c.surface,
-                    height: size.height * 0.02,
-                  ),
+  showBottomMenu(BuildContext context, Size size) async {
+    await showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+        builder: (context) {
+          return Consumer(
+            builder: (context, ref, child) {
+              return Padding(
+                padding: EdgeInsets.only(
+                    left: size.height * 0.015, right: size.height * 0.015),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      color: c.surface,
+                      height: size.height * 0.02,
+                    ),
 
-                  Text(
-                    'Contenedor de PET',
-                    style: t.subtitle,
-                  ),
+                    Text(
+                      'Contenedor de PET',
+                      style: t.subtitle,
+                    ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        'Limite: ',
-                        style: t.messagesBlack,
-                      ),
-                      Text(
-                        '5900 piezas',
-                        style: t.messagesBlack,
-                      ),
-                    ],
-                  ),
-
-                  SizedBox(
-                    height: size.height * 0.01,
-                  ),
-
-                  Stack(
-                    children: [
-                      Container(
-                        color: c.surface,
-                        height: size.height * 0.26,
-                        width: size.width,
-                        child: DChartPie(
-                          animate: true,
-                          animationDuration: const Duration(seconds: 1),
-                          data: const [
-                            {'domain': 'En uso', 'measure': 58},
-                            {'domain': 'Libre', 'measure': 42},
-                          ],
-                          fillColor: (barData, index) {
-                            switch (barData['domain']) {
-                              case 'Libre':
-                                return c.primary.withOpacity(0.5);
-                              case 'En uso':
-                                return c.primary;
-                              default:
-                                return c.error;
-                            }
-                          },
-                          pieLabel: (pieData, index) {
-                            return "${pieData['measure']}%";
-                          },
-                          strokeWidth: 4,
-                          labelColor: c.secondary,
-                          labelFontSize: 14,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          'Limite: ',
+                          style: t.messagesBlack,
                         ),
-                      ),
-                      //
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: c.primary.withOpacity(0.5),
-                            radius: size.width * 0.025,
+                        Text(
+                          '5900 piezas',
+                          style: t.messagesBlack,
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(
+                      height: size.height * 0.01,
+                    ),
+
+                    Stack(
+                      children: [
+                        Container(
+                          color: c.surface,
+                          height: size.height * 0.26,
+                          width: size.width,
+                          child: DChartPie(
+                            animate: true,
+                            animationDuration: const Duration(seconds: 1),
+                            data: const [
+                              {'domain': 'En uso', 'measure': 58},
+                              {'domain': 'Libre', 'measure': 42},
+                            ],
+                            fillColor: (barData, index) {
+                              switch (barData['domain']) {
+                                case 'Libre':
+                                  return c.primary.withOpacity(0.5);
+                                case 'En uso':
+                                  return c.primary;
+                                default:
+                                  return c.error;
+                              }
+                            },
+                            pieLabel: (pieData, index) {
+                              return "${pieData['measure']}%";
+                            },
+                            strokeWidth: 4,
+                            labelColor: c.secondary,
+                            labelFontSize: 14,
                           ),
-                          SizedBox(
-                            width: size.width * 0.01,
-                          ),
-                          const Text('Libre'),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: size.height * 0.03),
-                        child: Row(
+                        ),
+                        //
+                        Row(
                           children: [
                             CircleAvatar(
-                              backgroundColor: c.primary,
+                              backgroundColor: c.primary.withOpacity(0.5),
                               radius: size.width * 0.025,
                             ),
                             SizedBox(
                               width: size.width * 0.01,
                             ),
-                            const Text('En uso'),
+                            const Text('Libre'),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
-
-                  Text(
-                    'Contenedor de aluminio',
-                    style: t.subtitle,
-                  ),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Text(
-                        'Limite: ',
-                        style: t.messagesBlack,
-                      ),
-                      Text(
-                        '8000 piezas',
-                        style: t.messagesBlack,
-                      ),
-                    ],
-                  ),
-
-                  SizedBox(
-                    height: size.height * 0.01,
-                  ),
-
-                  Stack(
-                    children: [
-                      Container(
-                        color: c.surface,
-                        height: size.height * 0.26,
-                        width: size.width,
-                        child: DChartPie(
-                          animate: true,
-                          animationDuration: const Duration(seconds: 1),
-                          data: const [
-                            {'domain': 'En uso', 'measure': 18},
-                            {'domain': 'Libre', 'measure': 82},
-                          ],
-                          fillColor: (barData, index) {
-                            switch (barData['domain']) {
-                              case 'Libre':
-                                return c.primary.withOpacity(0.5);
-                              case 'En uso':
-                                return c.primary;
-                              default:
-                                return c.error;
-                            }
-                          },
-                          pieLabel: (pieData, index) {
-                            return "${pieData['measure']}%";
-                          },
-                          strokeWidth: 4,
-                          labelColor: c.secondary,
-                          labelFontSize: 14,
+                        Padding(
+                          padding: EdgeInsets.only(top: size.height * 0.03),
+                          child: Row(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: c.primary,
+                                radius: size.width * 0.025,
+                              ),
+                              SizedBox(
+                                width: size.width * 0.01,
+                              ),
+                              const Text('En uso'),
+                            ],
+                          ),
                         ),
-                      ),
-                      //
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: c.primary.withOpacity(0.5),
-                            radius: size.width * 0.025,
+                      ],
+                    ),
+
+                    Text(
+                      'Contenedor de aluminio',
+                      style: t.subtitle,
+                    ),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          'Limite: ',
+                          style: t.messagesBlack,
+                        ),
+                        Text(
+                          '8000 piezas',
+                          style: t.messagesBlack,
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(
+                      height: size.height * 0.01,
+                    ),
+
+                    Stack(
+                      children: [
+                        Container(
+                          color: c.surface,
+                          height: size.height * 0.26,
+                          width: size.width,
+                          child: DChartPie(
+                            animate: true,
+                            animationDuration: const Duration(seconds: 1),
+                            data: const [
+                              {'domain': 'En uso', 'measure': 18},
+                              {'domain': 'Libre', 'measure': 82},
+                            ],
+                            fillColor: (barData, index) {
+                              switch (barData['domain']) {
+                                case 'Libre':
+                                  return c.primary.withOpacity(0.5);
+                                case 'En uso':
+                                  return c.primary;
+                                default:
+                                  return c.error;
+                              }
+                            },
+                            pieLabel: (pieData, index) {
+                              return "${pieData['measure']}%";
+                            },
+                            strokeWidth: 4,
+                            labelColor: c.secondary,
+                            labelFontSize: 14,
                           ),
-                          SizedBox(
-                            width: size.width * 0.01,
-                          ),
-                          const Text('Libre'),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: size.height * 0.03),
-                        child: Row(
+                        ),
+                        //
+                        Row(
                           children: [
                             CircleAvatar(
-                              backgroundColor: c.primary,
+                              backgroundColor: c.primary.withOpacity(0.5),
                               radius: size.width * 0.025,
                             ),
                             SizedBox(
                               width: size.width * 0.01,
                             ),
-                            const Text('En uso'),
+                            const Text('Libre'),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
+                        Padding(
+                          padding: EdgeInsets.only(top: size.height * 0.03),
+                          child: Row(
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: c.primary,
+                                radius: size.width * 0.025,
+                              ),
+                              SizedBox(
+                                width: size.width * 0.01,
+                              ),
+                              const Text('En uso'),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
 
-                  SizedBox(
-                    height: size.height * 0.02,
-                  ),
-                  //
-                ],
-              ),
-            );
-          },
-        );
-      });
+                    SizedBox(
+                      height: size.height * 0.02,
+                    ),
+                    //
+                  ],
+                ),
+              );
+            },
+          );
+        });
+  }
+
+  petInUsage(History? history) {
+    final lenght = history?.data.length ?? 0;
+    int totalPet = 0;
+    int petLimit = 5900;
+    double percent = 0;
+
+    for (int i = 0; i <= lenght; i++) {
+      totalPet += history?.data[i].quantityPet ?? 0;
+    }
+
+    percent = totalPet * 100 / petLimit;
+
+    return percent.toInt();
+  }
+
+  aluminiumInUsage() {}
 }
