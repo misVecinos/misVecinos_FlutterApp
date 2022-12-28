@@ -118,20 +118,20 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
                     ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: state.listHistory?.data.length,
+                        itemCount: state.listHistory?.recycleData.length,
                         itemBuilder: (context, index) {
-                          return state.listHistory?.data == null
+                          return state.listHistory?.recycleData.length == null
                               ? Text(
                                   'Añade algunos elementos. Tu historial de reciclaje está vacio.',
                                   style: t.messages)
                               : Row(
                                   children: [
                                     Text(
-                                        '${state.listHistory?.data[index].quantityPet.toString()} piezas de PET  ',
+                                        '${state.listHistory?.recycleData[index].quantityPet.toString()} piezas de PET  ',
                                         style: t.messagesBlack),
                                     const Spacer(),
                                     Text(
-                                        '  ${state.listHistory?.data[index].createdAt.hour.toString()}:${state.listHistory?.data[index].createdAt.minute.toString()}',
+                                        '  ${state.listHistory?.recycleData[index].createdAt.hour.toString()}:${state.listHistory?.recycleData[index].createdAt.minute.toString()}',
                                         maxLines: 3,
                                         overflow: TextOverflow.ellipsis,
                                         style: t.messagesBlack),
@@ -141,20 +141,20 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
                     ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: state.listHistory?.data.length,
+                        itemCount: state.listHistory?.recycleData.length,
                         itemBuilder: (context, index) {
-                          return state.listHistory?.data == null
+                          return state.listHistory?.recycleData == null
                               ? Text(
                                   'Añade algunos elementos. Tu historial de reciclaje está vacio.',
                                   style: t.messages)
                               : Row(
                                   children: [
                                     Text(
-                                        '${state.listHistory?.data[index].quantityAlum.toString()} piezas de Aluminio  ',
+                                        '${state.listHistory?.recycleData[index].quantityAlum.toString()} piezas de Aluminio  ',
                                         style: t.messagesBlack),
                                     const Spacer(),
                                     Text(
-                                        '  ${state.listHistory?.data[index].createdAt.hour.toString()}:${state.listHistory?.data[index].createdAt.minute.toString()}',
+                                        '  ${state.listHistory?.recycleData[index].createdAt.hour.toString()}:${state.listHistory?.recycleData[index].createdAt.minute.toString()}',
                                         style: t.messagesBlack),
                                   ],
                                 );
@@ -378,13 +378,13 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
   }
 
   petInUsage(History? history) {
-    final lenght = history?.data.length ?? 0;
+    final lenght = history?.recycleData.length ?? 0;
     int totalPet = 0;
     int petLimit = 5900;
     double percent = 0;
 
     for (int i = 0; i <= lenght; i++) {
-      totalPet += history?.data[i].quantityPet ?? 0;
+      totalPet += history?.recycleData[i].quantityPet ?? 0;
     }
 
     percent = totalPet * 100 / petLimit;

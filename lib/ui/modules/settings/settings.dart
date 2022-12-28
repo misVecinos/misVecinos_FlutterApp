@@ -224,13 +224,15 @@ class _TransparencyState extends ConsumerState<SettingsPage> {
             ),
             actions: [
               TextButton(
-                onPressed: () async {
+                onPressed: () {
                   WidgetsBinding.instance.addPostFrameCallback((_) async {
                     final prefs = await SharedPreferences.getInstance();
-                    await prefs.setBool('isLogged', false);
-                    await prefs.setBool('isRecycing', false);
+                    // await prefs.setBool('isLogged', false);
+                    // await prefs.setBool('isRecycing', false);
+                    await prefs.remove('isLogged');
+                    await prefs.remove('isRecycing');
 
-                    await Navigator.of(context)
+                    Navigator.of(context)
                         .pushReplacement(MaterialPageRoute(builder: (context) {
                       return const LoginPage();
                     }));

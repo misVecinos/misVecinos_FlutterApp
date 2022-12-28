@@ -6,8 +6,8 @@ class RecycleService {
   final RecycleRepository repository;
   RecycleService(this.repository);
 
-  Future sendQuantity(int aluminium, int pet) async {
-    await repository.sendQuantity(aluminium, pet);
+  Future sendQuantity(int aluminium, int pet, DateTime time) async {
+    await repository.sendQuantity(aluminium, pet, time);
   }
 
   Future<History> getHistory() async {

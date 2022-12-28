@@ -1,11 +1,13 @@
 // ignore_for_file: avoid_print
 
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:mis_vecinos_app/core/modules/recycle/history.dart';
 
 class RecycleRepository {
 //Pedir en futuro el id del usuario
-  Future sendQuantity(int aluminium, int pet) async {
+  Future sendQuantity(int aluminium, int pet, DateTime time) async {
     //200--success
     try {
       final url =
@@ -15,7 +17,7 @@ class RecycleRepository {
         "quantity_alum": "$aluminium",
         "house_id": "1",
         "user_id": "1",
-        "date_in": "2022-12-18"
+        "date_in": "${time.year}-${time.month}-${time.day}"
       });
       if (response.statusCode == 200) {
         print('Success${response.statusCode}');
@@ -36,24 +38,13 @@ class RecycleRepository {
 
     if (response.statusCode == 200) {
       print('Success History ///${response.statusCode}');
-      var history = History.fromJson(response.body);
+      var history = History.fromMap(json.decode(response.body));
       return history;
     } else {
       print(response.statusCode.toString());
       return History(
-          currentPage: 0,
-          data: [],
-          firstPageUrl: '',
-          from: 0,
-          lastPage: 0,
-          lastPageUrl: '',
-          links: [],
-          nextPageUrl: 0,
-          path: '',
-          perPage: 0,
-          prevPageUrl: 0,
-          to: 0,
-          total: 0);
+          recycleData: [],
+          quantity: Quantity(totalQuantityPet: 0, totalQuantityAlum: 0));
     }
   }
   //

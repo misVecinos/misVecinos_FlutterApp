@@ -141,7 +141,8 @@ class _QRState extends ConsumerState<QR> {
                       int pet = ref.watch(indexPET);
                       final service = ref.watch(recycleServiceProvider);
 
-                      await service.sendQuantity(aluminium, pet);
+                      await service.sendQuantity(
+                          aluminium, pet, DateTime.now());
 
                       final snackdemo = SnackBar(
                         content: Text('Registro guardado exitosamente',

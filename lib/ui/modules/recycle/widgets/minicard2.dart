@@ -113,11 +113,11 @@ class _MiniCard2State extends State<MiniCard2> {
 
   String _loadHistorialToday(History? history) {
     List today = [];
-    final length = history?.data.length ?? 0;
+    final length = history?.recycleData.length ?? 0;
 
     for (int i = 0; i < length; i++) {
-      if (history?.data[i].createdAt.day == DateTime.now().day) {
-        today.add(history?.data[i]);
+      if (history?.recycleData[i].createdAt.day == DateTime.now().day) {
+        today.add(history?.recycleData[i]);
       } else {
         return '0';
       }
@@ -128,11 +128,11 @@ class _MiniCard2State extends State<MiniCard2> {
 
   String _loadHistorialMonth(History? history) {
     List month = [];
-    final length = history?.data.length ?? 0;
+    final length = history?.recycleData.length ?? 0;
 
     for (int i = 0; i < length; i++) {
-      if (history?.data[i].createdAt.month == DateTime.now().month) {
-        month.add(history?.data[i]);
+      if (history?.recycleData[i].createdAt.month == DateTime.now().month) {
+        month.add(history?.recycleData[i]);
       } else {
         return '0';
       }
@@ -143,11 +143,11 @@ class _MiniCard2State extends State<MiniCard2> {
 
   String _loadHistorialYear(History? history) {
     List year = [];
-    final length = history?.data.length ?? 0;
+    final length = history?.recycleData.length ?? 0;
 
     for (int i = 0; i < length; i++) {
-      if (history?.data[i].createdAt.year == DateTime.now().year) {
-        year.add(history?.data[i]);
+      if (history?.recycleData[i].createdAt.year == DateTime.now().year) {
+        year.add(history?.recycleData[i]);
       } else {
         return '0';
       }

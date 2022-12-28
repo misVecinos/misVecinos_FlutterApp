@@ -27,18 +27,35 @@ class HomePage extends ConsumerStatefulWidget {
 class _VecinosPageState extends ConsumerState<HomePage> {
   bool? recycle;
 
-  checkRecycle() {
+  session() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isLogged', true);
+      //
+    });
+  }
+
+  checkRecycle() async {
+    // WidgetsBinding.instance.addPostFrameCallback((_) async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
       recycle = prefs.getBool('isRecycing');
+      // });
+      setState(() {});
+      //
     });
   }
 
   @override
   void initState() {
     super.initState();
+    session();
+    checkRecycle();
+  }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     checkRecycle();
   }
 
@@ -222,22 +239,13 @@ class _VecinosPageState extends ConsumerState<HomePage> {
               ),
 
               GestureDetector(
-                onTap: () async {
+                onTap: () {
                   //Comprobar si es primera ver que ingresa va a info
                   //Si no, va a recicle
                   checkRecycle();
-
-                  if (recycle == true) {
-                    await Navigator.push(
-                        context,
-                        PageRouteAnimator(
-                          child: const Recycle(),
-                          routeAnimation: RouteAnimation.rightToLeftWithFade,
-                          curve: Curves.fastOutSlowIn,
-                          duration: const Duration(milliseconds: 400),
-                          reverseDuration: const Duration(milliseconds: 400),
-                        ));
-                  } else {
+                  //WidgetsBinding.instance.addPostFrameCallback((_) {
+                  //
+                  if (recycle != true) {
                     Navigator.push(
                         context,
                         PageRouteAnimator(
@@ -247,8 +255,18 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                           duration: const Duration(milliseconds: 400),
                           reverseDuration: const Duration(milliseconds: 400),
                         ));
+                  } else {
+                    Navigator.push(
+                        context,
+                        PageRouteAnimator(
+                          child: const Recycle(),
+                          routeAnimation: RouteAnimation.rightToLeftWithFade,
+                          curve: Curves.fastOutSlowIn,
+                          duration: const Duration(milliseconds: 400),
+                          reverseDuration: const Duration(milliseconds: 400),
+                        ));
                   }
-                  //
+                  // });
                 },
                 child: Padding(
                   padding: EdgeInsets.only(top: size.height * 0.015),

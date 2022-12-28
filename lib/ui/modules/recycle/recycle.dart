@@ -6,6 +6,7 @@ import 'package:mis_vecinos_app/ui/modules/recycle/qr.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/recycle_details.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/widgets/buttons.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/widgets/recicle_tips.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../utils/colors.dart';
@@ -22,6 +23,18 @@ class Recycle extends ConsumerStatefulWidget {
 
 class _TransparencyState extends ConsumerState<Recycle> {
   final PageController controller = PageController(viewportFraction: 0.8);
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final prefs = await SharedPreferences.getInstance();
+      final recycle = await prefs.setBool('isRecycing', true);
+
+      setState(() {});
+      //
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

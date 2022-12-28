@@ -1,80 +1,24 @@
 // To parse this JSON data, do
 //
-//     final history = historyFromMap(jsonString);
+//     final recycleData = recycleDataFromMap(jsonString);
 
 import 'dart:convert';
 
 class History {
-  History({
-    required this.currentPage,
-    required this.data,
-    required this.firstPageUrl,
-    required this.from,
-    required this.lastPage,
-    required this.lastPageUrl,
-    required this.links,
-    required this.nextPageUrl,
-    required this.path,
-    required this.perPage,
-    required this.prevPageUrl,
-    required this.to,
-    required this.total,
-  });
+  History({required this.recycleData, required this.quantity});
 
-  int currentPage;
-  List<RecycleRegister> data;
-  String firstPageUrl;
-  int from;
-  int lastPage;
-  String lastPageUrl;
-  List<Link> links;
-  dynamic nextPageUrl;
-  String path;
-  int perPage;
-  dynamic prevPageUrl;
-  int to;
-  int total;
+  final List<RecycleData> recycleData;
+  final Quantity quantity;
 
-  factory History.fromJson(String str) => History.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
+  //factory History.fromJson(String str) => History.fromMap(str);
 
   factory History.fromMap(Map<String, dynamic> json) => History(
-        currentPage: json["current_page"],
-        data: List<RecycleRegister>.from(
-            json["data"].map((x) => RecycleRegister.fromMap(x))),
-        firstPageUrl: json["first_page_url"],
-        from: json["from"],
-        lastPage: json["last_page"],
-        lastPageUrl: json["last_page_url"],
-        links: List<Link>.from(json["links"].map((x) => Link.fromMap(x))),
-        nextPageUrl: json["next_page_url"],
-        path: json["path"],
-        perPage: json["per_page"],
-        prevPageUrl: json["prev_page_url"],
-        to: json["to"],
-        total: json["total"],
-      );
-
-  Map<String, dynamic> toMap() => {
-        "current_page": currentPage,
-        "data": List<dynamic>.from(data.map((x) => x.toMap())),
-        "first_page_url": firstPageUrl,
-        "from": from,
-        "last_page": lastPage,
-        "last_page_url": lastPageUrl,
-        "links": List<dynamic>.from(links.map((x) => x.toMap())),
-        "next_page_url": nextPageUrl,
-        "path": path,
-        "per_page": perPage,
-        "prev_page_url": prevPageUrl,
-        "to": to,
-        "total": total,
-      };
+      recycleData: RecycleData.fromMap(json) as List<RecycleData>,
+      quantity: Quantity.fromMap(json));
 }
 
-class RecycleRegister {
-  RecycleRegister({
+class RecycleData {
+  RecycleData({
     required this.id,
     required this.houseId,
     required this.quantityPet,
@@ -85,21 +29,19 @@ class RecycleRegister {
     required this.updatedAt,
   });
 
-  int id;
-  int houseId;
-  int quantityPet;
-  int quantityAlum;
-  DateTime dateIn;
-  int userId;
-  DateTime createdAt;
-  DateTime updatedAt;
+  final int id;
+  final int houseId;
+  final int quantityPet;
+  final int quantityAlum;
+  final DateTime dateIn;
+  final int userId;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
-  factory RecycleRegister.fromJson(String str) =>
-      RecycleRegister.fromMap(json.decode(str));
+  factory RecycleData.fromJson(String str) =>
+      RecycleData.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
-  factory RecycleRegister.fromMap(Map<String, dynamic> json) => RecycleRegister(
+  factory RecycleData.fromMap(Map<String, dynamic> json) => RecycleData(
         id: json["id"],
         houseId: json["house_id"],
         quantityPet: json["quantity_pet"],
@@ -109,44 +51,21 @@ class RecycleRegister {
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
-
-  Map<String, dynamic> toMap() => {
-        "id": id,
-        "house_id": houseId,
-        "quantity_pet": quantityPet,
-        "quantity_alum": quantityAlum,
-        "date_in":
-            "${dateIn.year.toString().padLeft(4, '0')}-${dateIn.month.toString().padLeft(2, '0')}-${dateIn.day.toString().padLeft(2, '0')}",
-        "user_id": userId,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-      };
 }
 
-class Link {
-  Link({
-    required this.url,
-    required this.label,
-    required this.active,
+class Quantity {
+  Quantity({
+    required this.totalQuantityPet,
+    required this.totalQuantityAlum,
   });
 
-  String? url;
-  String label;
-  bool active;
+  final int totalQuantityPet;
+  final int totalQuantityAlum;
 
-  factory Link.fromJson(String str) => Link.fromMap(json.decode(str));
+  factory Quantity.fromJson(String str) => Quantity.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
-  factory Link.fromMap(Map<String, dynamic> json) => Link(
-        url: json["url"],
-        label: json["label"],
-        active: json["active"],
+  factory Quantity.fromMap(Map<String, dynamic> json) => Quantity(
+        totalQuantityPet: json["total_quantity_pet"],
+        totalQuantityAlum: json["total_quantity_alum"],
       );
-
-  Map<String, dynamic> toMap() => {
-        "url": url,
-        "label": label,
-        "active": active,
-      };
 }

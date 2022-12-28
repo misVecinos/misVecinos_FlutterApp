@@ -1,10 +1,12 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
+import '../home/cotroller.dart';
 import 'recycle.dart';
 
 class RecycleInfo extends ConsumerStatefulWidget {
@@ -15,21 +17,6 @@ class RecycleInfo extends ConsumerStatefulWidget {
 }
 
 class _TransparencyState extends ConsumerState<RecycleInfo> {
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('isRecycing', true);
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -106,6 +93,12 @@ class _TransparencyState extends ConsumerState<RecycleInfo> {
             padding: EdgeInsets.only(top: size.height * 0.6),
             child: GestureDetector(
               onTap: () {
+                WidgetsBinding.instance.addPostFrameCallback((_) async {
+                  final prefs = await SharedPreferences.getInstance();
+                  await prefs.setBool('isRecycing', true);
+
+                  ref.read(recycleInfo.notifier).forward();
+                });
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) {
                   return const Recycle();
@@ -130,6 +123,25 @@ class _TransparencyState extends ConsumerState<RecycleInfo> {
             ),
           ),
         ),
+
+        FadeIn(
+          duration: const Duration(seconds: 4),
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: CircleAvatar(
+                  radius: 24,
+                  backgroundColor: c.secondary.withOpacity(0.8),
+                  child: SvgPicture.asset('assets/icons/svg/arrow-back-ios.svg',
+                      color: c.primary),
+                ),
+              ),
+            ),
+          ),
+        ),
+        //
       ],
     ));
   }
