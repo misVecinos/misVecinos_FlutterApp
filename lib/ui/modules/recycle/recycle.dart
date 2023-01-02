@@ -7,8 +7,10 @@ import 'package:mis_vecinos_app/ui/modules/recycle/recycle_details.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/widgets/buttons.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/widgets/recicle_tips.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../../core/providers/providers.dart';
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
 import 'controller.dart';
@@ -342,24 +344,120 @@ showBottomMenu(
 }
 
 checkPET(WidgetRef ref, BuildContext context) {
-  if (ref.watch(indexPET) > 0) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return const QR();
-    }));
-    ref.read(indexPET.notifier).reset();
-  } else {
-    showMessage(context);
-  }
+  WidgetsBinding.instance.addPostFrameCallback((_) async {
+    if (ref.watch(indexPET) > 0) {
+      final navigator = Navigator.of(context);
+      final snack = ScaffoldMessenger.of(context);
+      final snackdemo = SnackBar(
+        content:
+            Text('Registro guardado exitosamente 👍', style: t.messagesLight),
+        backgroundColor: c.black,
+        elevation: 10,
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(5),
+      );
+      final prefs = await SharedPreferences.getInstance();
+      final notFirstTime = prefs.getBool('firstTimeRecycle');
+
+      if (notFirstTime != true) {
+        navigator.push(MaterialPageRoute(builder: (context) {
+          return const QR();
+        }));
+      } else {
+        String barcodeScanRes = '';
+
+        var res = await navigator.push(MaterialPageRoute(
+          builder: (context) =>
+              const SimpleBarcodeScannerPage(lineColor: '#2E75F7'),
+        ));
+        // setState(() {
+        if (res is String) {
+          barcodeScanRes = res;
+        }
+        //  });
+
+        String maincode = 'JA0JWxippm';
+        // setState(() {});
+
+        if (barcodeScanRes == maincode) {
+          int aluminium = ref.watch(indexAluminium);
+          int pet = ref.watch(indexPET);
+          final service = ref.watch(recycleServiceProvider);
+
+          await service.sendQuantity(aluminium, pet, DateTime.now());
+          snack.showSnackBar(snackdemo);
+
+          ref.read(indexPET.notifier).reset();
+          ref.read(indexAluminium.notifier).reset();
+
+          await navigator.pushReplacement(MaterialPageRoute(builder: (context) {
+            return const RecycleDetails();
+          }));
+        }
+      }
+    } else {
+      showMessage(context);
+    }
+  });
 }
 
 checkAluminium(WidgetRef ref, BuildContext context) {
-  if (ref.watch(indexAluminium) > 0) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return const QR();
-    }));
-    ref.read(indexAluminium.notifier).reset();
-  } else {
-    //Mensaje de que no puede ser 0
-    showMessage(context);
-  }
+  WidgetsBinding.instance.addPostFrameCallback((_) async {
+    if (ref.watch(indexAluminium) > 0) {
+      final navigator = Navigator.of(context);
+      final snack = ScaffoldMessenger.of(context);
+      final prefs = await SharedPreferences.getInstance();
+      final notFirstTime = prefs.getBool('firstTimeRecycle');
+      final snackdemo = SnackBar(
+        content:
+            Text('Registro guardado exitosamente 👍', style: t.messagesLight),
+        backgroundColor: c.black,
+        elevation: 10,
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(5),
+      );
+
+      if (notFirstTime != true) {
+        navigator.push(MaterialPageRoute(builder: (context) {
+          return const QR();
+        }));
+
+        await prefs.remove('firstTimeRecycle');
+      } else {
+        String barcodeScanRes = '';
+
+        var res = await navigator.push(MaterialPageRoute(
+          builder: (context) =>
+              const SimpleBarcodeScannerPage(lineColor: '#2E75F7'),
+        ));
+        // setState(() {
+        if (res is String) {
+          barcodeScanRes = res;
+        }
+        //  });
+
+        String maincode = 'JA0JWxippm';
+        // setState(() {});
+
+        if (barcodeScanRes == maincode) {
+          int aluminium = ref.watch(indexAluminium);
+          int pet = ref.watch(indexPET);
+          final service = ref.watch(recycleServiceProvider);
+
+          await service.sendQuantity(aluminium, pet, DateTime.now());
+          snack.showSnackBar(snackdemo); //Mostrar bote de basura animado
+
+          ref.read(indexPET.notifier).reset();
+          ref.read(indexAluminium.notifier).reset();
+
+          await navigator.pushReplacement(MaterialPageRoute(builder: (context) {
+            return const RecycleDetails();
+          }));
+        }
+      }
+    } else {
+      //Mensaje de que no puede ser 0
+      showMessage(context);
+    }
+  });
 }

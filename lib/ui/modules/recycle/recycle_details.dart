@@ -34,6 +34,70 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
     super.dispose();
   }
 
+  getMonths(int month) {
+    if (month == 1) {
+      return 'Ene';
+    } else if (month == 2) {
+      return 'Feb';
+    } else if (month == 3) {
+      return 'Mar';
+    } else if (month == 4) {
+      return 'Abr';
+    } else if (month == 5) {
+      return 'May';
+    } else if (month == 6) {
+      return 'Jun';
+    } else if (month == 7) {
+      return 'Jul';
+    } else if (month == 8) {
+      return 'Ago';
+    } else if (month == 9) {
+      return 'Sep';
+    } else if (month == 10) {
+      return 'Oct';
+    } else if (month == 11) {
+      return 'Nov';
+    } else if (month == 12) {
+      return 'Dic';
+    } else {
+      return 'Mes';
+    }
+  }
+
+  row(RecycleRegister? register) {
+    if (register?.quantityAlum == 0 && register?.quantityPet == 0) {
+      return Container();
+    } else if (register?.quantityAlum == 0 && register?.quantityPet != 0) {
+      return Row(
+        children: [
+          Text('${register?.quantityPet.toString()} piezas de PET  ',
+              style: t.messagesBlack),
+          const Spacer(),
+          Text(
+              '${register?.dateIn.day.toString()} de ${getMonths(register?.dateIn.month ?? 0)}',
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: t.messagesBlack),
+        ],
+      );
+    } else if (register?.quantityPet == 0 && register?.quantityAlum != 0) {
+      return Row(
+        children: [
+          Text('${register?.quantityAlum.toString()} piezas de Aluminio  ',
+              style: t.messagesBlack),
+          const Spacer(),
+          Text(
+              '${register?.dateIn.day.toString()} de ${getMonths(register?.dateIn.month ?? 0)}',
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: t.messagesBlack),
+        ],
+      );
+    } else {
+      return Container();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -51,15 +115,17 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Historial Reciclaje', style: t.title),
+                  Text('Reciclado', style: t.title),
                   //Text('Mes de Noviembre', style: t.messages),
                 ],
               ),
               actions: [
-                Icon(
-                  Icons.abc,
-                  color: c.surface,
-                ),
+                IconButton(
+                    onPressed: () {
+                      showMsj('Reciclaje',
+                          'Puedes visualizar tu historial de reciclaje. Todo lo que has reciclado lo verás en esta pantalla. \n\nTambien puedes ver que tan llenos estan los contenedores de tu vecindario.');
+                    },
+                    icon: Icon(Icons.help, color: c.disabled))
               ],
               backgroundColor: c.surface,
               elevation: 0,
@@ -103,7 +169,7 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
                         showBottomMenu(context, size);
                       },
                       child: Text(
-                        'Contenedores',
+                        'Ver Contenedores',
                         style: t.buttonBlue2,
                       ),
                     ),
@@ -112,52 +178,21 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
                 ),
                 //
                 ExpansionTile(
-                  initiallyExpanded: true,
-                  title: Text('Historial', style: t.subtitle),
+                  initiallyExpanded: false,
+                  title: Text('Tu Historial', style: t.subtitle),
+                  subtitle:
+                      Text(DateTime.now().year.toString(), style: t.messages),
                   children: [
                     ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: state.listHistory?.recycleData.length,
+                        itemCount: state.listHistory?.data.length,
                         itemBuilder: (context, index) {
-                          return state.listHistory?.recycleData.length == null
+                          return state.listHistory?.data.length == null
                               ? Text(
                                   'Añade algunos elementos. Tu historial de reciclaje está vacio.',
                                   style: t.messages)
-                              : Row(
-                                  children: [
-                                    Text(
-                                        '${state.listHistory?.recycleData[index].quantityPet.toString()} piezas de PET  ',
-                                        style: t.messagesBlack),
-                                    const Spacer(),
-                                    Text(
-                                        '  ${state.listHistory?.recycleData[index].createdAt.hour.toString()}:${state.listHistory?.recycleData[index].createdAt.minute.toString()}',
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: t.messagesBlack),
-                                  ],
-                                );
-                        }),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: state.listHistory?.recycleData.length,
-                        itemBuilder: (context, index) {
-                          return state.listHistory?.recycleData == null
-                              ? Text(
-                                  'Añade algunos elementos. Tu historial de reciclaje está vacio.',
-                                  style: t.messages)
-                              : Row(
-                                  children: [
-                                    Text(
-                                        '${state.listHistory?.recycleData[index].quantityAlum.toString()} piezas de Aluminio  ',
-                                        style: t.messagesBlack),
-                                    const Spacer(),
-                                    Text(
-                                        '  ${state.listHistory?.recycleData[index].createdAt.hour.toString()}:${state.listHistory?.recycleData[index].createdAt.minute.toString()}',
-                                        style: t.messagesBlack),
-                                  ],
-                                );
+                              : row(state.listHistory?.data[index]);
                         }),
                   ],
                 ),
@@ -378,13 +413,13 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
   }
 
   petInUsage(History? history) {
-    final lenght = history?.recycleData.length ?? 0;
+    final lenght = history?.data.length ?? 0;
     int totalPet = 0;
     int petLimit = 5900;
     double percent = 0;
 
     for (int i = 0; i <= lenght; i++) {
-      totalPet += history?.recycleData[i].quantityPet ?? 0;
+      totalPet += history?.data[i].quantityPet ?? 0;
     }
 
     percent = totalPet * 100 / petLimit;
@@ -393,4 +428,33 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
   }
 
   aluminiumInUsage() {}
+
+  showMsj(String title, String content) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(14.0))),
+            title: Text(title, style: t.subtitle),
+            content: Text(
+              content,
+              style: t.messages,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: TextButton.styleFrom(foregroundColor: c.primary),
+                child: Text(
+                  'Entendido',
+                  style: t.messagesBlue,
+                ),
+              ),
+              //
+            ],
+          );
+        });
+  }
 }

@@ -17,7 +17,8 @@ class RecycleRepository {
         "quantity_alum": "$aluminium",
         "house_id": "1",
         "user_id": "1",
-        "date_in": "${time.year}-${time.month}-${time.day}"
+        "date_in":
+            "${time.year.toString()}-${time.month.toString()}-${time.day.toString()}"
       });
       if (response.statusCode == 200) {
         print('Success${response.statusCode}');
@@ -42,9 +43,7 @@ class RecycleRepository {
       return history;
     } else {
       print(response.statusCode.toString());
-      return History(
-          recycleData: [],
-          quantity: Quantity(totalQuantityPet: 0, totalQuantityAlum: 0));
+      return History(data: []);
     }
   }
   //

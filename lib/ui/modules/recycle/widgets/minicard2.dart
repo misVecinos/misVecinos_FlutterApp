@@ -20,19 +20,21 @@ class MiniCard2 extends StatefulWidget {
 
 class _MiniCard2State extends State<MiniCard2> {
   @override
+  void initState() {
+    super.initState();
+
+    _loadHistorialToday(widget.history);
+    _loadHistorialMonth(widget.history);
+    _loadHistorialYear(widget.history);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    @override
-    void initState() {
-      super.initState();
-
-      _loadHistorialToday(widget.history);
-      _loadHistorialMonth(widget.history);
-      _loadHistorialYear(widget.history);
-    }
-
     return Container(
+      height: size.height * .45,
+      width: size.width * .41,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
@@ -43,8 +45,6 @@ class _MiniCard2State extends State<MiniCard2> {
         ],
         color: const Color(0xffFDFDFD),
       ),
-      //height: size.height * .18,
-      width: size.width * .41,
       child: Padding(
         padding: EdgeInsets.only(
           top: size.height * 0.015,
@@ -53,12 +53,12 @@ class _MiniCard2State extends State<MiniCard2> {
           right: size.height * 0.02,
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
               widget.title == 'PET' ? 'assets/bottle.png' : 'assets/can.png',
-              height: size.height * .08,
+              height: size.height * .16,
               width: size.width * .25,
             ),
             Text(widget.title,
@@ -105,6 +105,27 @@ class _MiniCard2State extends State<MiniCard2> {
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis),
+            //
+            // const Spacer(),
+            // //
+            // GestureDetector(
+            //   onTap: () {
+            //     print('tap');
+            //   },
+            //   child: Row(
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Text('Más info',
+            //           style: t.messagesBlue,
+            //           textAlign: TextAlign.center,
+            //           maxLines: 1,
+            //           overflow: TextOverflow.ellipsis),
+            //       Icon(Icons.help, color: c.disabled)
+            //     ],
+            //   ),
+            // )
+            //
           ],
         ),
       ),
@@ -113,46 +134,46 @@ class _MiniCard2State extends State<MiniCard2> {
 
   String _loadHistorialToday(History? history) {
     List today = [];
-    final length = history?.recycleData.length ?? 0;
 
-    for (int i = 0; i < length; i++) {
-      if (history?.recycleData[i].createdAt.day == DateTime.now().day) {
-        today.add(history?.recycleData[i]);
+    for (RecycleRegister register in history != null ? history.data : today) {
+      if (register.dateIn.day == DateTime.now().day) {
+        today.add(register);
       } else {
-        return '0';
+        continue;
       }
     }
+
     setState(() {});
-    return today.length.toString();
+    return today.isEmpty ? '0' : '${today.length.toString()} piezas.';
   }
 
   String _loadHistorialMonth(History? history) {
     List month = [];
-    final length = history?.recycleData.length ?? 0;
 
-    for (int i = 0; i < length; i++) {
-      if (history?.recycleData[i].createdAt.month == DateTime.now().month) {
-        month.add(history?.recycleData[i]);
+    for (RecycleRegister register in history != null ? history.data : month) {
+      if (register.dateIn.month == DateTime.now().month) {
+        month.add(register);
       } else {
-        return '0';
+        continue;
       }
     }
+
     setState(() {});
-    return month.length.toString();
+    return month.isEmpty ? '0' : '${month.length.toString()} piezas.';
   }
 
   String _loadHistorialYear(History? history) {
     List year = [];
-    final length = history?.recycleData.length ?? 0;
 
-    for (int i = 0; i < length; i++) {
-      if (history?.recycleData[i].createdAt.year == DateTime.now().year) {
-        year.add(history?.recycleData[i]);
+    for (RecycleRegister register in history != null ? history.data : year) {
+      if (register.dateIn.year == DateTime.now().year) {
+        year.add(register);
       } else {
-        return '0';
+        continue;
       }
     }
+
     setState(() {});
-    return year.length.toString();
+    return year.isEmpty ? '0' : '${year.length.toString()} piezas.';
   }
 }

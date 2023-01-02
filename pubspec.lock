@@ -322,7 +322,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_barcode_scanner:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_barcode_scanner
       url: "https://pub.dartlang.org"
@@ -821,6 +821,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+  simple_barcode_scanner:
+    dependency: "direct main"
+    description:
+      name: simple_barcode_scanner
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.7"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -1036,6 +1043,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0"
+  webview_windows:
+    dependency: transitive
+    description:
+      name: webview_windows
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.2"
   win32:
     dependency: transitive
     description:

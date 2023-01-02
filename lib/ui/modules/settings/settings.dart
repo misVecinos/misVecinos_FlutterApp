@@ -231,6 +231,7 @@ class _TransparencyState extends ConsumerState<SettingsPage> {
                     // await prefs.setBool('isRecycing', false);
                     await prefs.remove('isLogged');
                     await prefs.remove('isRecycing');
+                    await prefs.remove('firstTimeRecycle');
 
                     Navigator.of(context)
                         .pushReplacement(MaterialPageRoute(builder: (context) {

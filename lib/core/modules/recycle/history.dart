@@ -1,71 +1,63 @@
 // To parse this JSON data, do
 //
-//     final recycleData = recycleDataFromMap(jsonString);
-
+//     final history = historyFromMap(jsonString);
 import 'dart:convert';
 
 class History {
-  History({required this.recycleData, required this.quantity});
+  History({
+    required this.data,
+  });
 
-  final List<RecycleData> recycleData;
-  final Quantity quantity;
+  final List<RecycleRegister> data;
 
-  //factory History.fromJson(String str) => History.fromMap(str);
+  factory History.fromJson(String str) => History.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
 
   factory History.fromMap(Map<String, dynamic> json) => History(
-      recycleData: RecycleData.fromMap(json) as List<RecycleData>,
-      quantity: Quantity.fromMap(json));
+        data: List<RecycleRegister>.from(
+            json["data"].map((x) => RecycleRegister.fromMap(x))),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "data": List<dynamic>.from(data.map((x) => x.toMap())),
+      };
 }
 
-class RecycleData {
-  RecycleData({
-    required this.id,
+class RecycleRegister {
+  RecycleRegister({
     required this.houseId,
     required this.quantityPet,
     required this.quantityAlum,
     required this.dateIn,
     required this.userId,
-    required this.createdAt,
-    required this.updatedAt,
   });
 
-  final int id;
   final int houseId;
   final int quantityPet;
   final int quantityAlum;
   final DateTime dateIn;
   final int userId;
-  final DateTime createdAt;
-  final DateTime updatedAt;
 
-  factory RecycleData.fromJson(String str) =>
-      RecycleData.fromMap(json.decode(str));
+  factory RecycleRegister.fromJson(String str) =>
+      RecycleRegister.fromMap(json.decode(str));
 
-  factory RecycleData.fromMap(Map<String, dynamic> json) => RecycleData(
-        id: json["id"],
+  String toJson() => json.encode(toMap());
+
+  factory RecycleRegister.fromMap(Map<String, dynamic> json) => RecycleRegister(
         houseId: json["house_id"],
         quantityPet: json["quantity_pet"],
         quantityAlum: json["quantity_alum"],
         dateIn: DateTime.parse(json["date_in"]),
         userId: json["user_id"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
       );
-}
 
-class Quantity {
-  Quantity({
-    required this.totalQuantityPet,
-    required this.totalQuantityAlum,
-  });
-
-  final int totalQuantityPet;
-  final int totalQuantityAlum;
-
-  factory Quantity.fromJson(String str) => Quantity.fromMap(json.decode(str));
-
-  factory Quantity.fromMap(Map<String, dynamic> json) => Quantity(
-        totalQuantityPet: json["total_quantity_pet"],
-        totalQuantityAlum: json["total_quantity_alum"],
-      );
+  Map<String, dynamic> toMap() => {
+        "house_id": houseId,
+        "quantity_pet": quantityPet,
+        "quantity_alum": quantityAlum,
+        "date_in":
+            "${dateIn.year.toString().padLeft(4, '0')}-${dateIn.month.toString().padLeft(2, '0')}-${dateIn.day.toString().padLeft(2, '0')}",
+        "user_id": userId,
+      };
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mis_vecinos_app/ui/utils/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 import '../../../core/providers/providers.dart';
 import '../../utils/colors.dart';
@@ -126,15 +127,32 @@ class _QRState extends ConsumerState<QR> {
               : InkWell(
                   borderRadius: BorderRadius.circular(10),
                   onTap: () async {
-                    String barcodeScanRes =
-                        await FlutterBarcodeScanner.scanBarcode(
-                      c.primary.toString(),
-                      'Cancelar',
-                      false,
-                      ScanMode.QR,
-                    );
+                    // String barcodeScanRes =
+                    //     await FlutterBarcodeScanner.scanBarcode(
+                    //   c.primary.toString(),
+                    //   'Cancelar',
+                    //   false,
+                    //   ScanMode.QR,
+                    // );
+
+                    String barcodeScanRes = '';
+                    final navigator = Navigator.of(context);
+                    final snack = ScaffoldMessenger.of(context);
+
+                    var res = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SimpleBarcodeScannerPage(
+                              lineColor: '#2E75F7'),
+                        ));
+                    setState(() {
+                      if (res is String) {
+                        barcodeScanRes = res;
+                      }
+                    });
 
                     String maincode = 'JA0JWxippm';
+                    setState(() {});
 
                     if (barcodeScanRes == maincode) {
                       int aluminium = ref.watch(indexAluminium);
@@ -145,7 +163,7 @@ class _QRState extends ConsumerState<QR> {
                           aluminium, pet, DateTime.now());
 
                       final snackdemo = SnackBar(
-                        content: Text('Registro guardado exitosamente',
+                        content: Text('Registro guardado exitosamente 👍',
                             style: t.messagesLight),
                         backgroundColor: c.black,
                         elevation: 10,
@@ -153,9 +171,15 @@ class _QRState extends ConsumerState<QR> {
                         margin: const EdgeInsets.all(5),
                       );
 
-                      ScaffoldMessenger.of(context).showSnackBar(snackdemo);
+                      snack.showSnackBar(snackdemo);
 
-                      await Navigator.pushReplacement(context,
+                      ref.read(indexPET.notifier).reset();
+                      ref.read(indexAluminium.notifier).reset();
+
+                      final prefs = await SharedPreferences.getInstance();
+                      await prefs.setBool('firstTimeRecycle', true);
+
+                      navigator.pushReplacement(
                           MaterialPageRoute(builder: (context) {
                         return const RecycleDetails();
                       }));
@@ -169,70 +193,6 @@ class _QRState extends ConsumerState<QR> {
       ),
     );
   }
-
-  // Widget text(Size size) {
-  //   return Positioned(
-  //       top: size.height * 0.2,
-  //       left: size.width * 0.1,
-  //       child: Text(
-  //         barcode != null ? 'Verificado' : 'Verifica el QR del Contenedor',
-  //         style: t.mediumLight,
-  //       ));
-  // }
-
-  // Widget qrView(
-  //     BuildContext context, GlobalKey<State<StatefulWidget>> qrKey, Size size) {
-  //   return QRView(
-  //     key: qrKey,
-  //     onQRViewCreated: onQRViewCreated,
-  //     overlay: QrScannerOverlayShape(
-  //       borderColor: c.primary,
-  //       borderRadius: 10,
-  //       borderLength: 20,
-  //       borderWidth: 10,
-  //       cutOutSize: size.width * 0.8,
-  //     ),
-  //   );
-  // }
-
-  // onQRViewCreated(QRViewController controller) {
-  //   setState(() => this.controller = controller);
-  //   controller.scannedDataStream.listen((barcode) async {
-  //     this.barcode = barcode;
-
-  //     bool ok = false;
-  //     String code = 'JA0JWxippm';
-
-  //     if (barcode.code == code) {
-  //       //Lanzar la peticion post para añadirlo al back
-  //       int aluminium = ref.watch(indexAluminium);
-  //       int pet = ref.watch(indexPET);
-  //       final service = ref.watch(recycleServiceProvider);
-
-  //       await service.sendQuantity(aluminium, pet);
-
-  //       await Navigator.pushReplacement(context,
-  //           MaterialPageRoute(builder: (context) {
-  //         return const RecycleDetails();
-  //       }));
-
-  //       final snackdemo = SnackBar(
-  //         content:
-  //             Text('Registro guardado exitosamente', style: t.messagesLight),
-  //         backgroundColor: c.black,
-  //         elevation: 10,
-  //         behavior: SnackBarBehavior.floating,
-  //         margin: const EdgeInsets.all(5),
-  //       );
-
-  //       ScaffoldMessenger.of(context).showSnackBar(snackdemo);
-  //     } else {
-  //       //Lanzar un mensaje de qr erroneo/no encontrado
-  //       ok = false;
-  //       showMsj(ok);
-  //     }
-  //   });
-  // }
 
   showMsj(bool ok) {
     showDialog(

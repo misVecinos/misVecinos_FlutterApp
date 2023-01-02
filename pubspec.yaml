@@ -40,12 +40,12 @@ dependencies:
   lottie: ^2.0.0
   native_pdf_view: ^6.0.0+1
   shared_preferences: ^2.0.15
-  
+
   cached_network_image: ^3.2.3
   carousel_slider: ^4.2.1
   http: ^0.13.5
-  flutter_barcode_scanner: ^2.0.0
-  # qr_bar_code_scanner_dialog: ^0.0.5
+  # flutter_barcode_scanner: ^2.0.0
+  simple_barcode_scanner: ^0.0.7
 
   syncfusion_flutter_pdf: ^20.3.61
   d_chart: ^1.0.0
