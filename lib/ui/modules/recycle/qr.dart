@@ -9,8 +9,9 @@ import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import '../../../core/providers/providers.dart';
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
+import 'character.dart';
 import 'controller.dart';
-import 'recycle_details.dart';
+import 'recycle.dart';
 
 class QR extends ConsumerStatefulWidget {
   const QR({super.key});
@@ -137,7 +138,6 @@ class _QRState extends ConsumerState<QR> {
 
                     String barcodeScanRes = '';
                     final navigator = Navigator.of(context);
-                    final snack = ScaffoldMessenger.of(context);
 
                     var res = await Navigator.push(
                         context,
@@ -162,17 +162,6 @@ class _QRState extends ConsumerState<QR> {
                       await service.sendQuantity(
                           aluminium, pet, DateTime.now());
 
-                      final snackdemo = SnackBar(
-                        content: Text('Registro guardado exitosamente 👍',
-                            style: t.messagesLight),
-                        backgroundColor: c.black,
-                        elevation: 10,
-                        behavior: SnackBarBehavior.floating,
-                        margin: const EdgeInsets.all(5),
-                      );
-
-                      snack.showSnackBar(snackdemo);
-
                       ref.read(indexPET.notifier).reset();
                       ref.read(indexAluminium.notifier).reset();
 
@@ -181,9 +170,14 @@ class _QRState extends ConsumerState<QR> {
 
                       navigator.pushReplacement(
                           MaterialPageRoute(builder: (context) {
-                        return const RecycleDetails();
+                        return const Character();
                       }));
+                    } else {
+                      ref.read(indexPET.notifier).reset();
+                      ref.read(indexAluminium.notifier).reset();
+                      showMsjErr(context, size);
                     }
+                    return;
                   },
                   child: Buton(
                       background: c.primary,

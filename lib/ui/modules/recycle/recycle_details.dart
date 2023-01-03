@@ -122,8 +122,10 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
               actions: [
                 IconButton(
                     onPressed: () {
-                      showMsj('Reciclaje',
-                          'Puedes visualizar tu historial de reciclaje. Todo lo que has reciclado lo verás en esta pantalla. \n\nTambien puedes ver que tan llenos estan los contenedores de tu vecindario.');
+                      showMsj(
+                          'Reciclaje',
+                          'Puedes visualizar tu historial de reciclaje. Todo lo que has reciclado lo verás en esta pantalla. \n\nTambien puedes ver la capacidad y el estado de los contenedores de tu vecindario.',
+                          size);
                     },
                     icon: Icon(Icons.help, color: c.disabled))
               ],
@@ -185,6 +187,7 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
                   children: [
                     ListView.builder(
                         shrinkWrap: true,
+                        reverse: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: state.listHistory?.data.length,
                         itemBuilder: (context, index) {
@@ -412,24 +415,11 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
         });
   }
 
-  petInUsage(History? history) {
-    final lenght = history?.data.length ?? 0;
-    int totalPet = 0;
-    int petLimit = 5900;
-    double percent = 0;
-
-    for (int i = 0; i <= lenght; i++) {
-      totalPet += history?.data[i].quantityPet ?? 0;
-    }
-
-    percent = totalPet * 100 / petLimit;
-
-    return percent.toInt();
-  }
+  petInUsage() {}
 
   aluminiumInUsage() {}
 
-  showMsj(String title, String content) {
+  showMsj(String title, String content, Size size) {
     showDialog(
         context: context,
         builder: (context) {
@@ -437,9 +427,24 @@ class _RecycleDetailsState extends ConsumerState<RecycleDetails> {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(14.0))),
             title: Text(title, style: t.subtitle),
-            content: Text(
-              content,
-              style: t.messages,
+            content: Container(
+              height: size.height * 0.32,
+              color: c.surface,
+              child: Column(
+                children: [
+                  Text(content, style: t.messagesBlack),
+                  // Expanded(
+                  //   child: LottieBuilder.asset(
+                  //     repeat: true,
+                  //     'assets/icons/lottie/character.json',
+                  //   ),
+                  // ),
+                  Expanded(
+                      child: Image.asset(
+                    'assets/icons/character.gif',
+                  ))
+                ],
+              ),
             ),
             actions: [
               TextButton(

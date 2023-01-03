@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lottie/lottie.dart';
+import 'package:mis_vecinos_app/ui/modules/recycle/character.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/qr.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/recycle_details.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/widgets/buttons.dart';
@@ -107,26 +109,7 @@ class _TransparencyState extends ConsumerState<Recycle> {
                                         .withOpacity(0.25)))
                         //
                         )
-                    // SizedBox(
-                    //     width: double.infinity,
-                    //     height: size.height * 0.15,
-                    //     child: ListView.builder(
-                    //         scrollDirection: Axis.horizontal,
-                    //         itemCount: ref.watch(tips).length,
-                    //         itemBuilder: (context, index) {
-                    //           return Padding(
-                    //             padding: const EdgeInsets.only(right: 10.0),
-                    //             child: RecicleTips(
-                    //                 asset: ref.watch(tips)[index].imagen,
-                    //                 title: ref.watch(tips)[index].titulo,
-                    //                 content: ref.watch(tips)[index].contenido,
-                    //                 index: index,
-                    //                 color: index == 0
-                    //                     ? c.primary.withOpacity(0.25)
-                    //                     : c.OK.withOpacity(0.25)),
-                    //           );
-                    //         }),
-                    //   )
+                    //
                     : Container()),
 
             //
@@ -343,19 +326,10 @@ showBottomMenu(
       });
 }
 
-checkPET(WidgetRef ref, BuildContext context) {
+checkPET(WidgetRef ref, BuildContext context, Size size) {
   WidgetsBinding.instance.addPostFrameCallback((_) async {
     if (ref.watch(indexPET) > 0) {
       final navigator = Navigator.of(context);
-      final snack = ScaffoldMessenger.of(context);
-      final snackdemo = SnackBar(
-        content:
-            Text('Registro guardado exitosamente 👍', style: t.messagesLight),
-        backgroundColor: c.black,
-        elevation: 10,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(5),
-      );
       final prefs = await SharedPreferences.getInstance();
       final notFirstTime = prefs.getBool('firstTimeRecycle');
 
@@ -370,14 +344,12 @@ checkPET(WidgetRef ref, BuildContext context) {
           builder: (context) =>
               const SimpleBarcodeScannerPage(lineColor: '#2E75F7'),
         ));
-        // setState(() {
+
         if (res is String) {
           barcodeScanRes = res;
         }
-        //  });
 
         String maincode = 'JA0JWxippm';
-        // setState(() {});
 
         if (barcodeScanRes == maincode) {
           int aluminium = ref.watch(indexAluminium);
@@ -385,37 +357,35 @@ checkPET(WidgetRef ref, BuildContext context) {
           final service = ref.watch(recycleServiceProvider);
 
           await service.sendQuantity(aluminium, pet, DateTime.now());
-          snack.showSnackBar(snackdemo);
 
           ref.read(indexPET.notifier).reset();
           ref.read(indexAluminium.notifier).reset();
 
           await navigator.pushReplacement(MaterialPageRoute(builder: (context) {
-            return const RecycleDetails();
+            return const Character();
           }));
+        } else {
+          ref.read(indexPET.notifier).reset();
+          ref.read(indexAluminium.notifier).reset();
+          showMsjErr(context, size);
         }
+        return;
+        //
       }
     } else {
       showMessage(context);
+      ref.read(indexPET.notifier).reset();
+      ref.read(indexAluminium.notifier).reset();
     }
   });
 }
 
-checkAluminium(WidgetRef ref, BuildContext context) {
+checkAluminium(WidgetRef ref, BuildContext context, Size size) {
   WidgetsBinding.instance.addPostFrameCallback((_) async {
     if (ref.watch(indexAluminium) > 0) {
       final navigator = Navigator.of(context);
-      final snack = ScaffoldMessenger.of(context);
       final prefs = await SharedPreferences.getInstance();
       final notFirstTime = prefs.getBool('firstTimeRecycle');
-      final snackdemo = SnackBar(
-        content:
-            Text('Registro guardado exitosamente 👍', style: t.messagesLight),
-        backgroundColor: c.black,
-        elevation: 10,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(5),
-      );
 
       if (notFirstTime != true) {
         navigator.push(MaterialPageRoute(builder: (context) {
@@ -430,14 +400,12 @@ checkAluminium(WidgetRef ref, BuildContext context) {
           builder: (context) =>
               const SimpleBarcodeScannerPage(lineColor: '#2E75F7'),
         ));
-        // setState(() {
+
         if (res is String) {
           barcodeScanRes = res;
         }
-        //  });
 
         String maincode = 'JA0JWxippm';
-        // setState(() {});
 
         if (barcodeScanRes == maincode) {
           int aluminium = ref.watch(indexAluminium);
@@ -445,19 +413,61 @@ checkAluminium(WidgetRef ref, BuildContext context) {
           final service = ref.watch(recycleServiceProvider);
 
           await service.sendQuantity(aluminium, pet, DateTime.now());
-          snack.showSnackBar(snackdemo); //Mostrar bote de basura animado
 
           ref.read(indexPET.notifier).reset();
           ref.read(indexAluminium.notifier).reset();
 
           await navigator.pushReplacement(MaterialPageRoute(builder: (context) {
-            return const RecycleDetails();
+            return const Character();
           }));
+        } else {
+          ref.read(indexPET.notifier).reset();
+          ref.read(indexAluminium.notifier).reset();
+          showMsjErr(context, size);
         }
+        return;
+        //
       }
     } else {
-      //Mensaje de que no puede ser 0
       showMessage(context);
+      ref.read(indexPET.notifier).reset();
+      ref.read(indexAluminium.notifier).reset();
     }
   });
+}
+
+showMsjErr(BuildContext context, Size size) {
+  showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(14.0))),
+          title: Text('Código Incorrecto', style: t.subtitle),
+          content: Container(
+            height: size.height * 0.19,
+            color: c.surface,
+            child: Column(
+              children: [
+                Text(
+                  'Verifica que el codigo sea el correcto e intentalo de nuevo.',
+                  style: t.messagesBlack,
+                ),
+                LottieBuilder.asset(
+                  repeat: false,
+                  height: size.height * 0.15,
+                  'assets/icons/lottie/error.json',
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Aceptar')),
+          ],
+        );
+      });
 }

@@ -14,7 +14,9 @@ Widget buton(BuildContext context, int index) {
         child: InkWell(
           borderRadius: BorderRadius.circular(10),
           onTap: () {
-            index == 0 ? checkPET(ref, context) : checkAluminium(ref, context);
+            index == 0
+                ? checkPET(ref, context, size)
+                : checkAluminium(ref, context, size);
           },
           child: Ink(
             decoration: BoxDecoration(

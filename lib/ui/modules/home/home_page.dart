@@ -35,12 +35,12 @@ class _VecinosPageState extends ConsumerState<HomePage> {
     });
   }
 
-  checkRecycle() async {
-    // WidgetsBinding.instance.addPostFrameCallback((_) async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      recycle = prefs.getBool('isRecycing');
-      // });
+  checkRecycle() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final prefs = await SharedPreferences.getInstance();
+      setState(() {
+        recycle = prefs.getBool('isRecycing');
+      });
       setState(() {});
       //
     });
@@ -50,12 +50,6 @@ class _VecinosPageState extends ConsumerState<HomePage> {
   void initState() {
     super.initState();
     session();
-    checkRecycle();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
     checkRecycle();
   }
 
