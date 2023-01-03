@@ -23,9 +23,14 @@ class _MiniCard2State extends State<MiniCard2> {
   void initState() {
     super.initState();
 
-    _loadHistorialToday(widget.history);
-    _loadHistorialMonth(widget.history);
-    _loadHistorialYear(widget.history);
+    _loadPetToday(widget.history);
+    _loadAlumToday(widget.history);
+
+    _loadPetMonth(widget.history);
+    _loadAlumMonth(widget.history);
+
+    _loadPetYear(widget.history);
+    _loadAlumYear(widget.history);
   }
 
   @override
@@ -74,10 +79,11 @@ class _MiniCard2State extends State<MiniCard2> {
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis),
-            Text(_loadHistorialToday(widget.history),
-                style: _loadHistorialToday(widget.history) == '0'
-                    ? t.messagesBold
-                    : t.messagesGreen,
+            Text(
+                widget.title == 'PET'
+                    ? _loadPetToday(widget.history)
+                    : _loadAlumToday(widget.history),
+                style: t.messagesGreen,
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis),
@@ -86,10 +92,11 @@ class _MiniCard2State extends State<MiniCard2> {
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis),
-            Text(_loadHistorialMonth(widget.history),
-                style: _loadHistorialMonth(widget.history) == '0'
-                    ? t.messagesBold
-                    : t.messagesGreen,
+            Text(
+                widget.title == 'PET'
+                    ? _loadPetMonth(widget.history)
+                    : _loadAlumMonth(widget.history),
+                style: t.messagesGreen,
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis),
@@ -98,10 +105,11 @@ class _MiniCard2State extends State<MiniCard2> {
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis),
-            Text(_loadHistorialYear(widget.history),
-                style: _loadHistorialYear(widget.history) == '0'
-                    ? t.messagesBold
-                    : t.messagesGreen,
+            Text(
+                widget.title == 'PET'
+                    ? _loadPetYear(widget.history)
+                    : _loadAlumYear(widget.history),
+                style: t.messagesGreen,
                 textAlign: TextAlign.center,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis),
@@ -132,48 +140,111 @@ class _MiniCard2State extends State<MiniCard2> {
     );
   }
 
-  String _loadHistorialToday(History? history) {
+  String _loadPetToday(History? history) {
     List today = [];
+    int tod = 0;
 
     for (RecycleRegister register in history != null ? history.data : today) {
-      if (register.dateIn.day == DateTime.now().day) {
+      if (register.quantityPet > 0 &&
+          register.dateIn.day == DateTime.now().day) {
         today.add(register);
+        tod += register.quantityPet;
       } else {
         continue;
       }
     }
 
     setState(() {});
-    return today.isEmpty ? '0' : '${today.length.toString()} piezas.';
+    return today.isEmpty ? '0' : '${tod.toString()} piezas.';
   }
 
-  String _loadHistorialMonth(History? history) {
+  String _loadAlumToday(History? history) {
+    List today = [];
+    int tod = 0;
+
+    for (RecycleRegister register in history != null ? history.data : today) {
+      if (register.quantityAlum > 0 &&
+          register.dateIn.day == DateTime.now().day) {
+        today.add(register);
+        tod += register.quantityAlum;
+      } else {
+        continue;
+      }
+    }
+
+    setState(() {});
+    return today.isEmpty ? '0' : '${tod.toString()} piezas.';
+  }
+
+  String _loadPetMonth(History? history) {
     List month = [];
+    int mont = 0;
 
     for (RecycleRegister register in history != null ? history.data : month) {
-      if (register.dateIn.month == DateTime.now().month) {
+      if (register.quantityPet > 0 &&
+          register.dateIn.month == DateTime.now().month) {
         month.add(register);
+        mont += register.quantityPet;
       } else {
         continue;
       }
     }
 
     setState(() {});
-    return month.isEmpty ? '0' : '${month.length.toString()} piezas.';
+    return month.isEmpty ? '0' : '${mont.toString()} piezas.';
   }
 
-  String _loadHistorialYear(History? history) {
-    List year = [];
+  String _loadAlumMonth(History? history) {
+    List month = [];
+    int mont = 0;
 
-    for (RecycleRegister register in history != null ? history.data : year) {
-      if (register.dateIn.year == DateTime.now().year) {
-        year.add(register);
+    for (RecycleRegister register in history != null ? history.data : month) {
+      if (register.quantityAlum > 0 &&
+          register.dateIn.month == DateTime.now().month) {
+        month.add(register);
+        mont += register.quantityAlum;
       } else {
         continue;
       }
     }
 
     setState(() {});
-    return year.isEmpty ? '0' : '${year.length.toString()} piezas.';
+    return month.isEmpty ? '0' : '${mont.toString()} piezas.';
+  }
+
+  String _loadPetYear(History? history) {
+    List year = [];
+    int yer = 0;
+
+    for (RecycleRegister register in history != null ? history.data : year) {
+      if (register.quantityPet > 0 &&
+          register.dateIn.year == DateTime.now().year) {
+        year.add(register);
+        yer += register.quantityPet;
+      } else {
+        continue;
+      }
+    }
+
+    setState(() {});
+    return year.isEmpty ? '0' : '${yer.toString()} piezas.';
+  }
+
+  String _loadAlumYear(History? history) {
+    List year = [];
+    int yer = 0;
+
+    for (RecycleRegister register in history != null ? history.data : year) {
+      if (register.quantityAlum > 0 &&
+          register.dateIn.year == DateTime.now().year) {
+        year.add(register);
+        yer += register.quantityAlum;
+      } else {
+        continue;
+      }
+    }
+
+    setState(() {});
+    return year.isEmpty ? '0' : '${yer.toString()} piezas.';
   }
 }
