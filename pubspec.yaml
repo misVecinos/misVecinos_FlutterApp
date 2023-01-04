@@ -49,7 +49,6 @@ dependencies:
 
   syncfusion_flutter_pdf: ^20.3.61
   d_chart: ^1.0.0
-  flutter_launcher_icons: ^0.11.0
   ripple_wave: ^0.0.2
   flutter_circle_chart: ^1.0.0
   flutter_timer_countdown: ^1.0.5
@@ -66,10 +65,10 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.11.0
 
 flutter_icons:
   android: "launcher_icon"
-  ios: true
   image_path: "assets/icon.png"
   adaptive_icon_background: "#ffffff"
   adaptive_icon_foreground: "assets/iconb.png"
