@@ -25,7 +25,7 @@ class LoginImage extends StatelessWidget {
         child: Stack(
           children: [
             SizedBox(
-                height: size.height * 0.45,
+                height: size.height * 0.5,
                 width: size.width,
                 child: ImageSlideshow(
                     autoPlayInterval: 5000,
@@ -51,7 +51,7 @@ class LoginImage extends StatelessWidget {
                       ),
                     ])),
             Container(
-                height: size.height * 0.45,
+                height: size.height * 0.5,
                 width: size.width,
                 decoration: BoxDecoration(
                     gradient: LinearGradient(

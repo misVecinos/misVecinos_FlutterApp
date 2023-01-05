@@ -4,10 +4,10 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
-import 'package:mis_vecinos_app/ui/modules/login/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../utils/colors.dart';
+import '../login/widgets/splash_image.dart';
 import '../main/main_page.dart';
 import 'controller.dart';
 
@@ -53,7 +53,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
               PageRouteBuilder(
                   pageBuilder: (_, animation, __) => FadeTransition(
                         opacity: animation,
-                        child: const LoginPage(),
+                        child: const SplashImage(),
+                        // child: const LoginPage(),
                       )));
         } else {
           await Navigator.pushReplacement(
@@ -124,7 +125,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                       duration:
                                           const Duration(milliseconds: 2000),
                                       child: ref.watch(color) == false
-                                          ? const Text('MisVecinos',
+                                          ? const Text('Mis Vecinos',
                                               style: TextStyle(
                                                   fontFamily: 'Visby CFH',
                                                   color: Colors.black
@@ -137,7 +138,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                                               duration: const Duration(
                                                   milliseconds: 2000),
                                               builder: (context, value, _) {
-                                                return Text('MisVecinos',
+                                                return Text('Mis Vecinos',
                                                     style: TextStyle(
                                                         fontFamily: 'Visby CFH',
                                                         color: value
@@ -156,9 +157,4 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     );
   } //
 
-  Widget checkSession() {
-    //Checar sesison en shared preferences
-
-    return const LoginPage();
-  }
 }
