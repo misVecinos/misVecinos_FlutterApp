@@ -41,7 +41,7 @@ class ImageInText extends CustomPainter {
 
     // The box surrounding the text should be 10 pixels larger, with 4 pixels corner radius
     final boxRect = RRect.fromRectAndRadius(
-        textRect.inflate(1500), Radius.circular(boxRadius!));
+        textRect.inflate(1000), Radius.circular(boxRadius!));
     final boxPaint = Paint()
       ..color = boxBackgroundColor!
       ..blendMode = BlendMode.srcOut;
@@ -55,7 +55,5 @@ class ImageInText extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(ImageInText oldDelegate) {
-    return true;
-  }
+  bool shouldRepaint(ImageInText oldDelegate) => true;
 }

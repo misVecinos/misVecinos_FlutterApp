@@ -12,11 +12,30 @@ class SplashImage extends StatefulWidget {
   State<SplashImage> createState() => _SplashImageState();
 }
 
-class _SplashImageState extends State<SplashImage> {
+class _SplashImageState extends State<SplashImage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation scaleAnimation;
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2))
+
+    controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 3500));
+    controller.stop();
+
+    final animation =
+        CurvedAnimation(parent: controller, curve: Curves.easeInOutCubic);
+    scaleAnimation = Tween<double>(begin: 1, end: 700).animate(animation);
+
+    Future.delayed(const Duration(milliseconds: 1000)).whenComplete(() {
+      //  ref.watch(color) == false
+      controller.forward();
+      return;
+    });
+
+    Future.delayed(const Duration(milliseconds: 4200))
         .whenComplete(() => Navigator.pushReplacement(
             context,
             PageRouteBuilder(
@@ -63,18 +82,25 @@ class _SplashImageState extends State<SplashImage> {
               ],
             ))),
 
-        Center(
-          child: Transform.scale(
-            child: CustomPaint(
-              painter: ImageInText(
-                  text: 'Mis Vecinos',
-                  textDirection: TextDirection.rtl,
-                  boxRadius: 8,
-                  boxBackgroundColor: c.secondary,
-                  textStyle: t.titleApp),
-            ),
-          ),
-        ),
+        AnimatedBuilder(
+          animation: controller,
+          builder: (context, child) {
+            return Center(
+              child: Transform.scale(
+                scale: scaleAnimation.value,
+                child: CustomPaint(
+                  painter: ImageInText(
+                      text: 'Mis Vecinos',
+                      textDirection: TextDirection.rtl,
+                      boxRadius: 8,
+                      boxBackgroundColor: c.secondary,
+                      textStyle: t.titleApp),
+                ),
+              ),
+            );
+          },
+        )
+
         //
       ],
     );

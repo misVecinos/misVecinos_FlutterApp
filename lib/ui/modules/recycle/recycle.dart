@@ -4,6 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/character.dart';
+import 'package:mis_vecinos_app/ui/modules/recycle/info/cycle_recycle.dart';
+import 'package:mis_vecinos_app/ui/modules/recycle/info/pet_info.dart';
+import 'package:mis_vecinos_app/ui/modules/recycle/info/pet_recycle.dart';
+import 'package:mis_vecinos_app/ui/modules/recycle/info/pet_separate.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/qr.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/recycle_details.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/widgets/buttons.dart';
@@ -116,10 +120,6 @@ class _TransparencyState extends ConsumerState<Recycle> {
             SizedBox(
               height: size.height * 0.01,
             ),
-            Text(
-              '¡Ayudemos al planeta! \nEs importante que reciclemos nuestra basura si es posible.',
-              style: t.messages,
-            ),
             SizedBox(
               height: size.height * 0.01,
             ),
@@ -187,37 +187,171 @@ class _TransparencyState extends ConsumerState<Recycle> {
                     }));
                   },
                   child: Text(
-                    'Historial',
+                    'Mirar Historial',
                     style: t.buttonBlue2,
                   ),
                 ),
-                Icon(Icons.arrow_forward_ios, color: c.primary)
+                Icon(Icons.arrow_forward_ios, color: c.primary, size: 16)
               ],
             ),
 
             SizedBox(
               height: size.height * 0.01,
             ),
+            SizedBox(
+              height: size.height * 0.01,
+            ),
 
             Text(
-              'Conoce mas sobre el PET',
-              style: t.subtitle,
+              'Pasos a seguir:',
+              style: t.buttonBlue2,
             ),
-            Row(
-              children: [
-                Container(
-                  color: c.surface,
-                  width: size.width * 0.8,
-                  child: Text(
-                    'Explora las curiosidades del PET. Ten en cuenta ayudar al planeta. ',
-                    maxLines: 4,
-                    overflow: TextOverflow.ellipsis,
-                    style: t.messages,
+            SizedBox(
+              height: size.height * 0.01,
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) => const CycleRecycle())));
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Ciclo del reciclaje',
+                    style: t.subtitle,
                   ),
-                ),
-                const Spacer(),
-                Icon(Icons.arrow_forward_ios, color: c.disabled)
-              ],
+                  Row(
+                    children: [
+                      Container(
+                        color: c.surface,
+                        width: size.width * 0.8,
+                        child: Text(
+                          '¿Cómo identificar los tipos de plásticos?',
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                          style: t.messages,
+                        ),
+                      ),
+                      const Spacer(),
+                      Icon(Icons.arrow_forward_ios, color: c.disabled, size: 16)
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(
+              height: size.height * 0.015,
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: ((context) => const PetInfo())));
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Tipos de PET',
+                    style: t.subtitle,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        color: c.surface,
+                        width: size.width * 0.8,
+                        child: Text(
+                          '¿Cómo identificar los tipos de plásticos?',
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                          style: t.messages,
+                        ),
+                      ),
+                      const Spacer(),
+                      Icon(Icons.arrow_forward_ios, color: c.disabled, size: 16)
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(
+              height: size.height * 0.015,
+            ),
+
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) => const PetSeparate())));
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Separa el PET',
+                    style: t.subtitle,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        color: c.surface,
+                        width: size.width * 0.8,
+                        child: Text(
+                          '¿Cómo separar los plásticos para su reciclado?',
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                          style: t.messages,
+                        ),
+                      ),
+                      const Spacer(),
+                      Icon(Icons.arrow_forward_ios, color: c.disabled, size: 16)
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(
+              height: size.height * 0.015,
+            ),
+
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) => const PetRecycle())));
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Reciclaje de PET',
+                    style: t.subtitle,
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        color: c.surface,
+                        width: size.width * 0.8,
+                        child: Text(
+                          '¿Cómo separar los plásticos para su reciclado?',
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                          style: t.messages,
+                        ),
+                      ),
+                      const Spacer(),
+                      Icon(Icons.arrow_forward_ios, color: c.disabled, size: 16)
+                    ],
+                  ),
+                ],
+              ),
             ),
 
             SizedBox(
