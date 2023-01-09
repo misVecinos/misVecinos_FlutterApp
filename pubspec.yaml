@@ -41,6 +41,7 @@ dependencies:
   native_pdf_view: ^6.0.0+1
   shared_preferences: ^2.0.15
 
+  calendar_date_picker2: ^0.3.6
   cached_network_image: ^3.2.3
   carousel_slider: ^4.2.1
   http: ^0.13.5

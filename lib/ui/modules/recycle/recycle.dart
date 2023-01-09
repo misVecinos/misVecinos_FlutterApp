@@ -61,7 +61,8 @@ class _TransparencyState extends ConsumerState<Recycle> {
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('¿Que reciclarás? ', style: t.title),
+              Text('Reciclaje ', style: t.title),
+              Text('¿Qué reciclarás?', style: t.messages)
             ],
           ),
           actions: [

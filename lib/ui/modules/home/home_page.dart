@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mis_vecinos_app/ui/modules/acesses/access.dart';
 import 'package:mis_vecinos_app/ui/modules/home/widgets/back_image.dart';
 import 'package:mis_vecinos_app/ui/modules/news/news_page.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/recycle_info.dart';
@@ -107,6 +108,36 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                           overflow: TextOverflow.ellipsis),
                     ),
                   ],
+                ),
+              ),
+
+              GestureDetector(
+                onTap: () => Navigator.push(
+                    context,
+                    PageRouteAnimator(
+                      child: const Acess(),
+                      routeAnimation: RouteAnimation.rightToLeft,
+                      curve: Curves.fastOutSlowIn,
+                      duration: const Duration(milliseconds: 400),
+                      reverseDuration: const Duration(milliseconds: 400),
+                    )),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: size.width * 0.84,
+                    top: size.height * 0.172,
+                  ),
+                  child: Material(
+                    shape: const CircleBorder(side: BorderSide.none),
+                    elevation: 4,
+                    child: CircleAvatar(
+                      backgroundColor: const Color(0xffFDFDFD),
+                      radius: size.height * 0.035,
+                      child: Icon(
+                        Icons.add,
+                        color: c.primary,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -218,7 +249,7 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                                   ],
                                 ),
                                 Text(
-                                    'Mira cómo se administra el dinero de tu comunidad, qué ingresa y egresa.',
+                                    'Mira la administración del dinero de tu comunidad, qué ingresa y egresa.',
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
                                     style: t.messages),
@@ -305,7 +336,7 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                                 padding: EdgeInsets.only(
                                     left: size.width * 0.05,
                                     right: size.width * 0.05),
-                                child: Text('2 veces este mes.',
+                                child: Text('Ayuda al planeta.',
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: t.messages),
@@ -370,9 +401,9 @@ class _VecinosPageState extends ConsumerState<HomePage> {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(
-                                      left: size.width * 0.05,
-                                      right: size.width * 0.05),
-                                  child: Text('1 sin leer.',
+                                      left: size.width * 0.02,
+                                      right: size.width * 0.02),
+                                  child: Text('Infórmate.',
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: t.messages),

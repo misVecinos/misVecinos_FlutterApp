@@ -17,6 +17,7 @@ abstract class IText {
   TextStyle get messagesGreen;
   TextStyle get messagesRed;
   TextStyle get messagesBlue;
+  TextStyle get messagesBlueLight;
   TextStyle get messagesBold;
   TextStyle get messagesBlack;
   TextStyle get buttons;
@@ -119,6 +120,13 @@ class _TextStylesMain implements IText {
     fontWeight: FontWeight.bold,
     color: c.primary,
   );
+  @override
+  TextStyle messagesBlueLight = TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 14,
+    color: c.primary,
+  );
+
   @override
   TextStyle messagesRed = TextStyle(
     fontFamily: 'Montserrat',

@@ -43,7 +43,13 @@ class _TransparencyState extends ConsumerState<Transparency> {
         endDrawer: const MenuDrawer(),
         drawerEnableOpenDragGesture: true,
         appBar: AppBar(
-          title: Text('Transparencia', style: t.title),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Transparencia ', style: t.title),
+              Text('Cuentas claras', style: t.messages)
+            ],
+          ),
           actions: [
             Icon(
               Icons.abc,

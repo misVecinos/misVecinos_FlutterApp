@@ -23,10 +23,7 @@ class _TransparencyState extends ConsumerState<SettingsPage> {
     return Scaffold(
         appBar: AppBar(
           actions: [
-            Icon(
-              Icons.abc,
-              color: c.surface,
-            ),
+            Icon(Icons.abc, color: c.surface),
           ],
           backgroundColor: c.surface,
           elevation: 0,
@@ -226,6 +223,7 @@ class _TransparencyState extends ConsumerState<SettingsPage> {
               TextButton(
                 onPressed: () {
                   WidgetsBinding.instance.addPostFrameCallback((_) async {
+                    final navigator = Navigator.of(context);
                     final prefs = await SharedPreferences.getInstance();
                     // await prefs.setBool('isLogged', false);
                     // await prefs.setBool('isRecycing', false);
@@ -233,7 +231,7 @@ class _TransparencyState extends ConsumerState<SettingsPage> {
                     await prefs.remove('isRecycing');
                     await prefs.remove('firstTimeRecycle');
 
-                    Navigator.of(context)
+                    navigator
                         .pushReplacement(MaterialPageRoute(builder: (context) {
                       return const LoginPage();
                     }));
