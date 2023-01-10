@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mis_vecinos_app/ui/utils/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_barcode_scanner/enum.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 import '../../../core/providers/providers.dart';
@@ -139,12 +140,16 @@ class _QRState extends ConsumerState<QR> {
                     String barcodeScanRes = '';
                     final navigator = Navigator.of(context);
 
-                    var res = await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SimpleBarcodeScannerPage(
-                              lineColor: '#2E75F7'),
-                        ));
+                    var res = await navigator.push(MaterialPageRoute(
+                      builder: (context) => const SimpleBarcodeScannerPage(
+                        lineColor: '#2E75F7',
+                        scanType: ScanType.qr,
+                        cancelButtonText: 'Cancelar',
+                        appBarTitle: 'Sostén y enfóca el qr',
+                        isShowFlashIcon: true,
+                        centerTitle: true,
+                      ),
+                    ));
                     setState(() {
                       if (res is String) {
                         barcodeScanRes = res;

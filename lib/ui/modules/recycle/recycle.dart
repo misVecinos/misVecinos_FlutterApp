@@ -13,6 +13,7 @@ import 'package:mis_vecinos_app/ui/modules/recycle/recycle_details.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/widgets/buttons.dart';
 import 'package:mis_vecinos_app/ui/modules/recycle/widgets/recicle_tips.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_barcode_scanner/enum.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -476,8 +477,14 @@ checkPET(WidgetRef ref, BuildContext context, Size size) {
         String barcodeScanRes = '';
 
         var res = await navigator.push(MaterialPageRoute(
-          builder: (context) =>
-              const SimpleBarcodeScannerPage(lineColor: '#2E75F7'),
+          builder: (context) => const SimpleBarcodeScannerPage(
+            lineColor: '#2E75F7',
+            scanType: ScanType.qr,
+            cancelButtonText: 'Cancelar',
+            appBarTitle: 'Sostén y enfóca el qr',
+            isShowFlashIcon: true,
+            centerTitle: true,
+          ),
         ));
 
         if (res is String) {
@@ -532,8 +539,14 @@ checkAluminium(WidgetRef ref, BuildContext context, Size size) {
         String barcodeScanRes = '';
 
         var res = await navigator.push(MaterialPageRoute(
-          builder: (context) =>
-              const SimpleBarcodeScannerPage(lineColor: '#2E75F7'),
+          builder: (context) => const SimpleBarcodeScannerPage(
+            lineColor: '#2E75F7',
+            scanType: ScanType.qr,
+            cancelButtonText: 'Cancelar',
+            appBarTitle: 'Sostén y enfóca el qr',
+            isShowFlashIcon: true,
+            centerTitle: true,
+          ),
         ));
 
         if (res is String) {
@@ -580,7 +593,7 @@ showMsjErr(BuildContext context, Size size) {
               borderRadius: BorderRadius.all(Radius.circular(14.0))),
           title: Text('Código Incorrecto', style: t.subtitle),
           content: Container(
-            height: size.height * 0.19,
+            height: size.height * 0.21,
             color: c.surface,
             child: Column(
               children: [

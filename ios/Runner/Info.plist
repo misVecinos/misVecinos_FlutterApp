@@ -13,7 +13,9 @@
 	<key>io.flutter.embedded_views_preview</key>
     <true/>
     <key>NSCameraUsageDescription</key>
-    <string>Se requiere permiso de la cámara para escanear códigos QR.</string>
+    <string>Se requiere permiso de la cámara.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Se requiere permiso del micrófono.</string>
     <!--  -->
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>

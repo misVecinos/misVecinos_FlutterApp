@@ -27,10 +27,7 @@ class _AcessState extends ConsumerState<Worker> {
               Text('Llaves de acceso ', style: t.messages)
             ],
           ),
-          actions: [
-            IconButton(
-                onPressed: () {}, icon: Icon(Icons.help, color: c.disabled)),
-          ],
+          actions: [Icon(Icons.help, color: c.surface)],
           backgroundColor: c.surface,
           elevation: 0,
           centerTitle: false,

@@ -1,7 +1,9 @@
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
@@ -31,6 +33,8 @@ class _AccesFormState extends ConsumerState<AccesForm> {
     centerTitle: false,
     systemOverlayStyle: SystemUiOverlayStyle.dark,
   );
+
+  final List<File> photos = [];
 
   @override
   Widget build(BuildContext context) {
@@ -88,12 +92,24 @@ class _AccesFormState extends ConsumerState<AccesForm> {
             SizedBox(height: size.height * 0.015),
             GestureDetector(
               onTap: () async {
-                var results = await showCalendarDatePicker2Dialog(
-                  context: context,
-                  config: CalendarDatePicker2WithActionButtonsConfig(),
-                  dialogSize: const Size(325, 400),
-                  initialValue: [],
-                  borderRadius: BorderRadius.circular(15),
+                DatePicker.showDateTimePicker(
+                  context,
+                  showTitleActions: true,
+                  theme: DatePickerTheme(
+                    doneStyle: t.messagesBlue,
+                    cancelStyle: t.messagesBlack,
+                    // itemStyle: t.messagesBlack
+                  ),
+                  minTime: DateTime.now(),
+                  maxTime: DateTime.now().add(const Duration(days: 30)),
+                  // onChanged: (date) {
+                  //   print('change $date');
+                  // },
+                  onConfirm: (date) {
+                    print('confirm $date'); //Guardar la fecha seleccionada
+                  },
+                  currentTime: DateTime.now(),
+                  locale: LocaleType.es,
                 );
               },
               child: Container(
@@ -127,7 +143,7 @@ class _AccesFormState extends ConsumerState<AccesForm> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Icon(Icons.timelapse, color: c.disabled),
+                    child: Icon(Icons.av_timer, color: c.disabled),
                   ),
                   Text('Fecha', style: t.messages),
                 ],
@@ -143,10 +159,10 @@ class _AccesFormState extends ConsumerState<AccesForm> {
               width: size.width * 0.9,
               alignment: Alignment.center,
               child: TextField(
+                controller: description,
                 textAlign: TextAlign.start,
                 keyboardType: TextInputType.name,
                 textAlignVertical: TextAlignVertical.top,
-                controller: description,
                 textCapitalization: TextCapitalization.sentences,
                 maxLines: 1,
                 style: t.messagesBlack,
@@ -170,32 +186,38 @@ class _AccesFormState extends ConsumerState<AccesForm> {
             const Text('(Opcional)'),
 
             SizedBox(height: size.height * 0.02),
-            Center(
-              child: Container(
-                height: size.height * 0.065,
-                width: size.width * 0.85,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  boxShadow: [
-                    BoxShadow(
-                        color: c.disabled.withOpacity(0.4),
-                        blurRadius: 20.0,
-                        offset: const Offset(1, 1))
-                  ],
-                  color: Colors.white,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.camera,
-                      color: c.primary,
-                    ),
-                    Text(
-                      'Tomar foto',
-                      style: t.buttonBlue2,
-                    ),
-                  ],
+            GestureDetector(
+              onTap: () async {
+                final image =
+                    await ImagePicker().pickImage(source: ImageSource.camera);
+              },
+              child: Center(
+                child: Container(
+                  height: size.height * 0.065,
+                  width: size.width * 0.85,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    boxShadow: [
+                      BoxShadow(
+                          color: c.disabled.withOpacity(0.4),
+                          blurRadius: 20.0,
+                          offset: const Offset(1, 1))
+                    ],
+                    color: Colors.white,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.camera,
+                        color: c.primary,
+                      ),
+                      Text(
+                        'Tomar foto',
+                        style: t.buttonBlue2,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
