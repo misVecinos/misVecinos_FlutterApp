@@ -47,5 +47,6 @@ class _ColorsMain implements IColors {
   Color surface = Colors.transparent;
 
   @override
-  Color OK = const Color(0xff44CF6C);
+  Color OK = const Color(0xff44AF69);
+  // Color OK = const Color(0xff44CF6C);
 }

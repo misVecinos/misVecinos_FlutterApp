@@ -77,7 +77,11 @@ class ServiceCards extends StatelessWidget {
           //
           Container(
             color: c.surface,
-            child: SvgPicture.asset('assets/icons/svg/arrow-forward-ios.svg'),
+            child: SvgPicture.asset(
+              'assets/icons/svg/arrow-forward-ios.svg',
+              color: c.disabled,
+              height: 18,
+            ),
           ),
         ],
       ),

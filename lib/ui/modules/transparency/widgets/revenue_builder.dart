@@ -13,10 +13,20 @@ class _RevenueBuilderState extends ConsumerState<RevenueBuilder> {
   @override
   Widget build(BuildContext context) {
     //Se consume la api de ingresos
-    List<String> revenue = [''];
-    List<String> quantity = [];
+    List<String> revenue = [
+      'Saldo anterior Noviembre 2022',
+      'Ingresos de mensualidad',
+      'Dibasa 15/08/2022 y 13/11/2022',
+    ];
+    List<int> quantity = [
+      5951,
+      16400,
+      138,
+    ];
 
     return ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: revenue.length,
         itemBuilder: (context, index) {
           return Revenue(

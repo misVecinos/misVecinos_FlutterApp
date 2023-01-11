@@ -22,20 +22,20 @@ class _SplashImageState extends State<SplashImage>
     super.initState();
 
     controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 2200));
+        vsync: this, duration: const Duration(milliseconds: 2000));
     controller.stop();
 
     final animation =
         CurvedAnimation(parent: controller, curve: Curves.easeInSine);
     scaleAnimation = Tween<double>(begin: 1, end: 700).animate(animation);
 
-    Future.delayed(const Duration(milliseconds: 1000)).whenComplete(() {
+    Future.delayed(const Duration(milliseconds: 900)).whenComplete(() {
       //  ref.watch(color) == false
       controller.forward();
       return;
     });
 
-    Future.delayed(const Duration(milliseconds: 3100))
+    Future.delayed(const Duration(milliseconds: 2650))
         .whenComplete(() => Navigator.pushReplacement(
             context,
             PageRouteBuilder(

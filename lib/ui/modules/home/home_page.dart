@@ -59,6 +59,7 @@ class _VecinosPageState extends ConsumerState<HomePage> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
+      drawerEnableOpenDragGesture: false,
       body: Column(
         children: [
           Stack(

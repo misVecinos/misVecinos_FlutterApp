@@ -37,7 +37,7 @@ class _MainScreenState extends ConsumerState<MainPage> {
 
     return Scaffold(
       endDrawer: const MenuDrawer(),
-      drawerEnableOpenDragGesture: true,
+      drawerEnableOpenDragGesture: false,
       // extendBodyBehindAppBar: true,
       // appBar: AppBar(
       //   actions: [

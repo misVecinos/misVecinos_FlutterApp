@@ -1,7 +1,7 @@
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:mis_vecinos_app/ui/utils/utils.dart';
 
 import '../../../core/modules/news/news.dart';
@@ -37,65 +37,59 @@ class NewsDetails extends ConsumerWidget {
 }
 
 Widget _newsImage(Size size, BuildContext context, New mainNew) {
-  return Hero(
-    tag: 'news',
-    child: Stack(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(30),
-          child: Image.asset(
-            mainNew.imagen,
-            fit: BoxFit.cover,
-            height: size.height * 0.45,
-            width: size.height * 0.6,
-          ),
-        ),
-        //
-        Container(
-          height: size.height * 0.46,
-          width: size.height * 0.6,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: const [
-              0.3,
-              0.6,
-              0.9,
-            ],
-            colors: [
-              c.surface,
-              c.secondary.withOpacity(0.5),
-              c.secondary,
-            ],
-          )),
-          child: Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(bottom: size.height * 0.014),
-                  child: Text(
-                    mainNew.titulo,
-                    style: t.title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+  return Stack(
+    children: [
+      Image.asset(
+        mainNew.imagen,
+        fit: BoxFit.cover,
+        height: size.height * 0.45,
+        width: size.height * 0.6,
+      ),
+      //
+      Container(
+        height: size.height * 0.46,
+        width: size.height * 0.6,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: const [
+            0.3,
+            0.6,
+            0.9,
+          ],
+          colors: [
+            c.surface,
+            c.secondary.withOpacity(0.5),
+            c.secondary,
+          ],
+        )),
+        child: Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(bottom: size.height * 0.014),
+                child: Text(
+                  mainNew.titulo,
+                  style: t.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                Text(
-                  date(mainNew.fechaCreacion),
-                  style: t.messagesBlue,
-                )
-              ],
-            ),
+              ),
+              Text(
+                date(mainNew.fechaCreacion),
+                style: t.messagesBlue,
+              )
+            ],
           ),
         ),
-        //
-        // _topButtons(context, mainNew),
-      ],
-    ),
+      ),
+      //
+      // _topButtons(context, mainNew),
+    ],
   );
 }
 
@@ -103,35 +97,22 @@ Widget _topButtons(BuildContext context, New mainNew) {
   return SafeArea(
     child: Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: CircleAvatar(
-              radius: 26,
-              backgroundColor: c.secondary.withOpacity(0.8),
-              child: SvgPicture.asset('assets/icons/svg/arrow-back-ios.svg'),
-            ),
-          ),
-          //
-          InkWell(
-            onTap: () {
+      child: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
               final imageProvider = Image.asset(mainNew.imagen).image;
               showImageViewer(context, imageProvider,
                   backgroundColor: c.black.withOpacity(0.6),
                   swipeDismissible: true);
             },
-            child: CircleAvatar(
-              radius: 26,
-              backgroundColor: c.secondary.withOpacity(0.8),
-              child: Icon(
-                Icons.image,
-                color: c.black,
-              ),
-            ),
-          )
+            icon: Icon(Icons.image, color: c.primary),
+          ),
         ],
+        backgroundColor: c.surface,
+        elevation: 0,
+        centerTitle: false,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
     ),
   );

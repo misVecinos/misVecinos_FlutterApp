@@ -71,7 +71,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             fit: BoxFit.cover,
                           ),
                           Image.asset(
-                            'assets/images/3.jpeg',
+                            'assets/images/4.jpeg',
                             height: size.height * 0.5,
                             width: size.width,
                             fit: BoxFit.cover,
@@ -84,7 +84,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           ),
                         ])),
 
-                //
                 Container(
                     height: size.height,
                     width: size.width,
@@ -111,8 +110,6 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   child: Stack(
                     children: [
                       const FormLogin(),
-
-                      //
                       Padding(
                         padding: EdgeInsets.only(top: size.height * 0.51),
                         child: Column(
@@ -157,6 +154,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                         keyboardType:
                                             TextInputType.emailAddress,
                                         decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.only(
+                                              left: 12,
+                                              bottom:
+                                                  0, // HERE THE IMPORTANT PART
+                                              top: size.height * 0.07 / 2),
                                           labelText: 'Nombre de usuario',
                                           labelStyle:
                                               TextStyle(color: ref.watch(user)),
@@ -218,6 +220,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                           obscureText:
                                               ref.watch(obscurePassword),
                                           decoration: InputDecoration(
+                                            contentPadding: EdgeInsets.only(
+                                                left: 12,
+                                                bottom:
+                                                    0, // HERE THE IMPORTANT PART
+                                                top: size.height * 0.07 / 2),
                                             labelText: 'Contraseña',
                                             labelStyle: TextStyle(
                                                 color: ref.watch(pass)),
@@ -290,23 +297,23 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                             //   ),
                             // ),
                             SizedBox(
-                              height: size.height * 0.04,
+                              height: size.height * 0.02,
                             ),
                             GestureDetector(
                               onTap: () async {
                                 final url =
                                     Uri.parse('https://www.contendi.com.mx/');
-                                await launchUrl(url);
-                                // if (await canLaunchUrl(url)) {
-                                //   await launchUrl(url);
-                                // } else {
-                                //   throw 'Could not launch $url';
-                                // }
+                                // await launchUrl(url);
+                                if (await canLaunchUrl(url)) {
+                                  await launchUrl(url);
+                                } else {
+                                  throw 'No se pudo lanzar $url';
+                                }
                               },
                               child: Align(
                                 child: Image.asset(
                                   'assets/images/contendi.png',
-                                  height: size.height * 0.06,
+                                  height: size.height * 0.072,
                                   width: size.width * 0.4,
                                   fit: BoxFit.cover,
                                 ),

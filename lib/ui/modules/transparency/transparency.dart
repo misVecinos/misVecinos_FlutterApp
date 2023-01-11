@@ -21,18 +21,8 @@ class _TransparencyState extends ConsumerState<Transparency> {
   );
 
   final List<String> months = [
-    'Enero',
-    'Febrero',
-    'Marzo',
-    'Abril',
-    'Mayo',
-    'Junio',
-    'Julio',
-    'Agosto',
-    'Septiembre',
-    'Octubre',
-    'Nobiembre',
-    'Diciembre'
+    'Diciembre 2022',
+    // 'Enero 2023',
   ];
 
   @override
@@ -41,26 +31,7 @@ class _TransparencyState extends ConsumerState<Transparency> {
 
     return Scaffold(
         endDrawer: const MenuDrawer(),
-        drawerEnableOpenDragGesture: true,
-        appBar: AppBar(
-          title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Transparencia ', style: t.title),
-              Text('Cuentas claras', style: t.messages)
-            ],
-          ),
-          actions: [
-            Icon(
-              Icons.abc,
-              color: c.surface,
-            ),
-          ],
-          backgroundColor: c.surface,
-          elevation: 0,
-          centerTitle: false,
-          systemOverlayStyle: SystemUiOverlayStyle.dark,
-        ),
+        drawerEnableOpenDragGesture: false,
         body: PageView.builder(
           controller: pageController,
           itemCount: months.length, //Controla los meses del fraccionamiento
@@ -69,40 +40,61 @@ class _TransparencyState extends ConsumerState<Transparency> {
             return ListView(
               physics: const BouncingScrollPhysics(),
               children: [
-                SizedBox(
-                  height: size.height * 0.005,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    index == 0
-                        ? Container()
-                        : IconButton(
-                            onPressed: () {
-                              pageController.animateToPage(
-                                  duration: const Duration(seconds: 1),
-                                  curve: Curves.easeIn,
-                                  index - 1);
-                              pageController.jumpToPage(index - 1);
-                            },
-                            icon: const Icon(Icons.arrow_back_ios)),
-                    Text(
-                      months[index],
-                      style: t.subtitle,
+                AppBar(
+                  title:
+                      // Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     Text('Transparencia ', style: t.title),
+                      //     Text('Cuentas claras', style: t.messages)
+                      //   ],
+                      // ),
+                      Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      index == 0
+                          ? Container()
+                          : GestureDetector(
+                              onTap: () {
+                                pageController.animateToPage(
+                                    duration: const Duration(seconds: 1),
+                                    curve: Curves.easeIn,
+                                    index - 1);
+                                pageController.jumpToPage(index - 1);
+                              },
+                              child:
+                                  const Icon(Icons.arrow_back_ios, size: 18)),
+                      Text(
+                        months[index],
+                        style: t.subtitle,
+                      ),
+                      months.length.toInt() == index + 1
+                          ? Container()
+                          : GestureDetector(
+                              onTap: () {
+                                pageController.animateToPage(
+                                    duration: const Duration(seconds: 1),
+                                    curve: Curves.easeIn,
+                                    index + 1);
+                                pageController.jumpToPage(index + 1);
+                              },
+                              child: const Icon(Icons.arrow_forward_ios,
+                                  size: 18)),
+                    ],
+                  ),
+                  actions: [
+                    Icon(
+                      Icons.abc,
+                      color: c.surface,
                     ),
-                    months.length.toInt() == index + 1
-                        ? Container()
-                        : IconButton(
-                            onPressed: () {
-                              pageController.animateToPage(
-                                  duration: const Duration(seconds: 1),
-                                  curve: Curves.easeIn,
-                                  index + 1);
-                              pageController.jumpToPage(index + 1);
-                            },
-                            icon: const Icon(Icons.arrow_forward_ios)),
                   ],
+                  backgroundColor: c.surface,
+                  elevation: 0,
+                  centerTitle: false,
+                  systemOverlayStyle: SystemUiOverlayStyle.dark,
                 ),
+
+                //
                 TransparencyDetails(
                     index: index, month: 'Noviembre ${index.toString()}'),
               ],

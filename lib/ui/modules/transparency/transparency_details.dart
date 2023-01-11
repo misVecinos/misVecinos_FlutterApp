@@ -1,10 +1,12 @@
-import 'package:d_chart/d_chart.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:mis_vecinos_app/ui/modules/transparency/widgets/acumulated.dart';
+import 'package:mis_vecinos_app/ui/modules/transparency/widgets/expense.dart';
+import 'package:mis_vecinos_app/ui/modules/transparency/widgets/revenue.dart';
+import 'package:mis_vecinos_app/ui/modules/transparency/widgets/revenue_builder.dart';
 
-import '../../utils/colors.dart';
 import '../../utils/text_styles.dart';
-import 'widgets/text_egreso.dart';
+import 'widgets/expense_builder.dart';
 
 class TransparencyDetails extends ConsumerStatefulWidget {
   const TransparencyDetails(
@@ -33,224 +35,46 @@ class _TransparencyDetailsState extends ConsumerState<TransparencyDetails> {
       children: [
         //
 
-        SizedBox(
-          height: size.height * 0.02,
-        ),
+        const Acumulated(quantity: '8,666.00', title: 'Saldo Acomulado Total:'),
+        SizedBox(height: size.height * 0.02),
 
-        Text(
-          'Ingresos',
-          style: t.subtitle,
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-              top: size.height * 0.02, bottom: size.height * 0.01),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                //height: size.height * 0.04,
-                width: size.width * 0.6,
-                color: c.surface,
-                child: Text('Recoleccion de Reciduos:', style: t.messagesBlack),
-              ),
-              const Spacer(),
-              Container(
-                  color: c.surface,
-                  child: Text('MXN \$20.00', style: t.messagesGreen)),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-              top: size.height * 0.01, bottom: size.height * 0.01),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                  //height: size.height * 0.04,
-                  width: size.width * 0.55,
-                  color: c.surface,
-                  child: Text('Mantenimiento individual:',
-                      style: t.messagesBlack)),
-              const Spacer(),
-              Container(
-                  color: c.surface,
-                  child: Text('MXN \$200.0', style: t.messagesGreen)),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-              top: size.height * 0.01, bottom: size.height * 0.01),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                  //height: size.height * 0.04,
-                  width: size.width * 0.45,
-                  color: c.surface,
-                  child: Text('Total Mantenimiento:', style: t.messagesBlack)),
-              const Spacer(),
-              Container(
-                  color: c.surface,
-                  child: Text('MXN \$11,000.00', style: t.messagesGreen)),
-            ],
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-              top: size.height * 0.01, bottom: size.height * 0.02),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                  //height: size.height * 0.04,
-                  width: size.width * 0.55,
-                  color: c.surface,
-                  child: Text('Remanente de mes anterior:',
-                      style: t.messagesBlack)),
-              const Spacer(),
-              Container(
-                  color: c.surface,
-                  child: Text('MXN \$0.00', style: t.messagesGreen)),
-            ],
-          ),
-        ),
+        Text('Ingresos', style: t.subtitle),
+        const RevenueBuilder(), //Pasar datos de la api
+
         const Divider(),
-        Padding(
-          padding: EdgeInsets.only(
-              top: size.height * 0.01, bottom: size.height * 0.015),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                  //height: size.height * 0.04,
-                  width: size.width * 0.4,
-                  color: c.surface,
-                  child: Text('Total ingresado:', style: t.messagesBlack)),
-              const Spacer(),
-              Container(
-                  color: c.surface,
-                  child: Text('MXN \$11,020.00', style: t.messagesGreen)),
-            ],
-          ),
-        ),
+        const Revenue(quantity: 22489, title: 'Total ingresado:'),
         const Divider(),
-        Text(
-          'Egresos',
-          style: t.subtitle,
-        ),
 
-        //---------
+        Text('Egresos', style: t.subtitle),
+        const ExpensesBuilder(), //Pasar datos de la api
 
-        const TextEgreso(egreso: 'Pago Jardinero', cantidad: '1600'),
+        const Divider(),
+        const Expense2(quantity: '13,823.00', title: 'Total egresado:'),
+        const Divider(),
 
-        // Padding(
-        //   padding: EdgeInsets.only(
-        //       top: size.height * 0.01, bottom: size.height * 0.015),
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //     children: [
-        //       Container(
-        //           //height: size.height * 0.04,
-        //           width: size.width * 0.4,
-        //           color: c.surface,
-        //           child: Text('Pago de jardineria:', style: t.messagesBlack)),
-        //       Container(
-        //           color: c.surface,
-        //           child: Text('MXN \$1,600.00', style: t.messagesRed)),
-        //     ],
-        //   ),
+        // const Graphics(
+        //   name: [
+        //     'Pago de luz',
+        //     'Pago a Cesar',
+        //     'Pago a Cesar',
+        //     'Pago de poda del pasto de la entrada y área verde',
+        //     'Pago a Cesar',
+        //     'Pago a Cesar',
+        //     'Pago a Cesar',
+        //     'Pago de gratificación a Cesar',
+        //   ],
+        //   quntity: [
+        //     2323,
+        //     1800,
+        //     1800,
+        //     1100,
+        //     1800,
+        //     1800,
+        //     1800,
+        //     1400,
+        //   ],
         // ),
-        // Padding(
-        //   padding: EdgeInsets.only(
-        //       top: size.height * 0.01, bottom: size.height * 0.015),
-        //   child: Row(
-        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //     children: [
-        //       Container(
-        //           //height: size.height * 0.04,
-        //           width: size.width * 0.4,
-        //           color: c.surface,
-        //           child: Text('Pago de vigilante:', style: t.messagesBlack)),
-        //       Container(
-        //           color: c.surface,
-        //           child: Text('MXN \$6,900.00', style: t.messagesRed)),
-        //     ],
-        //   ),
-        // ),
-        const Divider(),
-        Padding(
-          padding: EdgeInsets.only(
-              top: size.height * 0.01, bottom: size.height * 0.015),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                  //height: size.height * 0.04,
-                  width: size.width * 0.4,
-                  color: c.surface,
-                  child: Text('Total egresado:', style: t.messagesBlack)),
-              Container(
-                  color: c.surface,
-                  child: Text('MXN \$8,500.00', style: t.messagesRed)),
-            ],
-          ),
-        ),
-        const Divider(),
-        Padding(
-          padding: EdgeInsets.only(
-              top: size.height * 0.01, bottom: size.height * 0.015),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                  //height: size.height * 0.04,
-                  width: size.width * 0.5,
-                  color: c.surface,
-                  child:
-                      Text('Saldo Acomulado Total:', style: t.messagesBlack)),
-              Container(
-                  color: c.surface,
-                  child: Text('MXN \$2,520.00', style: t.messagesBlue)),
-            ],
-          ),
-        ),
-        const Divider(),
-
-        SizedBox(
-          height: size.height * 0.25,
-          child: DChartBar(
-            data: const [
-              {
-                'id': 'Bar',
-                'data': [
-                  {'domain': 'Ingresos', 'measure': 11020},
-                  {'domain': 'P. Jardineria', 'measure': 1600},
-                  {'domain': 'P. Vigilante', 'measure': 6900},
-                  {'domain': 'Saldo', 'measure': 2520},
-                ],
-              },
-            ],
-            domainLabelPaddingToAxisLine: 16,
-            axisLineTick: 2,
-            axisLinePointTick: 2,
-            axisLinePointWidth: 10,
-            axisLineColor: c.black,
-            measureLabelPaddingToAxisLine: 16,
-            barColor: (barData, index, id) {
-              switch (barData['domain']) {
-                case 'Ingresos':
-                  return c.OK;
-                case 'Saldo':
-                  return c.primary;
-                default:
-                  return c.error;
-              }
-            },
-            showBarValue: true,
-          ),
-        ),
+        //Pasar datos de la api
 
         SizedBox(height: size.height * 0.1)
       ],
